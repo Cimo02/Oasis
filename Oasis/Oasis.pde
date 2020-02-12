@@ -1,31 +1,32 @@
 int ques1; // answers can be 0-3
 int ques2;
 int ques3;
+int ques4;
 
-String question1 = "Where do you feel most relaxed?"; // questions to ask the user in order to personalize their experience
-String question2 = "What color relaxes you the most?";
-String question3 = "Which shape do you prefer?";
+String question1 = "Where do you find yourself when you want to relax?"; // questions to ask the user in order to personalize their experience
+String question2 = "What’s the most relaxing color to you?";
+String question3 = "Favorite season or time of day?";
+String question4 = "What visual (out of 3) is the most pleasing to you?";
 
-boolean overBtn0 = false; // button variables (3 or 4 options?)
+boolean overBtn0 = false; // button variables, 3 options
 boolean overBtn1 = false;
 boolean overBtn2 = false;
-//boolean overBtn3 = false;
-color btnColor, btnHoverColor, btnTextColor;
-int btnWidth = 400;
-int btnHeight = 350;
 
-int scene; // 0-2 are questions, 3 is the visualization?
+color btnColor, btnHoverColor, btnTextColor;
+int btnWidth = 450;
+int btnHeight = 500;
+
+int scene; // 0-3 are questions, 4 is the visualization?
 
 PFont DMSans_Regular; // custom font: DM Sans (https://fonts.google.com/specimen/DM+Sans?selection.family=DM+Sans)
 
 // Particle Variables
-int noiseScale = 800;
+int noiseScale = 500;
 int numParticles = 200;
 Particle[] particles_a = new Particle[200];
 Particle[] particles_b = new Particle[200];
 Particle[] particles_c = new Particle[200];
 
-// --- CORE METHODS ---
 // runs once at the beginning of the program
 void setup() {
   // --- setup the app window ---
@@ -35,11 +36,11 @@ void setup() {
   ques1 = -1;
   ques2 = -1;
   ques3 = -1;
+  ques4 = -1;
   scene = 0;
   // --- text settings ---
   DMSans_Regular = createFont("DMSans-Regular.ttf", 40);
   textFont(DMSans_Regular);
-  textSize(40);
   // --- button settings ---
   btnColor = color(132,164,246);
   btnHoverColor = color(192,209,252);
@@ -66,192 +67,42 @@ void draw() {
     case 0: // Question 1
       clearScreen();
       textAlign(LEFT);
-      textSize(80);
-      drawText(question1, 100, 200);
+      textSize(48);
+      drawText(question1, 150, 150);
       textSize(40);
       drawButtons("In Nature", "At Home", "With Friends");
       break;
     case 1: // Question 2
       clearScreen();
       textAlign(LEFT);
-      textSize(80);
-      drawText(question2, 100, 200);
+      textSize(48);
+      drawText(question2, 150, 150);
       textSize(40);
       drawButtons("Red", "Blue", "Yellow");
       break;
     case 2: // Question 3
       clearScreen();
       textAlign(LEFT);
-      textSize(80);
-      drawText(question3, 100, 200);
+      textSize(48);
+      drawText(question3, 150, 150);
       textSize(40);
-      drawButtons("Circle", "Triangle", "Square");
+      drawButtons("Morning", "Afternoon", "Evening");
       break;
-    case 3: // Visualization
+    case 3: // Question 3
+      clearScreen();
+      textAlign(LEFT);
+      textSize(48);
+      drawText(question3, 150, 150);
+      textSize(40);
+      drawButtons("#1", "#2", "#3");
+      break;
+    case 4: // Visualization
+      // prints the question answers/hash to the visualization screen
+      String answers = ques1 + " " + ques2 + " " + ques3 + " " + ques4;
+      textSize(20);
+      drawText(answers, 50, 50); 
+      // -- TODO: check answers here and create settings/play the corresponding visualization
       perlinNoise();
       break;
-  }
-}
-
-
-
-// --- INTERACTION METHODS ---
-// method that tracks the position of the mouse and updates hover variables
-void update(int x, int y) {
-  if (overButton(width/4, 500)){
-    overBtn0 = true; 
-    overBtn1 = false;
-    overBtn2 = false;
-  } else if (overButton(2*width/4, 500)){
-    overBtn0 = false;
-    overBtn1 = true;
-    overBtn2 = false;
-  } else if (overButton(3*width/4, 500)){
-    overBtn0 = false;
-    overBtn1 = false;
-    overBtn2 = true;
-  } else {
-    overBtn0 = overBtn1 = overBtn2 = false; 
-  }
-}
-
-// method that tracks when the mouse is pressed
-void mousePressed() {
-   switch(scene){ // Check to see which question we're answering first
-     case 0: // Answering Question 1
-       if (overBtn0) { ques1 = 0; }
-       else if (overBtn1) { ques1 = 1; }
-       else if (overBtn2) { ques1 = 2; }
-       else { ques1 = -1; }
-       scene++;
-       break; 
-     case 1: // Answering Question 2
-       if (overBtn0) { ques2 = 0; }
-       else if (overBtn1) { ques2 = 1; }
-       else if (overBtn2) { ques2 = 2; }
-       else { ques2 = -1; }
-       scene++;
-       break;
-     case 2: // Answer Question 3
-       if (overBtn0) { ques3 = 0; }
-       else if (overBtn1) { ques3 = 1; }
-       else if (overBtn2) { ques3 = 2; }
-       else { ques3 = -1; }
-       clearScreen();
-       scene++;
-       break;
-     case 3: // TODO: Add screenshotting here?
-       break;
-   }
-}
-
-// method to check if we're over a button (parameters are the buttons coords)
-boolean overButton(int x, int y) {
-  if (mouseX >= x-btnWidth/2 && mouseX <= x+btnWidth/2 && mouseY >= y-btnHeight/2 && mouseY <= y+btnHeight/2) {
-    return true;
-  }
-  else {
-    return false; 
-  }
-}
-
-
-
-// --- VISUALIZATION METHODS ---
-void perlinNoise(){
-  noStroke();
-  smooth();
-   for(int i = 0; i < numParticles; i++){
-    float radius = map(i,0,numParticles,1,2);
-    float alpha = map(i,0,numParticles,0,250);
-
-    fill(132,164,246,10);
-    particles_a[i].move();
-    particles_a[i].display(radius);
-    particles_a[i].checkEdge();
-
-    fill(132,164,246,30);
-    particles_b[i].move();
-    particles_b[i].display(radius);
-    particles_b[i].checkEdge();
-
-    fill(132,164,246,50);
-    particles_c[i].move();
-    particles_c[i].display(radius);
-    particles_c[i].checkEdge();
-  }  
-}  
-
-
-
-// --- HELPER METHODS ---
-void drawText(String text, int x, int y){
-  text(text, x, y);
-}
-
-void drawButtons(String option1, String option2, String option3){
-  textAlign(CENTER);
-  rectMode(CENTER);
-  
-  // button 1
-  if (overBtn0){ fill(btnHoverColor); }
-  else { fill(btnColor); }
-  rect(width/4, 500, btnWidth, btnHeight, 20);
-  fill(btnTextColor);
-  drawText(option1, width/4, 500);
-  
-  // button 2
-  if (overBtn1){ fill(btnHoverColor); }
-  else { fill(btnColor); }
-  rect(2*width/4, 500, btnWidth, btnHeight, 20);
-  fill(btnTextColor);
-  drawText(option2, 2*width/4, 500);
-  
-  // button 3
-  if (overBtn2){ fill(btnHoverColor); }
-  else { fill(btnColor); }
-  rect(3*width/4, 500, btnWidth, btnHeight, 20);
-  fill(btnTextColor);
-  drawText(option3, 3*width/4, 500);
-}
-
-void clearScreen() {
-  background(230, 233, 235);
-}
-
-
-
-// --- Classes ---
-// Particle Class (each line?)
-class Particle {
-  PVector dir, vel, pos;
-  float speed;
-  
-  // Particle constructor
-  Particle (float x, float y) {
-      dir = new PVector(0,0);
-      vel = new PVector(0,0);
-      pos = new PVector(x, y);
-      speed = 0.4;
-  }
-
-  void move(){
-    float angle = noise(this.pos.x/noiseScale, this.pos.y/noiseScale)*TWO_PI*noiseScale;
-    this.dir.x = cos(angle);
-    this.dir.y = sin(angle);
-    this.vel = this.dir.copy();
-    this.vel.mult(speed);
-    this.pos.add(vel);
-  }
-
-  void checkEdge(){
-    if(this.pos.x > width || this.pos.x < 0 || this.pos.y > height || this.pos.y < 0){
-      this.pos.x = random(50, width);
-      this.pos.y = random(50, height);
-    }
-  }
-
-  void display(float r){
-    ellipse(this.pos.x, this.pos.y, r, r);
   }
 }
