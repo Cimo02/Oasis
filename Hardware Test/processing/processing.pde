@@ -14,7 +14,7 @@ void setup() {
 
   String portName = Serial.list()[1];
   Serial.list();
-  myPort = new Serial(this, portName, 1000000);
+  myPort = new Serial(this, portName, 9600);
 }
 
 void draw() {

@@ -16,7 +16,7 @@ long lastBeat = 0;
 float bpm;
 
 void setup() {
-  Serial.begin(1000000);
+  Serial.begin(9600);
 
   if (!particleSensor.begin(Wire, I2C_SPEED_FAST)) {
     Serial.println("MAX30105 was not found. Please check wiring/power. ");
