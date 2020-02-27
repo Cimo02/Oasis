@@ -5,6 +5,25 @@ function beginQuestions() {
   firstRun = true;
 }
 
+// hover function for "begin" button -------------------- GET WORKING, RN IT DOESN'T GO 
+function beginButtonHover(hovering) {
+  // remove previous version of the button
+  beginButton.remove();
+  
+  // set new image depending on hover status
+  if (hovering) {
+    beginButton = createImg('media/launch-button-hover.png');
+  } else {
+    beginButton = createImg('media/launch-button.png');
+  }
+  
+  // set button options
+  beginButton.position(1400, 425);
+  beginButton.mousePressed(beginQuestions);
+  beginButton.mouseOver(() => { beginButtonHover(true); });
+  beginButton.mouseOut(() => { beginButtonHover(false); });
+}
+
 // remove buttons after each screen because images will change
 function nextQuestion(answer) {
   // set the answer to the corresponding question variable

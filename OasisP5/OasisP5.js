@@ -108,6 +108,7 @@ function draw() {
       // prints the question answers/hash to the visualization screen
       var answers = ques1 + " " + ques2 + " " + ques3 + " " + ques4;
       textSize(20);
+      fill("#939393");
       text(answers, 50, 50); 
       // -- TODO: check answers here and create settings/play the corresponding visualization
       perlinNoise();

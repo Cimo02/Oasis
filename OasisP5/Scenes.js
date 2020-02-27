@@ -18,6 +18,8 @@ function drawLaunchScreen() {
   beginButton = createImg('media/launch-button.png');
   beginButton.position(1400, 425);
   beginButton.mousePressed(beginQuestions);
+  beginButton.mouseOver(() => { beginButtonHover(true); });
+  beginButton.mouseOut(() => { beginButtonHover(false); });
   // set so the ui only draws once
   firstRun = false;
 }
