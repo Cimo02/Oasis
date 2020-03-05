@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/questions.css" />
+    <title>Oasis - Question 3</title>
+  </head>
+  <body>
+    <!-- Question -->
+    <div class="questionTextContainer">
+      <h1 class="textQuestion">I'd describe <br>myself as...</h1>
+    </div>
+
+    <!-- Navigation Controls/Display -->
+    <div class="navigationControls">
+      <img class="back" src="media/back.svg" alt="Back" onclick="back(3)"/>
+      <img class="progressIndicator" src="media/q3-indicator.svg" alt="3 / 3"/>
+      <img class="next" src="media/next.svg" alt="Next" onclick="answerQuestion(3)"/>
+    </div>
+
+    <!-- Option 1 -->
+    <div class="pillContainer one">
+      <div class="pillShape"></div>
+      <div class="pillContent"></div>
+    </div>
+    <p class="textOption oneText">Introverted</p>
+    <div class="optionOuter oneOptionOuter"></div>
+    <div class="optionInner oneOptionInner notSelected" onclick="optionSelected(this)"></div>
+
+    <!-- Option 2 -->
+    <div class="pillContainer two">
+      <div class="pillShape"></div>
+      <div class="pillContent"></div>
+    </div>
+    <p class="textOption twoText">Extroverted</p>
+    <div class="optionOuter twoOptionOuter"></div>
+    <div class="optionInner twoOptionInner notSelected" onclick="optionSelected(this)"></div>
+
+    <!-- Option 3 -->
+    <div class="pillContainer three">
+      <div class="pillShape"></div>
+      <div class="pillContent"></div>
+    </div>
+    <p class="textOption threeText">An Ambivert</p>
+    <div class="optionOuter threeOptionOuter"></div>
+    <div class="optionInner threeOptionInner notSelected" onclick="optionSelected(this)"></div>
+
+  </body>
+  <script src="scripts/index.js"></script> 
+</html>

@@ -1,0 +1,153 @@
+html,
+body {
+    background-color: #e8edf4;
+    background-image: none;
+}
+
+.textQuestion {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 96px;
+    line-height: 96px;
+    /* or 100% */
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: -0.02em;
+
+    color: var(--dark-gray, black);
+}
+
+.textOption {
+    font-family: Barlow;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 61px;
+    /* or 169% */
+    text-align: center;
+    color: var(--medium-gray, #5A6587);
+    position: absolute;
+}
+
+.questionTextContainer {
+    position: absolute;
+    width: 533px;
+    height: 300px;
+    left: 120px;
+    top: 343px;
+}
+
+.navigationControls {
+    position: absolute;
+    left: 120px;
+    top: 910px;
+    orientation: landscape;
+}
+
+.progressIndicator {
+    margin: 0px 100px 15px;
+}
+
+/* Pill Container */
+.pillContainer{
+    position: absolute;
+    width: 282px;
+    height: 516px;
+    top: 128px;
+}
+
+.pillShape{
+    width: 282px;
+    height: 516px;
+    position: absolute;
+    background: #E8EDF4;
+    box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #FFFFFF, inset 4px 4px 10px rgba(255, 255, 255, 0.1), inset -16px -16px 80px rgba(255, 255, 255, 0.2);
+    filter: blur(3px);
+    border-radius: 400px;
+}
+.pillContent{
+    position: absolute;
+    /* background-color: black; */
+    width: 282px;
+    height: 516px;
+    border-radius: 400px;
+}
+
+.one {
+    left: 714px;
+}
+.two {
+    left: 1116px;
+}
+.three {
+    left: 1518px;
+}
+
+.oneText {
+    width: 188px;
+    height: 45px;
+    left: 760px;
+    top: 731px;
+}
+.twoText {
+    width: 185px;
+    height: 61px;
+    left: 1165px;
+    top: 731px;
+}
+.threeText {
+    width: 262px;
+    height: 45px;
+    left: 1528px;
+    top: 731px;
+}
+
+.optionOuter {
+    position: absolute;
+    width: 135px;
+    height: 135px;
+    background: #E8EDF4;
+    box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #FFFFFF, inset 4px 4px 10px rgba(255, 255, 255, 0.1), inset -16px -16px 80px rgba(255, 255, 255, 0.2);
+    filter: blur(5px);
+    border-radius: 135px;
+}
+.oneOptionOuter { 
+    left: 787px;
+    top: 833px;
+}
+.twoOptionOuter {
+    left: 1189px;
+    top: 833px;
+}
+.threeOptionOuter {
+    left: 1591px;
+    top: 833px;
+}
+
+.optionInner {
+    position: absolute;
+    width: 43px;
+    height: 43px;
+    left: 833px;
+    top: 879px;
+    border-radius: 43px;
+}
+.oneOptionInner { 
+    left: 833px;
+    top: 879px;
+}
+.twoOptionInner {
+    left: 1235px;
+    top: 879px;
+}
+.threeOptionInner {
+    left: 1637px;
+    top: 877px;
+}
+.selected {
+    border: 3px solid #84A4F6;
+}
+.notSelected {
+    border: 3px solid rgba(157, 172, 202, 0.5);
+}

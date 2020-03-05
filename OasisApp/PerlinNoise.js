@@ -1,22 +1,23 @@
 // --- PERLIN NOISE VISUALIZATION ---
-void perlinNoise(){
+function perlinNoise(){
   noStroke();
   smooth();
-   for(int i = 0; i < numParticles; i++){
-    float radius = map(i,0,numParticles,1,2);
-    float alpha = map(i,0,numParticles,0,250);
+  // -- draw all particle updates --
+  for(var i = 0; i < numParticles; i++){
+    var radius = map(i,0,numParticles,1,2);
+    var alpha = map(i,0,numParticles,0,250);
 
-    fill(132,164,246,10);
+    fill(firstColor);
     particles_a[i].move();
     particles_a[i].display(radius);
     particles_a[i].checkEdge();
 
-    fill(132,164,246,30);
+    fill(secondColor);
     particles_b[i].move();
     particles_b[i].display(radius);
     particles_b[i].checkEdge();
 
-    fill(132,164,246,50);
+    fill(thirdColor);
     particles_c[i].move();
     particles_c[i].display(radius);
     particles_c[i].checkEdge();
@@ -24,35 +25,29 @@ void perlinNoise(){
 }  
 
 // Particle Class (each line? multiple visualizations?)
-class Particle {
-  PVector dir, vel, pos;
-  float speed;
-  
-  // Particle constructor
-  Particle (float x, float y) {
-      dir = new PVector(0,0);
-      vel = new PVector(0,0);
-      pos = new PVector(x, y);
-      speed = 0.4;
-  }
+function Particle(x, y){
+  this.dir = createVector(0, 0);
+  this.vel = createVector(0, 0);
+  this.pos = createVector(x, y);
+  this.speed = 0.4;
 
-  void move(){
-    float angle = noise(this.pos.x/noiseScale, this.pos.y/noiseScale)*TWO_PI*noiseScale;
+  this.move = function(){
+    var angle = noise(this.pos.x/noiseScale, this.pos.y/noiseScale)*TWO_PI*noiseScale;
     this.dir.x = cos(angle);
     this.dir.y = sin(angle);
     this.vel = this.dir.copy();
-    this.vel.mult(speed);
-    this.pos.add(vel);
+    this.vel.mult(this.speed);
+    this.pos.add(this.vel);
   }
 
-  void checkEdge(){
+  this.checkEdge = function(){
     if(this.pos.x > width || this.pos.x < 0 || this.pos.y > height || this.pos.y < 0){
       this.pos.x = random(50, width);
       this.pos.y = random(50, height);
     }
   }
 
-  void display(float r){
+  this.display = function(r){
     ellipse(this.pos.x, this.pos.y, r, r);
   }
 }
