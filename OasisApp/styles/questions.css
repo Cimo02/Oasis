@@ -124,6 +124,9 @@ body {
     left: 1591px;
     top: 833px;
 }
+.selectedOuter {
+    /* CSS for a selected outer option */
+}
 
 .optionInner {
     position: absolute;
@@ -132,6 +135,7 @@ body {
     left: 833px;
     top: 879px;
     border-radius: 43px;
+    border: 3px solid rgba(157, 172, 202, 0.5);
 }
 .oneOptionInner { 
     left: 833px;
@@ -146,8 +150,9 @@ body {
     top: 877px;
 }
 .selected {
-    border: 3px solid #84A4F6;
+    border: 4px solid #84A4F6;
+    box-shadow: 0px 0px 11px #84A4F6;
 }
-.notSelected {
-    border: 3px solid rgba(157, 172, 202, 0.5);
+.hovered {
+    border: 3px solid #84A4F6; 
 }
