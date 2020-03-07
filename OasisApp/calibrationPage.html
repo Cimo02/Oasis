@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="stylesheet" href="styles/questions.css" />
+  <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="scripts/calibration.js"></script>
+  <script language="javascript" type="text/javascript" src="p5.serialport.js"></script>
+  <title>Calibration</title>
+</head>
+
+<body id="calibrationPage">
+
+  <!-- Question -->
+  <div class="wrapper">
+    <div class="questionWrapper">
+
+      <div class="questionInfoContainer">
+        <div class="calibrationTextContainer">
+          <h1 id="text" class="textQuestion">Secure the belt around your torso.</h1>
+          <p id="para" class="calibrationPara">Make sure the <img class="calibrationLogo"
+              src="media/calibrationTextLogo.svg" alt=""> is in front. Then, exhale all the air from your lungs and
+            press continue. If only one ring is fills when breathing normally the belt is too loose</p>
+        </div>
+
+        <!-- Navigation Controls/Display -->
+        <div class="calibrationButtonContainer">
+          <div id="calibrationBtn" class="calibrationButton">
+            <div class="calibrationArrowContainer">
+              <div class="beginArrowLine medium-grayBG"></div>
+              <div class="beginArrowPoint medium-grayBorder"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+<script src="scripts/index.js"></script>
+<script>
+  var btn = document.getElementById('calibrationBtn');
+
+  // btn.style.cursor = 'pointer';
+
+  btn.onclick = function () {
+    console.log("buttonchecked");
+    document.getElementById("text").innerHTML =
+      'Take a deep breath';
+    document.getElementById("para").innerHTML =
+      'Then hit the next button.';
+    setCalibration();
+  };
+</script>
+
+</html>

@@ -1,158 +1,248 @@
 html,
 body {
-    background-color: #e8edf4;
-    background-image: none;
+  background-color: #e8edf4;
+  background-image: none;
 }
 
 .textQuestion {
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 96px;
-    line-height: 96px;
-    /* or 100% */
-    display: flex;
-    align-items: flex-end;
-    letter-spacing: -0.02em;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 96px;
+  line-height: 96px;
+  /* or 100% */
+  display: flex;
+  align-items: flex-end;
+  letter-spacing: -0.02em;
 
-    color: var(--dark-gray, black);
+  color: var(--dark-gray, black);
 }
 
 .textOption {
-    font-family: Barlow;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 61px;
-    /* or 169% */
-    text-align: center;
-    color: var(--medium-gray, #5A6587);
-    position: absolute;
+  font-family: "Barlow";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 61px;
+  /* or 169% */
+  text-align: center;
+  color: var(--medium-gray, #5a6587);
+  /* position: absolute; */
+  animation: fadeIn 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .questionTextContainer {
-    position: absolute;
-    width: 533px;
-    height: 300px;
-    left: 120px;
-    top: 343px;
+  /* position: absolute;  */
+  width: 533px;
+  height: 300px;
+  margin-top: -110px;
+  /* left: 120px; */
+  /* top: 343px;*/
 }
 
 .navigationControls {
-    position: absolute;
-    left: 120px;
-    top: 910px;
-    orientation: landscape;
+  /* left: 120px; */
+  /* top: 910px; */
+
+  margin-bottom: -200px;
+  margin-top: 250px;
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+}
+.navArrowContainer:hover .beginArrowLine {
+  transition: all 185ms cubic-bezier(0.58, 0.005, 0.385, 0.995);
+  width: 100px;
+}
+.navArrowContainer {
+  display: flex;
+  flex-direction: row;
+
+  /* height: 50px; */
+  /* margin-bottom: -140px; */
+  align-items: center;
+  padding: 20px 30px;
+  border: solid;
+  border-radius: 50px;
+  color: #9dacca;
+  left: 50%; /*Add this*/
+  transform: translate(-50%, 0); /*Add this*/
+}
+
+.navArrowContainer:hover .beginArrowLine {
+  transition: all 185ms cubic-bezier(0.58, 0.005, 0.385, 0.995);
+  background-color: #e8edf4;
+  width: 100px;
+}
+
+.navArrowContainer:hover .beginArrowPoint {
+  border-color: #e8edf4;
+}
+
+.calibrationButtonContainer {
+  margin-top: 60px;
+}
+.navArrowContainer:hover {
+  background-color: #84a4f6;
+  border-color: #84a4f6;
+  cursor: pointer;
 }
 
 .progressIndicator {
-    margin: 0px 100px 15px;
+  margin: 0px 100px 15px;
 }
 
 /* Pill Container */
-.pillContainer{
-    position: absolute;
-    width: 282px;
-    height: 516px;
-    top: 128px;
+.pillContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.pillShape{
-    width: 282px;
-    height: 516px;
-    position: absolute;
-    background: #E8EDF4;
-    box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #FFFFFF, inset 4px 4px 10px rgba(255, 255, 255, 0.1), inset -16px -16px 80px rgba(255, 255, 255, 0.2);
-    filter: blur(3px);
-    border-radius: 400px;
-}
-.pillContent{
-    position: absolute;
-    /* background-color: black; */
-    width: 282px;
-    height: 516px;
-    border-radius: 400px;
+.pillContentContainer {
+  /* position: absolute; */
+
+  width: 282px;
+  height: 516px;
+  margin-left: 60px;
+  margin-right: 60px;
+  /* transition: 0.5s; */
 }
 
-.one {
-    left: 714px;
+.pillShape {
+  width: 282px;
+  height: 516px;
+  /* position: absolute; */
+  background: #e8edf4;
+  box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #ffffff,
+    inset 4px 4px 10px rgba(255, 255, 255, 0.1),
+    inset -16px -16px 80px rgba(255, 255, 255, 0.2);
+  filter: blur(3px);
+  border-radius: 400px;
 }
-.two {
-    left: 1116px;
-}
-.three {
-    left: 1518px;
+.pillContent {
+  position: absolute;
+  /* background-color: black; */
+  width: 282px;
+  height: 516px;
+  border-radius: 400px;
+  transform: scale(0.9);
+  top: 80px;
+
+  -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  -webkit-animation: pillWipeIn 2s steps(29) forwards;
+  animation: pillWipeIn 2s steps(29) forwards;
 }
 
+@keyframes pillWipeIn {
+  0% {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+  100% {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+@keyframes pillWipeOut {
+  0% {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+  100% {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+.pillRowContainer {
+  display: flex;
+  flex-direction: row;
+}
+.questionWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100vh;
+  align-items: center;
+  margin-left: 120px;
+  margin-right: 120px;
+}
+.questionInfoContainer {
+}
 .oneText {
-    width: 188px;
-    height: 45px;
-    left: 760px;
-    top: 731px;
+  width: 188px;
+  height: 45px;
+  left: 760px;
+  top: 731px;
 }
 .twoText {
-    width: 185px;
-    height: 61px;
-    left: 1165px;
-    top: 731px;
+  width: 185px;
+  height: 61px;
+  left: 1165px;
+  top: 731px;
 }
 .threeText {
-    width: 262px;
-    height: 45px;
-    left: 1528px;
-    top: 731px;
+  width: 262px;
+  height: 45px;
+  left: 1528px;
+  top: 731px;
+}
+
+.selectedOuter {
+  /* CSS for a selected outer option */
 }
 
 .optionOuter {
-    position: absolute;
-    width: 135px;
-    height: 135px;
-    background: #E8EDF4;
-    box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #FFFFFF, inset 4px 4px 10px rgba(255, 255, 255, 0.1), inset -16px -16px 80px rgba(255, 255, 255, 0.2);
-    filter: blur(5px);
-    border-radius: 135px;
+  /* position: absolute; */
+  width: 135px;
+  height: 135px;
+  background: #e8edf4;
+  box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #ffffff,
+    inset 4px 4px 10px rgba(255, 255, 255, 0.1),
+    inset -16px -16px 80px rgba(255, 255, 255, 0.2);
+  filter: blur(5px);
+  border-radius: 135px;
 }
-.oneOptionOuter { 
-    left: 787px;
-    top: 833px;
-}
-.twoOptionOuter {
-    left: 1189px;
-    top: 833px;
-}
-.threeOptionOuter {
-    left: 1591px;
-    top: 833px;
-}
-.selectedOuter {
-    /* CSS for a selected outer option */
+
+.optionOuter:hover {
+  background: #f5f8fc;
+  transition: all 185ms cubic-bezier(0.58, 0.005, 0.385, 0.995);
 }
 
 .optionInner {
-    position: absolute;
-    width: 43px;
-    height: 43px;
-    left: 833px;
-    top: 879px;
-    border-radius: 43px;
-    border: 3px solid rgba(157, 172, 202, 0.5);
+  position: absolute;
+  width: 43px;
+  height: 43px;
+  /* left: 833px; */
+  /* top: 879px; */
+  margin: 0 auto;
+  /* margin-bottom: -310px; */
+  margin-top: -89px;
+  margin-left: 41px;
+  border-radius: 43px;
+  border: 2px solid rgba(157, 172, 202, 0.5);
+  transition: all 185ms cubic-bezier(0.58, 0.005, 0.385, 0.995);
 }
-.oneOptionInner { 
-    left: 833px;
-    top: 879px;
+
+.pillButtonContainer:hover .optionOuter {
+  background: #f5f8fc;
 }
-.twoOptionInner {
-    left: 1235px;
-    top: 879px;
+.pillButtonContainer:hover .optionInner {
+  border: 4px solid #84a4f6;
+  box-shadow: 0px 0px 11px #84a4f6;
 }
-.threeOptionInner {
-    left: 1637px;
-    top: 877px;
-}
+
 .selected {
-    border: 4px solid #84A4F6;
-    box-shadow: 0px 0px 11px #84A4F6;
+  border: 4px solid #84a4f6;
+  box-shadow: 0px 0px 11px #84a4f6;
 }
 .hovered {
-    border: 3px solid #84A4F6; 
+  border: 2px solid #84a4f6;
+}
+.flipBy180 {
+  transform: rotate(180deg) translate(-50%, 0);
 }

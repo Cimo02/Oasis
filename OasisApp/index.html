@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/index.css" />
-    <title>Oasis</title>
-  </head>
-  <body>
-    <!-- Launch Info Section -->
-    <div class="launchTextContainer">
-      <img src="media/launch-extras.png" alt="04 ------ 25"> 
-      <h1 class="textHeadline">Welcome 
-        <br>to Oasis.</h1>
-      <p class="textParagraph">When you’re ready, press the button to start the 
-        <br>experience. You’ll answer a few questions and be 
-        <br>guided through a breathing meditation.</p>
-    </div>
 
-    <!-- Begin Button -->
-    <div class="beginButtonContainer" onclick="beginQuestions()">
-      <div class="beginButton"></div>
-      <div class="beginCircle">
-        <div class="beginArrow"></div>
-        <div class="textParagraph beginText">Begin</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/index.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.min.js"></script>
+  <script src="scripts/fireflies.js"></script>
+  <title>Oasis</title>
+</head>
+
+<body>
+  <div id="mainMenuFade" class="wrapper homebg">
+    <div class="launchTextWrapper">
+      <!-- Launch Info Section -->
+      <div class="launchTextContainer">
+        <img src="media/launch-extras.png" alt="04 ------ 25">
+        <h1 class="textHeadline">Welcome
+          <br>to Oasis.</h1>
+        <p class="textParagraph">When you’re ready, press the button to start the
+          <br>experience. You’ll answer a few questions and be
+          <br>guided through a breathing meditation.</p>
       </div>
-    </div>
 
-    <!-- <div class="rippleWave"></div> -->
-  </body>
-  <script src="scripts/index.js"></script> 
+      <!-- Begin Button -->
+      <div class="beginButtonContainer" onclick="beginQuestions()">
+        <div class="beginButton"></div>
+        <div class="beginCircle">
+          <!-- <div class="beginArrow"></div> -->
+          <div class="beginArrowContainer">
+            <div class="beginArrowLine"></div>
+            <div class="beginArrowPoint"></div>
+          </div>
+          <div class="textParagraph beginText">Begin</div>
+        </div>
+      </div>
+
+      <!-- <div class="rippleWave"></div> -->
+    </div>
+  </div>
+</body>
+<script src="scripts/index.js"></script>
+
 </html>
