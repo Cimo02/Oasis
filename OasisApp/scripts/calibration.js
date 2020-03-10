@@ -1,5 +1,5 @@
 var serial; // variable to hold an instance of the serialport library
-var portName = "/dev/tty.usbmodem14201"; // fill in your serial port name here
+var portName = "/dev/tty.usbmodem14101"; // fill in your serial port name here
 var inData; // variable to hold the input data from Arduino
 var outData = 0; // variable to hold the output data to Arduino
 
@@ -40,12 +40,15 @@ let isCalibrated = false;
 function setLimits() {
   if (lowSet == false) {
     lowEnd = inData;
+    localStorage.setItem("lowend", JSON.stringify(lowEnd));
     console.log("lowEnd: " + lowEnd);
     lowSet = true;
   } else if (highSet == false) {
     highEnd = inData;
     console.log("highEnd: " + highEnd);
     highSet = true;
+    localStorage.setItem("highend", JSON.stringify(highEnd));
+    window.location.href = "app.html";
   }
 }
 let time = 0;
@@ -55,6 +58,7 @@ let Q1 = 0;
 let Q2 = 0;
 let Q3 = 0;
 function draw() {
+  console.log(inData);
   if (highSet && lowSet == true) {
     isCalibrated = true;
     let answers = JSON.parse(localStorage.getItem("answers"));
