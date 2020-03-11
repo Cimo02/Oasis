@@ -32,11 +32,13 @@ function setup() {
 
   cnv.position(x, y);
 }
+
 let highSet = false;
 let lowSet = false;
+let isCalibrated = false;
 let lowEnd = 0;
 let highEnd = 0;
-let isCalibrated = false;
+
 function setLimits() {
   if (lowSet == false) {
     lowEnd = inData;
