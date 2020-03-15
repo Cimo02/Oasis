@@ -1,0 +1,130 @@
+html,
+body {
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  font-size: 16px;
+  vertical-align: baseline;
+
+  scroll-behavior: smooth;
+  font-family: Arial, Helvetica, sans-serif;
+}
+canvas {
+  z-index: -1;
+}
+.timerbackPlate {
+  width: 650px;
+  height: 650px;
+  background-color: #e8edf4;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #e8edf4 0%,
+    rgba(243, 246, 249, 0.67) 53.12%,
+    rgba(248, 250, 252, 0.38) 80.21%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateY(10vh);
+}
+
+.timerBG {
+  background-color: #e8edf4;
+  height: 100vh;
+  width: 100vw;
+}
+
+.textParagraph {
+  color: var(--dark-gray, darkslategray);
+  font-family: "Barlow", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+
+/* Buttons */
+.timerButtonContainer {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  margin: 0 auto;
+  z-index: 1;
+  opacity: 1;
+  top: 80px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.timerButton {
+  /* position: absolute; */
+  width: 344px;
+  height: 344px;
+  left: 1444px;
+  top: 576px;
+
+  background: #e8edf4;
+  box-shadow: 26.2778px 26.2778px 71.6667px rgba(47, 67, 125, 0.2),
+    -26.2778px -26.2778px 40px #ffffff,
+    inset 4.77778px 4.77778px 11.9444px rgba(255, 255, 255, 0.1),
+    inset -19.1111px -19.1111px 95.5556px rgba(255, 255, 255, 0.2);
+  filter: blur(2px);
+  border-radius: 100%;
+}
+.timerText {
+  font-size: 44px;
+  /* line-height: 73px; */
+  /* or 166% */
+  /* margin-bottom: 60px; */
+  text-align: center;
+
+  color: #111e47;
+  margin-bottom: 34px;
+}
+
+.dot {
+  height: 14px;
+  width: 14px;
+  /* background-color: var(--light-blue), #9dacca; */
+  background-color: #9dacca;
+  opacity: 50%;
+  /* background-color: black; */
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.dotFilled {
+  background-color: #84a4f6;
+}
+.timerDotsContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.timerCircle {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin: 0 auto;
+  width: 288px;
+  height: 288px;
+  /* left: 1472px; */
+  /* top: 604px; */
+  border-radius: 100%;
+  border: 3px solid #111e47;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
