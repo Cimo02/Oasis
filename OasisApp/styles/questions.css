@@ -52,7 +52,7 @@ body {
 }
 .navArrowContainer:hover .beginArrowLine {
   transition: all 185ms cubic-bezier(0.58, 0.005, 0.385, 0.995);
-  width: 100px;
+  /* width: 100px; */
 }
 .navArrowContainer {
   display: flex;
@@ -62,14 +62,14 @@ body {
   /* margin-bottom: -140px; */
   align-items: center;
   padding: 20px 30px;
-  border: solid;
+  /* border: solid; */
   border-radius: 50px;
   color: #9dacca;
   left: 50%; /*Add this*/
-  transform: translate(-50%, 0); /*Add this*/
+  transform: translate(-50%, 0);
 }
 
-.navArrowContainer:hover .beginArrowLine {
+/* .navArrowContainer:hover .beginArrowLine {
   transition: all 185ms cubic-bezier(0.58, 0.005, 0.385, 0.995);
   background-color: #e8edf4;
   width: 100px;
@@ -77,19 +77,27 @@ body {
 
 .navArrowContainer:hover .beginArrowPoint {
   border-color: #e8edf4;
+} */
+.navArrowContainer:hover .beginArrowLine {
+  background-color: #5a6587;
 }
 
+.navArrowContainer:hover .beginArrowPoint {
+  border-color: #5a6587;
+}
 .calibrationButtonContainer {
   margin-top: 60px;
 }
-.navArrowContainer:hover {
+
+/* .navArrowContainer:hover {
   background-color: #84a4f6;
   border-color: #84a4f6;
   cursor: pointer;
-}
+} */
 
 .progressIndicator {
-  margin: 0px 100px 15px;
+  /* margin: 0px 100px 15px; */
+  margin: 0px 100px 0px 0px;
 }
 
 /* Pill Container */
@@ -110,9 +118,9 @@ body {
 }
 
 .pillShape {
-  width: 282px;
-  height: 516px;
-  /* position: absolute; */
+  width: inherit;
+  height: inherit;
+  position: absolute;
   background: #e8edf4;
   box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #ffffff,
     inset 4px 4px 10px rgba(255, 255, 255, 0.1),
@@ -123,11 +131,11 @@ body {
 .pillContent {
   position: absolute;
   /* background-color: black; */
-  width: 282px;
-  height: 516px;
+  position: relative;
+  /* width: 282px; */
+  height: 100%;
   border-radius: 400px;
   transform: scale(0.9);
-  top: 80px;
 
   -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
   mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
@@ -245,4 +253,36 @@ body {
 }
 .flipBy180 {
   transform: rotate(180deg) translate(-50%, 0);
+  transform-origin: left;
+}
+@media screen and (max-width: 2000px) {
+  .textQuestion {
+    font-size: 76px;
+    line-height: 69px;
+  }
+  .navigationControls {
+    margin-bottom: -260px;
+    margin-top: 130px;
+  }
+  .pillContentContainer {
+    width: 218px;
+    height: 376px;
+  }
+  .optionInner {
+    width: 33px;
+    height: 33px;
+    margin-top: -69px;
+    margin-left: 31px;
+  }
+  .optionOuter {
+    width: 105px;
+    height: 105px;
+  }
+  .textOption {
+    font-size: 26px;
+    line-height: 41px;
+  }
+  .questionTextContainer {
+    width: 422px;
+  }
 }

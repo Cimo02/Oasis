@@ -11,6 +11,13 @@ function beginQuestions() {
   }, 1000);
 }
 
+function restart() {
+  document.getElementById("mainMenuFade").classList.add("mainMenuFade");
+  setTimeout(function() {
+    window.location.href = "index.html";
+  }, 1000);
+}
+
 function toCalibrationPage() {
   window.location.href = "calibrationPage.html";
 }

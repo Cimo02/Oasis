@@ -307,3 +307,8 @@ function homeSettings() {
     squareArr.push(new square(random(0, width), random(0, height), randColor));
   }
 }
+
+function drawGrid() {
+  for (let i = 0; i < width / 10; i++) {}
+  line(x + 10 * i, y1, x2, y2);
+}
