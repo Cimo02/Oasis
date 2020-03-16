@@ -1,3 +1,19 @@
+let dotID = 1;
+let done1 = false;
+let done2 = false;
+let done3 = false;
+let setTime;
+let partID;
+
+var radialObj = radialIndicator("#timerCircle", {
+  barColor: "#111E47",
+  barWidth: 3,
+  initValue: 40,
+  radius: 145,
+  displayNumber: false,
+  roundCorner: true
+});
+
 const countDownClock = (number = 100, format = "seconds") => {
   // const d = document;
 
@@ -13,9 +29,8 @@ const countDownClock = (number = 100, format = "seconds") => {
   }
 
   function timer(seconds) {
-    // let rate = 100;
     const now = Date.now();
-    console.log(now);
+    // console.log(now);
     const then = now + seconds * 1000;
 
     countdown = setInterval(() => {
@@ -32,31 +47,34 @@ const countDownClock = (number = 100, format = "seconds") => {
   }
 
   function displayTimeLeft(seconds) {
-    // secondsElement.textContent =
-    //   seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60;
-    document.getElementById("timerCircle").style.transform = `rotate(${360 /
-      seconds}deg)`;
-    if (seconds <= 0) {
-      console.log("Complete");
-    } else {
-      console.log(seconds);
-    }
+    console.log(partID);
+
+    console.log("seconds: " + seconds + "   " + "setTime: " + partID);
+    console.log(100 - (seconds / partID) * 100);
+    radialObj.value(100 - (seconds / partID) * 100);
   }
 };
 let timeDivision = 1;
 function runSession(ID) {
+  radialObj.value(0);
   console.log("CurrentID: " + ID);
   // document.getElementById("timerCircle").style.transform = `rotate(0 deg)`;
+  radialObj.value(0);
   document.getElementById("instructions").innerHTML = "Inhale";
+  partID = 4;
   countDownClock(4 / timeDivision, "seconds");
   setTimeout(function() {
     // document.getElementById("timerCircle").style.transform = `rotate(0 deg)`;
+    radialObj.value(0);
     document.getElementById("instructions").innerHTML = "Hold";
+    partID = 7;
     countDownClock(7 / timeDivision, "seconds");
   }, 4000 / timeDivision);
   setTimeout(function() {
     // document.getElementById("timerCircle").style.transform = `rotate(0 deg)`;
+    radialObj.value(0);
     document.getElementById("instructions").innerHTML = "Exhale";
+    partID = 8;
     countDownClock(8 / timeDivision, "seconds");
   }, 11000 / timeDivision);
   setTimeout(function() {
@@ -66,15 +84,17 @@ function runSession(ID) {
     document.getElementById(`dot${ID}`).style.opacity = `100`;
   }, 19000 / timeDivision);
 }
-let dotID = 1;
+
 // let sessionNumber = 0;
 function runFullExercise() {
   runSession(dotID);
   let timerInterval = setInterval(function() {
     dotID++;
+
     if (dotID >= 4) {
       clearInterval(timerInterval);
     } else {
+      // partID = 3;
       runSession(dotID);
     }
   }, 19000 / timeDivision);
