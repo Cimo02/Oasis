@@ -22,6 +22,10 @@ var thirdColor;
 var fourthColor;
 var backgroundColor;
 
+let numBalls = 400;
+
+let balls = [];
+
 var scene; // 0 is the launch screen, 1-4 are questions, 5 is the tutorial and 6 is the visualization
 
 // var noiseScale = 500; // Particle Variables
@@ -107,47 +111,36 @@ function draw() {
 ///////////////////////////////////////
 // Code for the Home Visual////////////
 ///////////////////////////////////////
+let counter = 0;
 function homeVisual() {
   rectMode(CENTER);
-  background(backgroundColor);
-  textSize(32);
-  text(actualVal, 200, 200);
-
-  for (let i = 0; i < squareArr.length; i++) {
-    squareArr[i].update(actualVal);
-    squareArr[i].draw();
-  }
-  fill(color1);
-  rect(50, 50, 50, 50);
-  fill(color2);
-  rect(100, 50, 50, 50);
-  fill(color3);
-  rect(150, 50, 50, 50);
-  fill(color4);
-  rect(200, 50, 50, 50);
+  // background(backgroundColor);
+  // Debug output
+  // textSize(32);
+  // text(actualVal, 200, 200);
+  counter++;
+  let grav = map(actualVal, 0, 500, -1, 1);
+  // console.log(grav);
+  balls.forEach(ball => {
+    ball.collide();
+    // let grav = actualVal / 10000;
+    ball.move();
+    ball.setGravity(0.03);
+    // console.log("gravity: " + actualVal / 10000);
+    ball.display();
+  });
+  // fill(color1);
+  // rect(50, 50, 50, 50);
+  // fill(color2);
+  // rect(100, 50, 50, 50);
+  // fill(color3);
+  // rect(150, 50, 50, 50);
+  // fill(color4);
+  // rect(200, 50, 50, 50);
   // console.log(inData);
+  // drawGrid();
 }
 
-class square {
-  constructor(x, y, c) {
-    this.x = x;
-    this.y = y;
-    this.w = 0;
-    this.h = 0;
-    this.c = c;
-    console.log(this.c);
-  }
-
-  update(val) {
-    this.w = val;
-    this.h = val;
-  }
-
-  draw() {
-    fill(color(this.c));
-    rect(this.x, this.y, this.w, this.h);
-  }
-}
 ///////////////////////////////////////
 // Code for the Beach Visual////////////
 ///////////////////////////////////////
@@ -285,7 +278,8 @@ function setupArduinoConnection() {
 
 function homeSettings() {
   let randColor;
-  for (let i = 0; i < 50; i++) {
+
+  for (let i = 0; i < numBalls; i++) {
     switch (Math.floor(random(0, 5))) {
       case 1:
         randColor = color1;
@@ -303,12 +297,28 @@ function homeSettings() {
         randColor = color1;
         break;
     }
-    console.log(randColor);
-    squareArr.push(new square(random(0, width), random(0, height), randColor));
+    fill(randColor);
+    balls[i] = new Ball(
+      random(width),
+      random(height),
+      random(30, 70),
+      i,
+      balls,
+      randColor
+    );
   }
 }
 
 function drawGrid() {
-  for (let i = 0; i < width / 10; i++) {}
-  line(x + 10 * i, y1, x2, y2);
+  for (var i = 0; i < windowWidth + 20; i += 20) {
+    // draw one line of 20 rectangles across the x-axis
+    for (var j = 0; j < windowHeight + 20; j += 20) {
+      // var lightBlue = color(30, 139, 195);
+
+      noFill();
+      stroke(255);
+      strokeWeight(0.1);
+      rect(i, j, 20, 20);
+    }
+  }
 }
