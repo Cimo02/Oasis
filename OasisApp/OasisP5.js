@@ -1,6 +1,6 @@
 // Networking
 var serial; // variable to hold an instance of the serialport library
-var portName = "/dev/tty.usbmodem14101"; // fill in your serial port name here
+var portName = "/dev/tty.usbmodem14201"; // fill in your serial port name here
 var inData; // variable to hold the input data from Arduino
 var outData = 0; // variable to hold the output data to Arduino
 
