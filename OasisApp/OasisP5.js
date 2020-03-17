@@ -22,10 +22,9 @@ var thirdColor;
 var fourthColor;
 var backgroundColor;
 
-let numBalls = 400;
-
-let balls = [];
-
+var NOISE_SCALE = 0.003;
+var STEP = 20;
+var count;
 var scene; // 0 is the launch screen, 1-4 are questions, 5 is the tutorial and 6 is the visualization
 
 // var noiseScale = 500; // Particle Variables
@@ -111,34 +110,19 @@ function draw() {
 ///////////////////////////////////////
 // Code for the Home Visual////////////
 ///////////////////////////////////////
-let counter = 0;
+// let counter = 0;
 function homeVisual() {
-  rectMode(CENTER);
-  // background(backgroundColor);
-  // Debug output
-  // textSize(32);
-  // text(actualVal, 200, 200);
-  counter++;
-  let grav = map(actualVal, 0, 500, -1, 1);
-  // console.log(grav);
-  balls.forEach(ball => {
-    ball.collide();
-    // let grav = actualVal / 10000;
-    ball.move();
-    ball.setGravity(0.03);
-    // console.log("gravity: " + actualVal / 10000);
-    ball.display();
+  push();
+  fill(255, 0);
+  rect(0, 0, width, height);
+  pop();
+
+  var phase = frameCount / 2;
+
+  perlinArr.forEach(curve => {
+    curve.update(phase);
+    curve.print();
   });
-  // fill(color1);
-  // rect(50, 50, 50, 50);
-  // fill(color2);
-  // rect(100, 50, 50, 50);
-  // fill(color3);
-  // rect(150, 50, 50, 50);
-  // fill(color4);
-  // rect(200, 50, 50, 50);
-  // console.log(inData);
-  // drawGrid();
 }
 
 ///////////////////////////////////////
@@ -275,37 +259,15 @@ function setupArduinoConnection() {
   serial.list(); // list the serial ports
   serial.open(portName); // open a serial port
 }
-
+let perlinArr = [];
 function homeSettings() {
-  let randColor;
+  strokeWeight(0.5);
+  noFill();
+  count = round((width * 1.5) / STEP);
+  background(255);
 
-  for (let i = 0; i < numBalls; i++) {
-    switch (Math.floor(random(0, 5))) {
-      case 1:
-        randColor = color1;
-        break;
-      case 2:
-        randColor = color2;
-        break;
-      case 3:
-        randColor = color3;
-        break;
-      case 4:
-        randColor = color4;
-        break;
-      default:
-        randColor = color1;
-        break;
-    }
-    fill(randColor);
-    balls[i] = new Ball(
-      random(width),
-      random(height),
-      random(30, 70),
-      i,
-      balls,
-      randColor
-    );
+  for (let i = 0; i < 20; i++) {
+    perlinArr.push(new drawPerlinCurve(0, 0, 0, 0, 0, 0, 0));
   }
 }
 
@@ -320,5 +282,66 @@ function drawGrid() {
       strokeWeight(0.1);
       rect(i, j, 20, 20);
     }
+  }
+}
+
+class drawPerlinCurve {
+  constructor(xx, yy, phase1, step1, count1, myColour1, actualVal1) {
+    this.x = xx;
+    this.y = yy;
+    this.phase = phase1;
+    this.step = step1;
+    this.count = count1;
+    this.myColour = myColour1;
+    this.actualVal = actualVal1;
+
+    switch (floor(random(0, 4))) {
+      case 0:
+        this.myColour = color1;
+        break;
+      case 1:
+        this.myColour = color2;
+        break;
+      case 2:
+        this.myColour = color3;
+        break;
+      case 3:
+        this.myColour = color4;
+        break;
+    }
+    this.myColour = lerpColor(
+      color(this.myColour),
+      color(color1),
+      this.yy / height
+    );
+  }
+
+  update(phase2) {
+    this.phase = phase2;
+    for (var y = 0; y < height; y += 10) {
+      this.yy = y;
+    }
+  }
+  print() {
+    push();
+    noFill();
+    stroke(this.myColour);
+    beginShape();
+    for (var i = 0; i < this.count; i++) {
+      curveVertex(this.x, this.y);
+      var angle =
+        2 *
+        PI *
+        noise(
+          this.x * NOISE_SCALE,
+          this.y * NOISE_SCALE,
+          this.phase * NOISE_SCALE
+        );
+      ellipse(this.x, this.y, this.step, this.step);
+      this.x += cos(angle) * this.step;
+      this.y += sin(angle) * this.step;
+    }
+    endShape();
+    pop();
   }
 }
