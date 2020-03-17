@@ -22,9 +22,6 @@ var thirdColor;
 var fourthColor;
 var backgroundColor;
 
-var NOISE_SCALE = 0.003;
-var STEP = 20;
-var count;
 var scene; // 0 is the launch screen, 1-4 are questions, 5 is the tutorial and 6 is the visualization
 
 // var noiseScale = 500; // Particle Variables
@@ -81,8 +78,9 @@ function setup() {
 }
 let lowendStorage = JSON.parse(localStorage.getItem("lowend"));
 let highendStorage = JSON.parse(localStorage.getItem("highend"));
-console.log("lowend: " + lowendStorage);
-console.log("highend: " + highendStorage);
+// console.log("lowend: " + lowendStorage);
+// console.log("highend: " + highendStorage);
+
 function draw() {
   // drawing settings for every frame (don't change?)
   noStroke();
@@ -101,7 +99,7 @@ function draw() {
       console.log("Beach Visual");
       break;
     case 2: // Home Visual
-      homeVisual();
+      homeVisual(actualVal);
       console.log("Home Visual");
       break;
   }
@@ -111,18 +109,21 @@ function draw() {
 // Code for the Home Visual////////////
 ///////////////////////////////////////
 // let counter = 0;
-function homeVisual() {
-  push();
-  fill(255, 0);
-  rect(0, 0, width, height);
-  pop();
+let ballArr = [];
 
-  var phase = frameCount / 2;
+function homeVisual(val) {
+  // rect(0, 0, val, val);
 
-  perlinArr.forEach(curve => {
-    curve.update(phase);
-    curve.print();
-  });
+  // console.log(val);
+  // // push();
+  // // fill(255, 5);
+  // // rect(0, 0, width, height);
+  // // pop();
+
+  for (i = 0; i < ballArr.length; i++) {
+    ballArr[i].update(val);
+    ballArr[i].draw();
+  }
 }
 
 ///////////////////////////////////////
@@ -259,89 +260,76 @@ function setupArduinoConnection() {
   serial.list(); // list the serial ports
   serial.open(portName); // open a serial port
 }
-let perlinArr = [];
+
 function homeSettings() {
-  strokeWeight(0.5);
-  noFill();
-  count = round((width * 1.5) / STEP);
-  background(255);
-
-  for (let i = 0; i < 20; i++) {
-    perlinArr.push(new drawPerlinCurve(0, 0, 0, 0, 0, 0, 0));
-  }
-}
-
-function drawGrid() {
-  for (var i = 0; i < windowWidth + 20; i += 20) {
-    // draw one line of 20 rectangles across the x-axis
-    for (var j = 0; j < windowHeight + 20; j += 20) {
-      // var lightBlue = color(30, 139, 195);
-
-      noFill();
-      stroke(255);
-      strokeWeight(0.1);
-      rect(i, j, 20, 20);
-    }
-  }
-}
-
-class drawPerlinCurve {
-  constructor(xx, yy, phase1, step1, count1, myColour1, actualVal1) {
-    this.x = xx;
-    this.y = yy;
-    this.phase = phase1;
-    this.step = step1;
-    this.count = count1;
-    this.myColour = myColour1;
-    this.actualVal = actualVal1;
-
-    switch (floor(random(0, 4))) {
-      case 0:
-        this.myColour = color1;
-        break;
-      case 1:
-        this.myColour = color2;
-        break;
-      case 2:
-        this.myColour = color3;
-        break;
-      case 3:
-        this.myColour = color4;
-        break;
-    }
-    this.myColour = lerpColor(
-      color(this.myColour),
-      color(color1),
-      this.yy / height
+  noStroke();
+  for (i = 0; i < width / 2; i++) {
+    ballArr.push(
+      new fallParticle(random(0, width), random(0, height), random(1, 20), i)
     );
   }
+}
 
-  update(phase2) {
-    this.phase = phase2;
-    for (var y = 0; y < height; y += 10) {
-      this.yy = y;
-    }
+class fallParticle {
+  constructor(x, y, size, id) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.inc = random(0.1, 1);
+    this.id = id;
+    this.nx = 0;
+    this.ny = 0;
+    this.xOff = random(500);
+    this.yOff = random(500);
   }
-  print() {
-    push();
-    noFill();
-    stroke(this.myColour);
-    beginShape();
-    for (var i = 0; i < this.count; i++) {
-      curveVertex(this.x, this.y);
-      var angle =
-        2 *
-        PI *
-        noise(
-          this.x * NOISE_SCALE,
-          this.y * NOISE_SCALE,
-          this.phase * NOISE_SCALE
-        );
-      ellipse(this.x, this.y, this.step, this.step);
-      this.x += cos(angle) * this.step;
-      this.y += sin(angle) * this.step;
+
+  update(val) {
+    // this.nx = noise(xOff * this.size + this.id);
+    // this.ny = noise(yOff * this.size + this.id);
+    // if (this.id % 20 == 0) {
+    // console.log(val);
+    // }
+
+    this.xOff += 0.0003 * (this.size / 10);
+    this.yOff += 0.0005 * (this.size / 10);
+    this.nx = noise(this.xOff) * width;
+    this.ny = noise(this.yOff) * height;
+    this.x = this.nx;
+    this.y = this.ny;
+    this.y += this.inc;
+    this.x += this.inc;
+
+    // this.x = this.y / this.inc / 2 + this.id;
+    if (this.y > height + 20) {
+      this.y = 0;
+      this.x = random(0, width);
+      this.size = random(1, 20);
     }
-    endShape();
+    if (this.x > width + 20) {
+      this.y = 0;
+      this.x = random(0, width);
+      this.size = random(1, 20);
+    }
+
+    // this.x += this.nx;
+    // this.y += this.ny;
+    // console.log(val);
+    // this.x += constrain(this.nx, 0, 100);
+    // this.y += constrain(this.ny, 0, 100);
+  }
+
+  draw() {
+    push();
+    if (this.id % 3 == 0) {
+      fill(255, 157, 0, 100);
+    } else if (this.id % 2 == 0) {
+      fill(254, 103, 1, 100);
+    } else if (this.id % 5 == 0) {
+      fill(255, 39, 0, 100);
+    } else {
+      fill(132, 0, 24, 100);
+    }
+    ellipse(this.x, this.y, this.size, this.size);
     pop();
   }
 }
