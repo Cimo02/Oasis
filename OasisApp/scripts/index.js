@@ -24,11 +24,11 @@ function toCalibrationPage() {
 
 function answerQuestion(question) {
   // check to make sure the user made a selection
-  // if (currentAnswer == -1) {
-  //   console.log("answer the question!");
-  //   return;
-  // }
-
+  if (currentAnswer == -1) {
+     console.log("answer the question!");
+     return;
+  }
+ 
   // load data and save with the new entry
   answers = JSON.parse(localStorage.getItem("answers"));
   answers[question - 1] = currentAnswer;
@@ -45,16 +45,22 @@ function answerQuestion(question) {
       console.log("after Q2: " + answers);
       console.log(currentAnswer + " in answered...");
       break;
+    case 3:
+      toCalibrationPage();
+      console.log("after Q3: " + answers);
+      console.log(currentAnswer + " in answered...");
+      break;
   }
-
+  /*
   if (question - 1 == 2) {
     if (answers[0] == -1 || answers[1] == -1 || answers[2] == -1) {
       console.log("answer the question!");
       return;
     }
   }
+  */
 }
-
+ 
 // element is the option's outer circle
 function optionSelected(el) {
   // reset other option elements to notSelected
@@ -66,7 +72,7 @@ function optionSelected(el) {
   for (var i = 0; i < outerOptions.length; i++) {
     outerOptions[i].classList.remove("selectedOuter");
   }
-
+ 
   // el could be the outer or inner circle depending on where the user clicked
   if (
     el.classList.contains("oneOptionOuter") ||
@@ -84,26 +90,24 @@ function optionSelected(el) {
     innerOptions[2].classList.add("selected");
     currentAnswer = 2;
   }
-
+ 
   // animate out after option selected
   setTimeout(function() {
     if (document.getElementsByTagName("body")[0].id == "question1") {
-      answerQuestion(1);
-      window.location.href = "question2.html";
+      //answerQuestion(1);
+      // window.location.href = "question2.html";
     } else if (document.getElementsByTagName("body")[0].id == "question2") {
-      answerQuestion(2);
-      window.location.href = "question3.html";
+      //answerQuestion(2);
+      // window.location.href = "question3.html";
     } else if (document.getElementsByTagName("body")[0].id == "question3") {
-      answerQuestion(3);
+      //answerQuestion(3);
       // window.location.href = "calibrationPage.html";
-    } else if (
-      document.getElementsByTagName("body")[0].id == "calibrationPage"
-    ) {
-      answerQuestion(3);
+    } else if (document.getElementsByTagName("body")[0].id == "calibrationPage") {
+      //answerQuestion(3);
       window.location.href = "app.html";
     }
   }, 100);
-
+ 
   // DEBUG answer
   console.log(currentAnswer + " in selected...");
 }
