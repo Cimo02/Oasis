@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles/index.css" />
   <link rel="stylesheet" href="styles/questions.css" />
-
   <title>Oasis - Question 1</title>
 </head>
 
@@ -22,14 +21,15 @@
 
         <!-- Navigation Controls/Display -->
         <div class="navigationControls">
-
           <div class="navArrowContainer flipBy180" onclick="back(1)">
             <div class="beginArrowLine medium-grayBG"></div>
             <div class="beginArrowPoint medium-grayBorder"></div>
           </div>
-          <img class="progressIndicator" src="media/q1-indicator.svg" alt="1 / 3" />
+          <div class="navigationCurrentBreadcrumb"></div>
+          <div class="navigationBreadcrumb"></div>
+          <div class="navigationBreadcrumb"></div>
           <!-- <img class="next" src="media/next.svg" alt="Next" onclick="answerQuestion(1)" /> -->
-          <div class="navArrowContainer" onclick="answerQuestion(1)">
+          <div class="navArrowContainer navArrowNext" onclick="answerQuestion(1)">
             <div class="beginArrowLine medium-grayBG"></div>
             <div class="beginArrowPoint medium-grayBorder"></div>
           </div>
