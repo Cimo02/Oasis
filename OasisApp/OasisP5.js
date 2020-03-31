@@ -54,9 +54,10 @@ function preload() {
   launchExtrasImg = loadImage("media/launch-extras.png");
 }
 
+let cnv;
 function setup() {
   // --- setup the app window ---
-  createCanvas(windowWidth, windowHeight);
+  cnv = createCanvas(windowWidth, windowHeight);
   // Set the global stylings, color, theme, scene
   setupGlobalStyling();
   background("#E8EDF4");
@@ -122,6 +123,7 @@ function homeVisual(val) {
 
   for (i = 0; i < ballArr.length; i++) {
     ballArr[i].update(val);
+    ballArr[i].setInc();
     ballArr[i].draw();
   }
 }
@@ -210,20 +212,23 @@ function setupGlobalStyling() {
     },
     {
       name: "Earth",
-      colors: ["#A1CBC8", "#53C2BA", "#206863", "#206863"],
-      background: "#E8EDF4"
+      colors: ["#EDFFE9", "#AFC66D", "#27522B", "#0F2319"],
+      background: "#202330"
     }
   ];
   // Set Personality
   personalities = [
     {
-      name: "Introverted"
+      name: "Introverted",
+      type: 1
     },
     {
-      name: "Extroverted"
+      name: "Extroverted",
+      type: 2
     },
     {
-      name: "Ambiverted"
+      name: "Ambiverted",
+      type: 3
     }
   ];
   // --- setup the question and scene variables ---
@@ -263,10 +268,8 @@ function setupArduinoConnection() {
 
 function homeSettings() {
   noStroke();
-  for (i = 0; i < width / 2; i++) {
-    ballArr.push(
-      new fallParticle(random(0, width), random(0, height), random(1, 20), i)
-    );
+  for (i = 0; i < 20; i++) {
+    ballArr.push(new fallParticle(width / 2, height / 2, random(1, 20), i));
   }
 }
 
@@ -275,12 +278,13 @@ class fallParticle {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.inc = random(0.1, 1);
+    this.inc = random(0.01, 1);
     this.id = id;
     this.nx = 0;
     this.ny = 0;
-    this.xOff = random(500);
-    this.yOff = random(500);
+    this.xOff = random(100);
+    this.yOff = random(100);
+    this.val;
   }
 
   update(val) {
@@ -289,9 +293,10 @@ class fallParticle {
     // if (this.id % 20 == 0) {
     // console.log(val);
     // }
-
-    this.xOff += 0.0003 * (this.size / 10);
-    this.yOff += 0.0005 * (this.size / 10);
+    // this.val = (val + this.size) / 100;
+    // translate(-width / 4, 0);
+    this.xOff += 0.00003 * this.size;
+    this.yOff += 0.00005 * this.size;
     this.nx = noise(this.xOff) * width;
     this.ny = noise(this.yOff) * height;
     this.x = this.nx;
@@ -317,19 +322,26 @@ class fallParticle {
     // this.x += constrain(this.nx, 0, 100);
     // this.y += constrain(this.ny, 0, 100);
   }
-
+  setInc() {
+    this.val = actualVal;
+  }
   draw() {
     push();
     if (this.id % 3 == 0) {
-      fill(255, 157, 0, 100);
+      fill(color1);
     } else if (this.id % 2 == 0) {
-      fill(254, 103, 1, 100);
+      fill(color2);
     } else if (this.id % 5 == 0) {
-      fill(255, 39, 0, 100);
+      fill(color3);
     } else {
-      fill(132, 0, 24, 100);
+      fill(color4);
     }
-    ellipse(this.x, this.y, this.size, this.size);
+    // this.size = actualVal;
+    ellipse(this.x, this.y, this.val / 70, this.val / 70);
     pop();
   }
 }
+
+// function mouseClicked() {
+//   saveCanvas(cnv, "myCanvas.jpg");
+// }
