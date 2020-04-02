@@ -5,14 +5,14 @@ function beginQuestions() {
   answers = [-1, -1, -1];
   localStorage.setItem("answers", JSON.stringify(answers));
   console.log("beginning questions...");
-  document.getElementById("mainMenuFade").classList.add("mainMenuFade");
+  document.querySelector(".wrapper").classList.add("wrapperFade");
   setTimeout(function() {
     window.location.href = "question1.html";
   }, 1000);
 }
 
 function restart() {
-  document.getElementById("mainMenuFade").classList.add("mainMenuFade");
+  document.getElementById("mainMenuFade").classList.add("wrapperFade");
   setTimeout(function() {
     window.location.href = "index.html";
   }, 1000);
@@ -25,10 +25,10 @@ function toCalibrationPage() {
 function answerQuestion(question) {
   // check to make sure the user made a selection
   if (currentAnswer == -1) {
-     console.log("answer the question!");
-     return;
+    console.log("answer the question!");
+    return;
   }
- 
+
   // load data and save with the new entry
   answers = JSON.parse(localStorage.getItem("answers"));
   answers[question - 1] = currentAnswer;
@@ -60,7 +60,7 @@ function answerQuestion(question) {
   }
   */
 }
- 
+
 // element is the option's outer circle
 function optionSelected(el) {
   // reset other option elements to notSelected
@@ -72,17 +72,17 @@ function optionSelected(el) {
   for (var i = 0; i < outerOptions.length; i++) {
     outerOptions[i].classList.remove("selectedOuter");
   }
- 
+
   // el could be the outer or inner circle depending on where the user clicked
   if (
-    el.classList.contains("oneOptionOuter") ||
-    el.classList.contains("oneOptionInner")
+      el.classList.contains("oneOptionOuter") ||
+      el.classList.contains("oneOptionInner")
   ) {
     innerOptions[0].classList.add("selected");
     currentAnswer = 0;
   } else if (
-    el.classList.contains("twoOptionOuter") ||
-    el.classList.contains("twoOptionInner")
+      el.classList.contains("twoOptionOuter") ||
+      el.classList.contains("twoOptionInner")
   ) {
     innerOptions[1].classList.add("selected");
     currentAnswer = 1;
@@ -90,7 +90,7 @@ function optionSelected(el) {
     innerOptions[2].classList.add("selected");
     currentAnswer = 2;
   }
- 
+
   // animate out after option selected
   setTimeout(function() {
     if (document.getElementsByTagName("body")[0].id == "question1") {
@@ -107,7 +107,7 @@ function optionSelected(el) {
       window.location.href = "app.html";
     }
   }, 100);
- 
+
   // DEBUG answer
   console.log(currentAnswer + " in selected...");
 }
