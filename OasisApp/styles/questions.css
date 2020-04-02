@@ -64,7 +64,7 @@ body {
   100% {
     width: 42px;
     height: 14px;
-    background: #84A4F6;
+    background: #84a4f6;
   }
 }
 
@@ -72,7 +72,7 @@ body {
   0% {
     width: 42px;
     height: 14px;
-    background: #84A4F6;
+    background: #84a4f6;
   }
   100% {
     width: 14px;
@@ -94,7 +94,7 @@ body {
 .navigationCurrentBreadcrumb {
   width: 42px;
   height: 14px;
-  background: #84A4F6;
+  background: #84a4f6;
   border-radius: 14px;
   margin-top: 27px;
   margin-right: 20px;
@@ -137,8 +137,8 @@ body {
   transform: translate(-50%, 0);
 }
 
-.navArrowNext{
-  margin-left:98px;
+.navArrowNext {
+  margin-left: 98px;
 }
 
 /* .navArrowContainer:hover .beginArrowLine {

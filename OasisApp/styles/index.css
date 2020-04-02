@@ -305,3 +305,66 @@ a {
   left: 140px;
   bottom: 230px;
 }
+@media only screen and (max-width: 1250px) {
+  .beginButtonContainer {
+    width: 300px;
+    height: 300px;
+    right: 63px;
+    bottom: 140px;
+    /* display: none; */
+  }
+  .beginButton {
+    /* position: absolute; */
+    width: 300px;
+    height: 300px;
+    left: 1174px;
+    top: 576px;
+  }
+  .beginCircle {
+    width: 260px;
+    height: 260px;
+  }
+  .textParagraph {
+    /* font-size: 1.2rem;
+    line-height: 2.15rem; */
+  }
+  .textHeadline {
+    font-size: 5rem;
+    line-height: 5.25rem;
+  }
+  .launchTextContainer {
+    bottom: 130px;
+  }
+}
+
+@media only screen and (max-width: 920px) {
+  .launchTextWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 0;
+  }
+  .beginButtonContainer {
+    bottom: 0px;
+    margin-top: 30px;
+    right: 0;
+    bottom: 0;
+    position: relative;
+  }
+  .launchTextContainer {
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .textParagraph {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+  .textHeadline {
+    font-size: 4rem;
+    line-height: 4.25rem;
+  }
+}

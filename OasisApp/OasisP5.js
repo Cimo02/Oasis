@@ -259,6 +259,7 @@ function setupArduinoConnection() {
   serial.list(); // list the serial ports
   serial.open(portName); // open a serial port
 }
+
 let perlinArr = [];
 function homeSettings() {
   strokeWeight(0.5);
