@@ -63,6 +63,7 @@ function draw() {
   console.log(inData);
   if (highSet && lowSet == true) {
     isCalibrated = true;
+    localStorage.setItem("simulated", JSON.stringify(false)); // set local storage "simulated" to false because we're getting values from the belt
     let answers = JSON.parse(localStorage.getItem("answers"));
 
     Q1 = answers[0];
@@ -147,8 +148,13 @@ function serialEvent() {
   // inData = serial.readString();
 }
 
+// runs when we don't have a belt connected
 function serialError(err) {
   print("Something went wrong with the serial port. " + err);
+  localStorage.setItem("lowend", JSON.stringify(0));
+  localStorage.setItem("highend", JSON.stringify(0));
+  localStorage.setItem("simulated", JSON.stringify(true)); // set local storage "simulated" to true because we're not using the belt
+  window.location.href = "app.html";
 }
 
 function portClose() {

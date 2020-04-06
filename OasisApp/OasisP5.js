@@ -22,16 +22,8 @@ var thirdColor;
 var fourthColor;
 var backgroundColor;
 
-var NOISE_SCALE = 0.003;
-var STEP = 20;
-var count;
 var scene; // 0 is the launch screen, 1-4 are questions, 5 is the tutorial and 6 is the visualization
-
-// var noiseScale = 500; // Particle Variables
-// var numParticles = 200;
-// var particles_a = [];
-// var particles_b = [];
-// var particles_c = [];
+var isSimulation = false;
 
 // images
 let launchBackgroundImg;
@@ -50,11 +42,19 @@ var personalities = [];
 
 // Home Scene Setup
 let squareArr = [];
+let perlinArr = [];
+
+// Forest Scene Setup
+var tree; //a graphics buffer to draw the tree into
+var paths = []; //an array for all the growing branches
 
 function preload() {
   // load images
   launchBackgroundImg = loadImage("media/launch-background-image.png");
   launchExtrasImg = loadImage("media/launch-extras.png");
+
+  isSimulation = JSON.parse(localStorage.getItem("simulated"));
+  print("simulated: " + isSimulation);
 }
 
 function setup() {
@@ -63,45 +63,64 @@ function setup() {
   // Set the global stylings, color, theme, scene
   setupGlobalStyling();
   background("#E8EDF4");
-  // Home Scene Setup
-  homeSettings();
-
+  
+  // Select Scene to setup
+  switch (ques1) {
+    case 0: // Forest Visual
+      forestSettings();
+      break;
+    case 1: // Beach Visual
+      
+      break;
+    case 2: // Home Visual
+      homeSettings();
+      break;
+  }
+  
   // Establish connection with the arduino
-  setupArduinoConnection();
+  if (isSimulation) {
+    actualVal = 50;
+    rising = true;
+  }
+  else {
+    setupArduinoConnection();
+  }
+  
   // Scene Type
   // --- text settings ---
   textFont("DM Sans");
-
-  // --- particle settings/create particles ---
-  // for (var i = 0; i < numParticles; i++) {
-  //   particles_a[i] = new Particle(random(0, width), random(0, height));
-  //   particles_b[i] = new Particle(random(0, width), random(0, height));
-  //   particles_c[i] = new Particle(random(0, width), random(0, height));
-  // }
 }
+
 let lowendStorage = JSON.parse(localStorage.getItem("lowend"));
 let highendStorage = JSON.parse(localStorage.getItem("highend"));
-console.log("lowend: " + lowendStorage);
-console.log("highend: " + highendStorage);
+//console.log("lowend: " + lowendStorage);
+//console.log("highend: " + highendStorage);
+
 function draw() {
   // drawing settings for every frame (don't change?)
   noStroke();
   fill(132, 164, 246, 255);
   // Convert the real data to usable data
-
-  actualVal = map(inData, lowendStorage, highendStorage, 0, 500, true);
+  if (isSimulation) {
+    simulate();
+  } 
+  else { // don't map "actualVal" unless we're using real data
+    actualVal = map(inData, lowendStorage, highendStorage, 0, 500, true);
+  }
+  print("value: " + actualVal); //debug breathing value
 
   // Select which one to draw
   switch (ques1) {
     case 0: // Forest Visual
-      // perlinNoise();
+      forestVisual(actualVal);
       console.log("Forest Visual");
       break;
     case 1: // Beach Visual
+      beachVisual();
       console.log("Beach Visual");
       break;
     case 2: // Home Visual
-      homeVisual();
+      homeVisual(actualVal);
       console.log("Home Visual");
       break;
   }
@@ -110,19 +129,14 @@ function draw() {
 ///////////////////////////////////////
 // Code for the Home Visual////////////
 ///////////////////////////////////////
-// let counter = 0;
-function homeVisual() {
-  push();
-  fill(255, 0);
-  rect(0, 0, width, height);
-  pop();
+let ballArr = [];
 
-  var phase = frameCount / 2;
-
-  perlinArr.forEach(curve => {
-    curve.update(phase);
-    curve.print();
-  });
+function homeVisual(val) {
+  for (i = 0; i < ballArr.length; i++) {
+    ballArr[i].update(val);
+    ballArr[i].setInc();
+    ballArr[i].draw();
+  }
 }
 
 ///////////////////////////////////////
@@ -134,22 +148,34 @@ function beachVisual() {
   text(actualVal, 200, 200);
 
   // console.log(inData);
-} ///////////////////////////////////////
+} 
+
+///////////////////////////////////////
 // Code for the Forest Visual////////////
 ///////////////////////////////////////
-function forestVisual() {
-  background(255);
-  textSize(32);
-  text(actualVal, 200, 200);
+function forestVisual(val) {
+  frameRate(30); // how fast the tree is growing
 
-  // console.log(inData);
+  image(tree, 0, 0, width, height); //here we draw the tree to the screen every frame
+	tree.noStroke(); //tree has no stroke
+
+  let c1 = color(color1);
+  let c4 = color(color4);
+
+	for (var i=0;i<paths.length;i++) { //start drawing the tree by going thru all the branches
+		var loc = paths[i].location.copy(); //grab a copy of their location
+		var diam = paths[i].diameter; //grab a copy of the branch diameter
+    tree.fill(lerpColor(c4, c1, actualVal/500)); //color of the tree
+		tree.ellipse(loc.x, loc.y, diam, diam); //here we draw the next ellipse for each branch into the tree buffer
+		paths[i].update(); //update the position and direction for the growth of each branch
+	}
 }
+
 /*
 References for these codes:
 https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-input-to-the-p5-js-ide/
 https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-input-to-the-p5-js-ide/
 */
-
 // Following functions print the serial communication status to the console for debugging purposes
 
 function printList(portList) {
@@ -209,20 +235,23 @@ function setupGlobalStyling() {
     },
     {
       name: "Earth",
-      colors: ["#A1CBC8", "#53C2BA", "#206863", "#206863"],
-      background: "#E8EDF4"
+      colors: ["#EDFFE9", "#AFC66D", "#27522B", "#0F2319"],
+      background: "#202330"
     }
   ];
   // Set Personality
   personalities = [
     {
-      name: "Introverted"
+      name: "Introverted",
+      type: 1
     },
     {
-      name: "Extroverted"
+      name: "Extroverted",
+      type: 2
     },
     {
-      name: "Ambiverted"
+      name: "Ambiverted",
+      type: 3
     }
   ];
   // --- setup the question and scene variables ---
@@ -260,89 +289,133 @@ function setupArduinoConnection() {
   serial.open(portName); // open a serial port
 }
 
-let perlinArr = [];
+var rising; //is actualVal increasing or decreasing?
+function simulate() {
+  if (actualVal < 50 || actualVal > 450) {
+    rising = !rising;
+  }
+
+  if (rising) {
+    actualVal++; 
+  } 
+  else {
+    actualVal--;
+  }
+}
+
+// HOME VISUAL
 function homeSettings() {
-  strokeWeight(0.5);
-  noFill();
-  count = round((width * 1.5) / STEP);
-  background(255);
-
-  for (let i = 0; i < 20; i++) {
-    perlinArr.push(new drawPerlinCurve(0, 0, 0, 0, 0, 0, 0));
+  noStroke();
+  for (i = 0; i < 20; i++) {
+    ballArr.push(new fallParticle(width / 2, height / 2, random(1, 20), i));
   }
 }
 
-function drawGrid() {
-  for (var i = 0; i < windowWidth + 20; i += 20) {
-    // draw one line of 20 rectangles across the x-axis
-    for (var j = 0; j < windowHeight + 20; j += 20) {
-      // var lightBlue = color(30, 139, 195);
-
-      noFill();
-      stroke(255);
-      strokeWeight(0.1);
-      rect(i, j, 20, 20);
-    }
-  }
-}
-
-class drawPerlinCurve {
-  constructor(xx, yy, phase1, step1, count1, myColour1, actualVal1) {
-    this.x = xx;
-    this.y = yy;
-    this.phase = phase1;
-    this.step = step1;
-    this.count = count1;
-    this.myColour = myColour1;
-    this.actualVal = actualVal1;
-
-    switch (floor(random(0, 4))) {
-      case 0:
-        this.myColour = color1;
-        break;
-      case 1:
-        this.myColour = color2;
-        break;
-      case 2:
-        this.myColour = color3;
-        break;
-      case 3:
-        this.myColour = color4;
-        break;
-    }
-    this.myColour = lerpColor(
-      color(this.myColour),
-      color(color1),
-      this.yy / height
-    );
+class fallParticle {
+  constructor(x, y, size, id) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.inc = random(0.01, 1);
+    this.id = id;
+    this.nx = 0;
+    this.ny = 0;
+    this.xOff = random(100);
+    this.yOff = random(100);
+    this.val;
   }
 
-  update(phase2) {
-    this.phase = phase2;
-    for (var y = 0; y < height; y += 10) {
-      this.yy = y;
+  update(val) {
+    // this.nx = noise(xOff * this.size + this.id);
+    // this.ny = noise(yOff * this.size + this.id);
+    // if (this.id % 20 == 0) {
+    // console.log(val);
+    // }
+    // this.val = (val + this.size) / 100;
+    // translate(-width / 4, 0);
+    this.xOff += 0.00003 * this.size;
+    this.yOff += 0.00005 * this.size;
+    this.nx = noise(this.xOff) * width;
+    this.ny = noise(this.yOff) * height;
+    this.x = this.nx;
+    this.y = this.ny;
+    this.y += this.inc;
+    this.x += this.inc;
+
+    // this.x = this.y / this.inc / 2 + this.id;
+    if (this.y > height + 20) {
+      this.y = 0;
+      this.x = random(0, width);
+      this.size = random(1, 20);
     }
+    if (this.x > width + 20) {
+      this.y = 0;
+      this.x = random(0, width);
+      this.size = random(1, 20);
+    }
+
+    // this.x += this.nx;
+    // this.y += this.ny;
+    // console.log(val);
+    // this.x += constrain(this.nx, 0, 100);
+    // this.y += constrain(this.ny, 0, 100);
   }
-  print() {
+  setInc() {
+    this.val = actualVal;
+  }
+  draw() {
     push();
-    noFill();
-    stroke(this.myColour);
-    beginShape();
-    for (var i = 0; i < this.count; i++) {
-      curveVertex(this.x, this.y);
-      var angle =
-        2 *
-        PI *
-        noise(
-          this.x * NOISE_SCALE,
-          this.y * NOISE_SCALE,
-          this.phase * NOISE_SCALE
-        );
-      ellipse(this.x, this.y, this.step, this.step);
-      this.x += cos(angle) * this.step;
-      this.y += sin(angle) * this.step;
+    if (this.id % 3 == 0) {
+      fill(color1);
+    } else if (this.id % 2 == 0) {
+      fill(color2);
+    } else if (this.id % 5 == 0) {
+      fill(color3);
+    } else {
+      fill(color4);
     }
-    endShape();
+    // this.size = actualVal;
+    ellipse(this.x, this.y, this.val / 70, this.val / 70);
     pop();
+  }
+}
+
+// FOREST VISUAL
+function forestSettings(){
+  tree = createGraphics(windowWidth, windowHeight); //decide how big the image is to hold the tree drawing
+  ellipseMode(CENTER); 
+  smooth(); 
+  fill(color4);
+  paths.push(new Pathfinder(undefined, 1, 0));
+  paths.push(new Pathfinder(undefined, -1, windowWidth));
+}
+
+function Pathfinder(parent, direction = 0, xVal = 0) { //the class for making branches - note that it allows for another branch object to be passed in...
+  if (parent === undefined){ //if this is the first branch, then use the following settings - note that this is how you deal with different constructors
+    this.location = createVector(xVal, windowHeight/2); //placemnet of the first branch, or trunk
+    this.velocity = createVector(direction, 0); //direction for the trunk, here 1 in the x axis = left
+    this.diameter = 55; //size of trunk
+  }
+  else{
+    this.location = parent.location.copy(); //for a new branch, copy in the last position, the end of the branch
+    this.velocity = parent.velocity.copy(); //for a new branch, copy the direction the old branch was going
+    var area = PI*sq(parent.diameter/2); //find the area of the branch cross section
+    var newDiam = sqrt(area/2/PI)*2; //divide it by two and calculate the diameter of this new branch
+    this.diameter = newDiam; //save the new diameter
+    parent.diameter = newDiam; //the parent branch keeps on growing, but with the new diameter as well
+  }
+
+  this.update = function() { //update the growth of the tree
+    if (this.diameter>2) { //this indicates when the tree should stop growing, the smallest branch diameter
+      this.location.add(this.velocity); //update the location of the end of the branch
+      //this determines how straight or curly the growth is, here it is +-13% variation
+      var bump = new createVector(random(-.87, .87), random(-.87, .87)); 
+      bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
+      this.velocity.add(bump); //apply that to the velocity for the next growth
+      this.velocity.normalize(); //make sure our vector is normalized to be between 0-1
+      if (random(0, 1)<.01) { //this is the probability that the tree splits, here it is 1% chance
+        paths.push(new Pathfinder(this)); //if it is time for a split, make a new path
+      }
+    }
   }
 }
