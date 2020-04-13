@@ -1,101 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles/index.css" />
-  <link rel="stylesheet" href="styles/questions.css" />
-  <title>Oasis - Question 1</title>
-</head>
+  <meta charset="utf-8">
 
+  <title>Oasis - Question 1</title>
+
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/questions.css">
+</head>
 <body id="question1">
-  <!-- Question -->
+
   <div class="wrapper">
 
     <div class="questionWrapper">
       <div class="questionInfoContainer">
 
+        <!-- Question Text -->
         <div class="questionTextContainer">
-          <h1 class="textQuestion">Where are <br>you most <br>relaxed?</h1>
+          <h1 class="questionText">Where are<br>you most<br>relaxed?</h1>
         </div>
 
-        <!-- Navigation Controls/Display -->
+        <!-- Navigation -->
         <div class="navigationControls">
 
           <div class="navArrowContainer flipBy180" onclick="back(1)">
-            <div class="beginArrowLine medium-grayBG"></div>
-            <div class="beginArrowPoint medium-grayBorder"></div>
+            <div class="navArrowLine medium-grayBG"></div>
+            <div class="navArrowPoint medium-grayBorder"></div>
           </div>
 
-          <div class="navigationCurrentBreadcrumb"></div>
-          <div class="navigationBreadcrumb"></div>
-          <div class="navigationBreadcrumb"></div>
+          <div class="navBreadcrumbContainer">
+            <div class="navBreadcrumb navCurrentBreadcrumb"></div>
+            <div class="navBreadcrumb"></div>
+            <div class="navBreadcrumb"></div>
+          </div>
 
-          <div class="navArrowContainer navArrowNext" onclick="answerQuestion(1)">
-            <div class="beginArrowLine medium-grayBG"></div>
-            <div class="beginArrowPoint medium-grayBorder"></div>
+          <div class="navArrowContainer" onclick="answerQuestion(1)">
+            <div class="navArrowLine medium-grayBG"></div>
+            <div class="navArrowPoint medium-grayBorder"></div>
           </div>
 
         </div>
       </div>
 
-      <div class="pillRowContainer">
+      <div class="optionRowContainer">
 
         <!-- Option 1 -->
-        <div class="pillContainer">
+        <div class="optionContainer">
 
-          <div class="pillContentContainer ">
+          <div class="optionImageContainer">
             <div class="pillShape"></div>
-            <img src="media/theforest.png" class="pillContent"></img>
+            <img src="media/theforest.png" class="optionImage">
           </div>
-          <p class="textOption ">The Forest</p>
 
-          <div class="pillButtonContainer">
-            <div class="optionOuter oneOptionOuter" onclick="optionSelected(this)"></div>
-            <div class="optionInner oneOptionInner" onclick="optionSelected(this)"></div>
+          <div class="optionText">
+            <p>The Forest</p>
+          </div>
+
+          <div class="buttonContainer">
+            <div class="buttonOuter oneOptionOuter"></div>
+            <div class="buttonInner oneOptionInner"></div>
           </div>
 
         </div>
 
         <!-- Option 2 -->
-        <div class="pillContainer">
+        <div class="optionContainer">
 
-          <div class="pillContentContainer ">
+          <div class="optionImageContainer">
             <div class="pillShape"></div>
-            <img src="media/thebeach.png" class="pillContent"></img>
+            <img src="media/thebeach.png" class="optionImage">
           </div>
 
-          <p class="textOption ">The Beach</p>
+          <div class="optionText">
+            <p>The Beach</p>
+          </div>
 
-          <div class="pillButtonContainer">
-            <div class="optionOuter twoOptionOuter" onclick="optionSelected(this)"></div>
-            <div class="optionInner twoOptionInner" onclick="optionSelected(this)"></div>
+          <div class="buttonContainer">
+            <div class="buttonOuter twoOptionOuter"></div>
+            <div class="buttonInner twoOptionInner"></div>
           </div>
 
         </div>
-        <!-- Option 3 -->
-        <div class="pillContainer">
 
-          <div class="pillContentContainer ">
+        <!-- Option 3 -->
+        <div class="optionContainer">
+
+          <div class="optionImageContainer">
             <div class="pillShape"></div>
-            <img src="media/athome.png" class="pillContent"></img>
+            <img src="media/athome.png" class="optionImage">
           </div>
 
-          <p class="textOption ">At Home</p>
+          <div class="optionText">
+            <p>At Home</p>
+          </div>
 
-          <div class="pillButtonContainer">
-            <div class="optionOuter " onclick="optionSelected(this)"></div>
-            <div class="optionInner " onclick="optionSelected(this)"></div>
+          <div class="buttonContainer">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
           </div>
 
         </div>
       </div>
 
-
     </div>
   </div>
-</body>
-<script src="scripts/index.js"></script>
 
+  <script src="scripts/index.js"></script>
+</body>
 </html>

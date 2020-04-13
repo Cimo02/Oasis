@@ -61,56 +61,72 @@ function answerQuestion(question) {
   */
 }
 
-// element is the option's outer circle
-function optionSelected(el) {
-  // reset other option elements to notSelected
-  var innerOptions = document.getElementsByClassName("optionInner");
-  var outerOptions = document.getElementsByClassName("optionOuter");
-  for (var i = 0; i < innerOptions.length; i++) {
-    innerOptions[i].classList.remove("selected");
-  }
-  for (var i = 0; i < outerOptions.length; i++) {
-    outerOptions[i].classList.remove("selectedOuter");
-  }
 
-  // el could be the outer or inner circle depending on where the user clicked
-  if (
-      el.classList.contains("oneOptionOuter") ||
-      el.classList.contains("oneOptionInner")
-  ) {
-    innerOptions[0].classList.add("selected");
-    currentAnswer = 0;
-  } else if (
-      el.classList.contains("twoOptionOuter") ||
-      el.classList.contains("twoOptionInner")
-  ) {
-    innerOptions[1].classList.add("selected");
-    currentAnswer = 1;
-  } else {
-    innerOptions[2].classList.add("selected");
-    currentAnswer = 2;
-  }
+let optionButtons = document.querySelectorAll('.buttonContainer');
 
-  // animate out after option selected
-  setTimeout(function() {
-    if (document.getElementsByTagName("body")[0].id == "question1") {
-      //answerQuestion(1);
-      // window.location.href = "question2.html";
-    } else if (document.getElementsByTagName("body")[0].id == "question2") {
-      //answerQuestion(2);
-      // window.location.href = "question3.html";
-    } else if (document.getElementsByTagName("body")[0].id == "question3") {
-      //answerQuestion(3);
-      // window.location.href = "calibrationPage.html";
-    } else if (document.getElementsByTagName("body")[0].id == "calibrationPage") {
-      //answerQuestion(3);
-      window.location.href = "app.html";
+for (let button of optionButtons) {
+  button.addEventListener('click', function() {
+    for (let b of optionButtons) {
+      // b.querySelector('.buttonInner').classList.remove('selected');
+      b.querySelector('.buttonInner').style = "";
     }
-  }, 100);
 
-  // DEBUG answer
-  console.log(currentAnswer + " in selected...");
+    // button.querySelector('.buttonInner').classList.add('selected');
+    button.querySelector('.buttonInner').style = "border: 4px solid #84A4F6; box-shadow: 0 0 11px #84A4F6;";
+
+  });
 }
+
+// element is the option's outer circle
+// function optionSelected(el) {
+//   // reset other option elements to notSelected
+//   var innerOptions = document.getElementsByClassName("optionInner");
+//   var outerOptions = document.getElementsByClassName("optionOuter");
+//   for (var i = 0; i < innerOptions.length; i++) {
+//     innerOptions[i].classList.remove("selected");
+//   }
+//   for (var i = 0; i < outerOptions.length; i++) {
+//     outerOptions[i].classList.remove("selectedOuter");
+//   }
+//
+//   // el could be the outer or inner circle depending on where the user clicked
+//   if (
+//       el.classList.contains("oneOptionOuter") ||
+//       el.classList.contains("oneOptionInner")
+//   ) {
+//     innerOptions[0].classList.add("selected");
+//     currentAnswer = 0;
+//   } else if (
+//       el.classList.contains("twoOptionOuter") ||
+//       el.classList.contains("twoOptionInner")
+//   ) {
+//     innerOptions[1].classList.add("selected");
+//     currentAnswer = 1;
+//   } else {
+//     innerOptions[2].classList.add("selected");
+//     currentAnswer = 2;
+//   }
+//
+//   // animate out after option selected
+//   setTimeout(function() {
+//     if (document.getElementsByTagName("body")[0].id == "question1") {
+//       //answerQuestion(1);
+//       // window.location.href = "question2.html";
+//     } else if (document.getElementsByTagName("body")[0].id == "question2") {
+//       //answerQuestion(2);
+//       // window.location.href = "question3.html";
+//     } else if (document.getElementsByTagName("body")[0].id == "question3") {
+//       //answerQuestion(3);
+//       // window.location.href = "calibrationPage.html";
+//     } else if (document.getElementsByTagName("body")[0].id == "calibrationPage") {
+//       //answerQuestion(3);
+//       window.location.href = "app.html";
+//     }
+//   }, 100);
+//
+//   // DEBUG answer
+//   console.log(currentAnswer + " in selected...");
+// }
 
 function back(question) {
   console.log("going back...");
