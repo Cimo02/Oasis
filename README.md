@@ -21,7 +21,7 @@ Run the correct **p5.serialcontrol** program found from [this git repo](https://
 
 _I think._
 
-I am using [http-server](https://www.npmjs.com/package/http-server) to run the web app and it has been working for me.
+I am using [http-server](https://www.npmjs.com/package/http-server) to run the web app and it has been working for me due to CORS issues.
 
 ## Fonts
 
