@@ -200,8 +200,8 @@ canvas {
 /* TEXT CONTAINER */
 .launchTextContainer {
   position: absolute;
-  left: 10vw;
-  bottom: 10vw;
+  left: 5vw;
+  bottom: 7vw;
   z-index: 1;
 
   opacity: 1;
@@ -213,11 +213,11 @@ canvas {
   color: var(--dark-gray, black);
   font-family: "DM Sans", sans-serif;
   font-weight: 700;
-  font-size: 8vw;
-  line-height: 8.25vw;
+  font-size: 150px;
+  line-height: 130px;
   letter-spacing: -0.02em;
 
-  margin-bottom: 25px;
+  margin: 25px 0;
 }
 
 /* INFO TEXT */
@@ -225,22 +225,22 @@ canvas {
   color: var(--dark-gray, darkslategray);
   font-family: "Barlow", sans-serif;
   font-weight: 400;
-  font-size: 2vw;
-  line-height: 3vw;
+  font-size: 25px;
+  line-height: 40px;
 }
 
 /* BEGIN BUTTON CONTAINER */
 .beginButtonContainer {
-  width: 40vw;
-  height: 40vw;
+  /*width: 30vw;*/
+  /*height: 30vw;*/
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 5vw;
+  bottom: 7vw;
   z-index: 1;
 
   opacity: 1;
@@ -249,8 +249,8 @@ canvas {
 
 /* BEGIN BUTTON OUTER OUTLINE SHADOW */
 .beginButton {
-  width: 60%;
-  height: 60%;
+  width: 350px;
+  height: 350px;
 
   background: #e8edf4;
   box-shadow: 26.2778px 26.2778px 71.6667px rgba(47, 67, 125, 0.2),
@@ -263,8 +263,8 @@ canvas {
 
 /* BEGIN BUTTON INNER CONTENT */
 .beginCircle {
-  width: 50%;
-  height: 50%;
+  width: 275px;
+  height: 275px;
 
   display: flex;
   flex-direction: column;
@@ -288,7 +288,7 @@ canvas {
 
 /* BEGIN ARROW LINE */
 .beginArrowLine {
-  width: 4vw;
+  width: 40px;
   height: 2px;
 
   background-color: #111e47;
@@ -301,28 +301,28 @@ canvas {
 
 /* BEGIN ARROW POINT */
 .beginArrowPoint {
-  width: 2.5vw;
-  height: 2.5vw;
+  width: 25px;
+  height: 25px;
 
-  transform: rotate(315deg);
+  transform: rotate(-45deg);
 
   border: 2px solid #111e47;
   border-top: none;
   border-left: none;
 
-  margin-left: -3vw;
+  margin-left: -30px;
 }
 
 /* "BEGIN" BUTTON TEXT */
 .beginText {
   color: #111e47;
-  font-size: 3.5vw;
+  font-size: 45px;
 
   margin-top: 10%;
 }
 
 /* MOBILE VERSION */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1200px) {
   /* HOME PAGE FIREFLIES */
 
   canvas {
