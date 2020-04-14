@@ -1,58 +1,16 @@
+/* GOOGLE FONTS */
 @import url("https://fonts.googleapis.com/css?family=Barlow|DM+Sans:500&display=swap");
 
-/* fix all colors */
+/* COLOR VARIABLES */
 :root {
-  --white: #f5f8fc;
-  --red: #d2290a;
-  --light-blue: #c0d1fc;
-  --medium-blue: #84a4f6;
-  --dark-blue: #304fa1;
-  --darker-blue: #283e82;
-  --light-gray: #dadfe8;
-  --medium-gray: #9dacca;
-  --dark-gray: #111e47;
+  --white: #F5F8FC;
+  --off-white: #E8EDF4;
+  --light-gray: #C3CDDE;
+  --medium-gray: #9DACCA;
+  --dark-gray: #5A6587;
+  --medium-blue: #84A4F6;
+  --dark-blue: #111E47;
 }
-
-.medium-grayBG {
-  background-color: var(--medium-gray, gray);
-}
-.medium-grayBorder {
-  border-color: var(--medium-gray, gray);
-}
-
-.calibrationButtonContainer {
-  margin-top: 60px;
-}
-
-.navigationBreadcrumbPrevious {
-  width: 14px;
-  height: 14px;
-  background: rgba(157, 172, 202, 0.5);
-  border-radius: 14px;
-  margin-top: 27px;
-  margin-right: 20px;
-  animation: fromPreviousBreadcrumb 1s ease-in-out;
-}
-
-.selected {
-  border: 4px solid #84A4F6;
-  box-shadow: 0 0 11px #84A4F6;
-}
-
-.hovered {
-  border: 2px solid #84a4f6;
-}
-
-
-
-
-
-
-
-
-
-
-
 
 /* ANIMATIONS */
 @keyframes fadeIn {
@@ -63,24 +21,32 @@
     opacity: 1;
   }
 }
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 @keyframes toCurrentBreadcrumb {
   0% {
     width: 1vw;
-    background: #C3CDDE;
+    background-color: var(--light-gray);
   }
   100% {
     width: 3vw;
-    background: #84A4F6;
+    background-color: var(--medium-blue);
   }
 }
 @keyframes fromPreviousBreadcrumb {
   0% {
     width: 3vw;
-    background: #84A4F6;
+    background-color: var(--medium-blue);
   }
   100% {
     width: 1vw;
-    background: #C3CDDE;
+    background-color: var(--light-gray);
   }
 }
 @keyframes imageWipeIn {
@@ -109,10 +75,9 @@
   width: 100vw;
   height: 100vh;
 
-  background-color: #E8EDF4;
+  background-color: var(--off-white);
 }
 
-  /* QUESTION WRAPPER */
   .questionWrapper {
     height: 100vh;
 
@@ -123,44 +88,50 @@
     margin: 0 5vw;
   }
 
-    /* QUESTION INFO CONTAINER */
     .questionInfoContainer {
-      width: 25%;
-      height: 90%;
+      width: 30%;
 
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      align-items: center;
+
+      margin-right: 10%;
     }
 
-      /* QUESTION TEXT CONTAINER */
+      /* QUESTION TEXT */
       .questionTextContainer {
-        height: 80%;
+        height: 300px;
 
         display: flex;
         align-items: center;
+
+        margin-bottom: 100px;
       }
 
-        /* QUESTION TEXT */
         .questionText {
           font-family: "DM Sans", sans-serif;
-          font-size: 4vw;
+          font-size: 5vw;
           letter-spacing: -0.02em;
-          color: var(--dark-gray, black);
+          color: var(--dark-blue);
 
           animation: fadeIn 1s ease-in-out;
         }
 
-      /* NAVIGATION CONTROLS */
+        .questionTextFadeOut {
+          opacity: 0;
+          animation: fadeOut 1s ease-in-out;
+        }
+
+      /* NAVIGATION */
       .navigationControls {
-        height: 20%;
+        width: 75%;
 
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
-        /* NAVIGATION BREADCRUMB CONTAINER */
         .navBreadcrumbContainer {
           width: 10vw;
 
@@ -168,94 +139,88 @@
           justify-content: space-evenly;
         }
 
-          /* NAVIGATION BREADCRUMB */
           .navBreadcrumb {
             width: 1vw;
             height: 1vw;
 
             border-radius: 1vw;
-            background: #C3CDDE;
+            background-color: var(--light-gray);
           }
 
-          /* NAVIGATION CURRENT BREADCRUMB */
           .navCurrentBreadcrumb {
             width: 3vw;
 
-            background: #84A4F6;
+            background-color: var(--medium-blue);
             animation: toCurrentBreadcrumb 1s ease-in-out;
           }
 
-        /* NAVIGATION ARROW CONTAINER */
+          .navPreviousBreadcrumb {
+            animation: fromPreviousBreadcrumb 1s ease-in-out;
+          }
+
         .navArrowContainer {
           display: flex;
           align-items: center;
         }
 
-          /* NAVIGATION ARROW LINE */
           .navArrowLine {
-            width: 4vw;
+            width: 2.5vw;
             height: 2px;
 
-            background-color: #111E47;
+            background-color: var(--dark-blue);
 
             transition: all 185ms ease-in-out;
           }
 
-          /* NAVIGATION ARROW POINT */
           .navArrowPoint {
-            width: 2.5vw;
-            height: 2.5vw;
+            width: 1.5vw;
+            height: 1.5vw;
 
             transform: rotate(-45deg);
 
-            border: 2px solid #111E47;
+            border: 2px solid var(--dark-blue);
             border-top: none;
             border-left: none;
 
-            margin-left: -3vw;
+            margin-left: -1.75vw;
 
             transition: all 185ms ease-in-out;
           }
 
-          /* FLIP NAVIGATION ARROW */
           .flipBy180 {
             transform: rotate(180deg);
           }
 
-        /* NAVIGATION ARROW HOVER */
         .navArrowContainer:hover .navArrowLine {
           cursor: pointer;
-          background-color: #5A6587;
+          background-color: var(--medium-gray);
         }
         .navArrowContainer:hover .navArrowPoint {
           cursor: pointer;
-          border-color: #5A6587;
+          border-color: var(--medium-gray);
         }
 
-    /* OPTION ROW CONTAINER */
     .optionRowContainer {
-      width: 75%;
-      height: 90%;
+      width: 60%;
+      height: 80%;
 
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
     }
 
-    /* OPTION CONTAINER */
+    /* OPTIONS */
     .optionContainer {
       width: 25%;
       height: 100%;
 
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: center;
       align-items: center;
     }
 
-      /* OPTION IMAGE CONTAINER */
       .optionImageContainer {
         width: 100%;
-        height: 60%;
 
         position: relative;
 
@@ -263,14 +228,13 @@
         align-items: center;
       }
 
-        /* PILL SHAPE */
         .pillShape {
           width: 100%;
-          height: 100%;
+          height: 25vw;
 
           position: absolute;
 
-          background: #E8EDF4;
+          background-color: var(--off-white);
           box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #FFFFFF,
             inset 4px 4px 10px rgba(255, 255, 255, 0.1),
             inset -16px -16px 80px rgba(255, 255, 255, 0.2);
@@ -278,7 +242,6 @@
           border-radius: 400px;
         }
 
-        /* OPTION IMAGE */
         .optionImage {
           width: 100%;
           height: auto;
@@ -293,23 +256,35 @@
           animation: imageWipeIn 2s steps(29) forwards;
         }
 
-      /* OPTION TEXT */
+        .imageWipeOut {
+          -webkit-animation: imageWipeOut 2s steps(29) forwards;
+          animation: imageWipeOut 2s steps(29) forwards;
+        }
+
       .optionText {
         width: 100%;
-        height: 10%;
+        height: 20%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         font-family: "Barlow", sans-serif;
-        font-size: 3vw;
-        color: var(--medium-gray, #5A6587);
+        font-size: 2vw;
+        color: var(--dark-gray);
         text-align: center;
 
         animation: fadeIn 1s ease-in-out;
       }
 
-      /* BUTTON CONTAINER */
+      .optionTextFadeOut {
+        opacity: 0;
+        animation: fadeOut 1s ease-in-out;
+      }
+
       .buttonContainer {
         width: 100%;
-        height: 10%;
+        height: 100px;
 
         display: flex;
         justify-content: center;
@@ -318,14 +293,13 @@
         position: relative;
       }
 
-        /* OUTER BORDER */
         .buttonOuter {
           width: 100px;
           height: 100px;
 
           position: absolute;
 
-          background: #E8EDF4;
+          background-color: var(--off-white);
           box-shadow: 22px 22px 60px rgba(47, 67, 125, 0.2), -22px -22px 60px #FFFFFF,
             inset 4px 4px 10px rgba(255, 255, 255, 0.1),
             inset -16px -16px 80px rgba(255, 255, 255, 0.2);
@@ -334,87 +308,90 @@
           transition: all 185ms ease-in-out;
         }
 
-        /* INNER BORDER */
         .buttonInner {
-          width: 40px;
-          height: 40px;
+          width: 30px;
+          height: 30px;
 
           position: absolute;
 
-          border: 2px solid #9DACCA;
+          border: 2px solid var(--medium-gray);
           border-radius: 40px;
           transition: all 185ms ease-in-out;
         }
 
-      /* BUTTON HOVER */
       .buttonContainer:hover .buttonOuter {
         cursor: pointer;
-        background: #F5F8FC;
+        background-color: var(--white);
       }
       .buttonContainer:hover .buttonInner {
         cursor: pointer;
-        border: 4px solid #84A4F6;
-        box-shadow: 0 0 11px #84A4F6;
+        border: 4px solid var(--medium-blue);
+        box-shadow: 0 0 11px var(--medium-blue);
+      }
+
+      .selected {
+        border: 4px solid var(--medium-blue) !important;
+        box-shadow: 0 0 11px var(--medium-blue) !important;
       }
 
 
 /* MOBILE VERSION */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1000px) {
 
-  /* QUESTION WRAPPER */
   .questionWrapper {
     flex-direction: column;
     justify-content: center;
   }
 
-    /* QUESTION INFO CONTAINER */
     .questionInfoContainer {
       width: 100%;
-      height: 25%;
 
+      justify-content: center;
       align-items: center;
+
+      margin-right: 0;
     }
 
-      /* QUESTION TEXT CONTAINER */
+      /* QUESTION TEXT */
       .questionTextContainer {
-        height: 100%;
+        height: 150px;
       }
 
-        /* QUESTION TEXT */
         .questionText {
-          font-size: 6vh;
+          font-size: 8vw;
         }
 
-      /* NAVIGATION CONTROLS */
+      /* NAVIGATION */
       .navigationControls {
-        width: 50%;
+        width: 25%;
       }
 
-    /* OPTION ROW CONTAINER */
     .optionRowContainer {
       width: 100%;
       height: 60%;
 
+      justify-content: space-evenly;
       align-items: center;
     }
 
-      /* OPTION CONTAINER */
+      /* OPTIONS */
       .optionContainer {
         height: 90%;
       }
 
-        /* OPTION TEXT */
+        .pillShape {
+          height: 35vw;
+        }
+
         .optionText {
           font-size: 3.5vw;
         }
 
-        /* BUTTON OUTER */
         .buttonOuter {
           width: 75px;
           height: 75px;
         }
 
-        /* BUTTON INNER */
         .buttonInner {
           width: 30px;
           height: 30px;

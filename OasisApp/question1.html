@@ -7,12 +7,15 @@
 
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/questions.css">
+
+  <script src="scripts/index.js"></script>
 </head>
-<body id="question1">
+<body class="1">
 
   <div class="wrapper">
 
     <div class="questionWrapper">
+
       <div class="questionInfoContainer">
 
         <!-- Question Text -->
@@ -23,9 +26,9 @@
         <!-- Navigation -->
         <div class="navigationControls">
 
-          <div class="navArrowContainer flipBy180" onclick="back(1)">
-            <div class="navArrowLine medium-grayBG"></div>
-            <div class="navArrowPoint medium-grayBorder"></div>
+          <div class="navArrowContainer flipBy180" onclick="back()">
+            <div class="navArrowLine"></div>
+            <div class="navArrowPoint"></div>
           </div>
 
           <div class="navBreadcrumbContainer">
@@ -34,9 +37,9 @@
             <div class="navBreadcrumb"></div>
           </div>
 
-          <div class="navArrowContainer" onclick="answerQuestion(1)">
-            <div class="navArrowLine medium-grayBG"></div>
-            <div class="navArrowPoint medium-grayBorder"></div>
+          <div class="navArrowContainer" onclick="answerQuestion()">
+            <div class="navArrowLine"></div>
+            <div class="navArrowPoint"></div>
           </div>
 
         </div>
@@ -49,16 +52,16 @@
 
           <div class="optionImageContainer">
             <div class="pillShape"></div>
-            <img src="media/theforest.png" class="optionImage">
+            <img src="media/forest.png" class="optionImage">
           </div>
 
           <div class="optionText">
             <p>The Forest</p>
           </div>
 
-          <div class="buttonContainer">
-            <div class="buttonOuter oneOptionOuter"></div>
-            <div class="buttonInner oneOptionInner"></div>
+          <div class="buttonContainer" id="1">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
           </div>
 
         </div>
@@ -68,16 +71,16 @@
 
           <div class="optionImageContainer">
             <div class="pillShape"></div>
-            <img src="media/thebeach.png" class="optionImage">
+            <img src="media/beach.png" class="optionImage">
           </div>
 
           <div class="optionText">
             <p>The Beach</p>
           </div>
 
-          <div class="buttonContainer">
-            <div class="buttonOuter twoOptionOuter"></div>
-            <div class="buttonInner twoOptionInner"></div>
+          <div class="buttonContainer" id="2">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
           </div>
 
         </div>
@@ -87,24 +90,25 @@
 
           <div class="optionImageContainer">
             <div class="pillShape"></div>
-            <img src="media/athome.png" class="optionImage">
+            <img src="media/home.png" class="optionImage">
           </div>
 
           <div class="optionText">
             <p>At Home</p>
           </div>
 
-          <div class="buttonContainer">
+          <div class="buttonContainer" id="3">
             <div class="buttonOuter"></div>
             <div class="buttonInner"></div>
           </div>
 
         </div>
+
       </div>
 
     </div>
+
   </div>
 
-  <script src="scripts/index.js"></script>
 </body>
 </html>

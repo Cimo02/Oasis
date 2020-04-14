@@ -186,7 +186,7 @@ canvas {
 }
 
 /* WRAPPER FADE OUT TRANSITION */
-.wrapperFade {
+.fadeOut {
   opacity: 0;
 }
 
