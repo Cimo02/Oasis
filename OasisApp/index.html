@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
 
@@ -10,34 +11,38 @@
 
   <script src="libraries/p5.min.js"></script>
 </head>
+
 <body>
-<div class="wrapper" id="homeBg">
-  <!-- Launch Info Section -->
-  <div class="launchTextContainer">
-            <img src="media/launch-extras.png" alt="04 ------ 25">
+  <div class="wrapper" id="homeBg">
+    <div class="containHome">
+      <!-- Launch Info Section -->
+      <div class="launchTextContainer">
+        <img src="media/launch-extras.png" alt="04 ------ 25">
 
-    <h1 class="textHeadline">Welcome<br>to Oasis.</h1>
+        <h1 class="textHeadline">Welcome<br>to Oasis.</h1>
 
-    <p class="textParagraph">When you’re ready, press the button to start the
-      <br>experience. You’ll answer a few questions and be
-      <br>guided through a breathing meditation.
-    </p>
-  </div>
-
-  <!-- Begin Button -->
-  <div class="beginButtonContainer" onclick="beginQuestions()">
-    <div class="beginButton"></div>
-    <div class="beginCircle">
-      <div class="beginArrowContainer">
-        <div class="beginArrowLine"></div>
-        <div class="beginArrowPoint"></div>
+        <p class="textParagraph">When you’re ready, press the button to start the
+          experience. You’ll answer a few questions and be
+          guided through a breathing meditation.
+        </p>
       </div>
 
-      <div class="beginText">Begin</div>
+      <!-- Begin Button -->
+      <div class="beginButtonContainer" onclick="beginQuestions()">
+        <div class="beginButton"></div>
+        <div class="beginCircle">
+          <div class="beginArrowContainer">
+            <div class="beginArrowLine"></div>
+            <div class="beginArrowPoint"></div>
+          </div>
+
+          <div class="beginText">Begin</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<script src="scripts/index.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
+
 </html>

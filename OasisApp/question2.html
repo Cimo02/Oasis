@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
 
@@ -10,96 +11,96 @@
 
   <script src="scripts/index.js"></script>
 </head>
+
 <body class="2">
 
-<div class="wrapper">
+  <div class="wrapper">
 
-  <div class="questionWrapper">
+    <div class="questionWrapper">
 
-    <div class="questionInfoContainer">
+      <div class="questionInfoContainer">
 
-      <!-- Question Text -->
-      <div class="questionTextContainer">
-        <h1 class="questionText">Choose an<br>element.</h1>
+        <!-- Question Text -->
+        <div class="questionTextContainer">
+          <h1 class="questionText">Choose an<br>element.</h1>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigationControls">
+
+          <div class="navArrowContainer" onclick="back(2)">
+            <div class="leftNavArrow"></div>
+          </div>
+
+          <div class="navBreadcrumbContainer">
+            <div class="navBreadcrumb "></div>
+            <div class="navBreadcrumb navCurrentBreadcrumb"></div>
+            <div class="navBreadcrumb"></div>
+          </div>
+
+          <div class="navArrowContainer" onclick="answerQuestion(2)">
+            <div class="rightNavArrow"></div>
+          </div>
+        </div>
       </div>
 
-      <!-- Navigation -->
-      <div class="navigationControls">
+      <div class="optionRowContainer">
 
-        <div class="navArrowContainer flipBy180" onclick="back()">
-          <div class="navArrowLine"></div>
-          <div class="navArrowPoint"></div>
+        <!-- Option 1 -->
+        <div class="optionContainer">
+
+          <div class="optionImageContainer">
+            <div class="pillShape"></div>
+            <img src="media/water.png" class="optionImage">
+          </div>
+
+          <div class="optionText">
+            <p>Water</p>
+          </div>
+
+          <div class="buttonContainer" id="1">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+
         </div>
 
-        <div class="navBreadcrumbContainer">
-          <div class="navBreadcrumb"></div>
-          <div class="navBreadcrumb navCurrentBreadcrumb"></div>
-          <div class="navBreadcrumb"></div>
+        <!-- Option 2 -->
+        <div class="optionContainer">
+
+          <div class="optionImageContainer">
+            <div class="pillShape"></div>
+            <img src="media/fire.png" class="optionImage">
+          </div>
+
+          <div class="optionText">
+            <p>Fire</p>
+          </div>
+
+          <div class="buttonContainer" id="2">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+
         </div>
 
-        <div class="navArrowContainer" onclick="answerQuestion()">
-          <div class="navArrowLine"></div>
-          <div class="navArrowPoint"></div>
-        </div>
+        <!-- Option 3 -->
+        <div class="optionContainer">
 
-      </div>
-    </div>
+          <div class="optionImageContainer">
+            <div class="pillShape"></div>
+            <img src="media/earth.png" class="optionImage">
+          </div>
 
-    <div class="optionRowContainer">
+          <div class="optionText">
+            <p>Earth</p>
+          </div>
 
-      <!-- Option 1 -->
-      <div class="optionContainer">
+          <div class="buttonContainer" id="3">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
 
-        <div class="optionImageContainer">
-          <div class="pillShape"></div>
-          <img src="media/water.png" class="optionImage">
-        </div>
-
-        <div class="optionText">
-          <p>Water</p>
-        </div>
-
-        <div class="buttonContainer" id="1">
-          <div class="buttonOuter"></div>
-          <div class="buttonInner"></div>
-        </div>
-
-      </div>
-
-      <!-- Option 2 -->
-      <div class="optionContainer">
-
-        <div class="optionImageContainer">
-          <div class="pillShape"></div>
-          <img src="media/fire.png" class="optionImage">
-        </div>
-
-        <div class="optionText">
-          <p>Fire</p>
-        </div>
-
-        <div class="buttonContainer" id="2">
-          <div class="buttonOuter"></div>
-          <div class="buttonInner"></div>
-        </div>
-
-      </div>
-
-      <!-- Option 3 -->
-      <div class="optionContainer">
-
-        <div class="optionImageContainer">
-          <div class="pillShape"></div>
-          <img src="media/earth.png" class="optionImage">
-        </div>
-
-        <div class="optionText">
-          <p>Earth</p>
-        </div>
-
-        <div class="buttonContainer" id="3">
-          <div class="buttonOuter"></div>
-          <div class="buttonInner"></div>
         </div>
 
       </div>
@@ -108,7 +109,6 @@
 
   </div>
 
-</div>
-
 </body>
+
 </html>
