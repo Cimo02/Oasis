@@ -2,90 +2,114 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles/index.css" />
-  <link rel="stylesheet" href="styles/questions.css" />
+  <meta charset="utf-8">
+
   <title>Oasis - Question 3</title>
+
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/questions.css">
+
+  <script src="scripts/index.js"></script>
 </head>
 
-<body id="question3">
-  <!-- Question -->
+<body class="3">
+
   <div class="wrapper">
+
     <div class="questionWrapper">
 
       <div class="questionInfoContainer">
+
+        <!-- Question Text -->
         <div class="questionTextContainer">
-          <h1 class="textQuestion">I'd describe myself as...</h1>
+          <h1 class="questionText">I would<br>describe<br>myself as...</h1>
         </div>
 
-        <!-- Navigation Controls/Display -->
+        <!-- Navigation -->
         <div class="navigationControls">
-          <div class="navArrowContainer flipBy180" onclick="back(3)">
-            <div class="beginArrowLine medium-grayBG"></div>
-            <div class="beginArrowPoint medium-grayBorder"></div>
+
+          <div class="navArrowContainer" onclick="back(3)">
+            <div class="leftNavArrow"></div>
           </div>
-          <div class="navigationBreadcrumb"></div>
-          <div class="navigationBreadcrumbPrevious"></div>
-          <div class="navigationCurrentBreadcrumb"></div>
-          <!-- <img class="next" src="media/next.svg" alt="Next" onclick="answerQuestion(1)" /> -->
-          <div class="navArrowContainer navArrowNext" onclick="answerQuestion(3)">
-            <div class="beginArrowLine medium-grayBG"></div>
-            <div class="beginArrowPoint medium-grayBorder"></div>
+
+          <div class="navBreadcrumbContainer">
+            <div class="navBreadcrumb "></div>
+            <div class="navBreadcrumb"></div>
+            <div class="navBreadcrumb navCurrentBreadcrumb"></div>
           </div>
+
+          <div class="navArrowContainer" onclick="answerQuestion(3)">
+            <div class="rightNavArrow"></div>
+          </div>
+
         </div>
       </div>
 
-      <div class="pillRowContainer">
+      <div class="optionRowContainer">
+
         <!-- Option 1 -->
-        <div class="pillContainer">
-          <div class="pillContentContainer ">
+        <div class="optionContainer">
+
+          <div class="optionImageContainer">
             <div class="pillShape"></div>
-            <img src="media/extraverted.png" class="pillContent"></img>
+            <img src="media/extroverted.png" class="optionImage">
           </div>
-          <p class="textOption ">An Extrovert</p>
-          <div class="pillButtonContainer">
 
-            <div class="optionOuter oneOptionOuter" onclick="optionSelected(this)"></div>
-            <div class="optionInner oneOptionInner" onclick="optionSelected(this)"></div>
+          <div class="optionText">
+            <p>An Extrovert</p>
           </div>
+
+          <div class="buttonContainer" id="1">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+
         </div>
+
         <!-- Option 2 -->
-        <div class="pillContainer">
-          <div class="pillContentContainer ">
-            <div class="pillShape">
+        <div class="optionContainer">
 
-            </div>
-            <img src="media/ambiverted.png" class="pillContent"></img>
+          <div class="optionImageContainer">
+            <div class="pillShape"></div>
+            <img src="media/ambiverted.png" class="optionImage">
           </div>
-          <p class="textOption ">An Ambivert</p>
-          <div class="pillButtonContainer">
 
-            <div class="optionOuter twoOptionOuter" onclick="optionSelected(this)"></div>
-            <div class="optionInner twoOptionInner" onclick="optionSelected(this)"></div>
+          <div class="optionText">
+            <p>An Ambivert</p>
           </div>
+
+          <div class="buttonContainer" id="2">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+
         </div>
+
         <!-- Option 3 -->
-        <div class="pillContainer">
-          <div class="pillContentContainer ">
-            <div class="pillShape">
+        <div class="optionContainer">
 
-            </div>
-            <img src="media/introverted.png" class="pillContent"></img>
+          <div class="optionImageContainer">
+            <div class="pillShape"></div>
+            <img src="media/introverted.png" class="optionImage">
           </div>
-          <p class="textOption ">An Introvert</p>
-          <div class="pillButtonContainer">
 
-            <div class="optionOuter " onclick="optionSelected(this)"></div>
-            <div class="optionInner " onclick="optionSelected(this)"></div>
+          <div class="optionText">
+            <p>An Introvert</p>
           </div>
+
+          <div class="buttonContainer" id="3">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+
         </div>
-      </div>
 
+      </div>
 
     </div>
+
   </div>
+
 </body>
-<script src="scripts/index.js"></script>
 
 </html>
