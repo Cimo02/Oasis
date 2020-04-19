@@ -72,6 +72,7 @@ function setup() {
       forestSettings();
       break;
     case 1: // Beach Visual
+      beachSettings();
       break;
     case 2: // Home Visual
       homeSettings();
@@ -144,8 +145,35 @@ function homeVisual(val) {
 ///////////////////////////////////////
 // Code for the Beach Visual////////////
 ///////////////////////////////////////
+let angle = 0;
+let time = 0;
 function beachVisual() {
-  background(255);
+  // background(255);
+
+  if (time < 10) {
+    fill(232, 237, 243);
+    rect(0, 0, width, height);
+  }
+
+  if (time % 2 == 0) {
+    fill(232, 237, 243, 10);
+    rect(0, 0, width, height);
+  }
+  // background(255, 10);
+  for (i = 0; i < rainArr.length; i++) {
+    rainArr[i].setInc();
+    rainArr[i].update();
+    rainArr[i].draw();
+
+    if (rainArr[i].dead()) {
+      // ballArr.splice(i, 1);
+      rainArr[i].resetExistence();
+    }
+  }
+
+  angle += 0.02;
+  // angle += 0.1;
+  time += 1;
   // textSize(32);
   // text(actualVal, 200, 200);
 
@@ -312,8 +340,13 @@ function simulate() {
 // HOME VISUAL
 function homeSettings() {
   noStroke();
-  for (i = 0; i < 20; i++) {
-    ballArr.push(new fallParticle(width / 2, height / 2, random(1, 20), i));
+  // 1920/10
+  // while i is less then width
+
+  for (i = 0; i < 25; i++) {
+    ballArr.push(
+      new fallParticle(random(width), random(height), random(1, 20), i)
+    );
   }
 }
 
@@ -321,7 +354,7 @@ class fallParticle {
   constructor(x, y, size, id) {
     this.x = x;
     this.y = y;
-    this.size = size;
+    this.size = random(size * 2);
     this.inc = random(0.01, 1);
     this.id = id;
     this.nx = 0;
@@ -334,12 +367,16 @@ class fallParticle {
   update(val) {
     this.xOff += 0.00003 * this.size;
     this.yOff += 0.00005 * this.size;
-    this.nx = noise(this.xOff) * width;
-    this.ny = noise(this.yOff) * height;
+    this.nx = noise(this.xOff) * (width * 2.8);
+    this.ny = noise(this.yOff) * (height * 2.8);
+    // console.log(this.nx);
     this.x = this.nx;
     this.y = this.ny;
-    this.y += this.inc;
-    this.x += this.inc;
+    this.x -= width / 2;
+    this.y -= height / 2;
+    // this.y += this.inc;
+    // this.x += this.inc;
+
     if (this.y > height + 20) {
       this.y = 0;
       this.x = random(0, width);
@@ -366,11 +403,28 @@ class fallParticle {
       fill(color4);
     }
     // this.size = actualVal;
-    ellipse(this.x, this.y, this.val / 70, this.val / 70);
+    this.y == 0 ? null : ellipse(this.x, this.y, this.val / 70, this.val / 70);
+
     pop();
   }
 }
+let rainArr = [];
+let slide;
+let cnv;
+let img;
+// Beach Visual Seetings
+function beachSettings() {
+  // slide = createSlider(0, 500, 250, 1);
+  background(255);
+  cnv = createCanvas(1920, 1080);
 
+  noStroke();
+  for (i = 0; i < 300; i++) {
+    rainArr.push(
+      new rainParticle(random(width), random(height), random(5, 10), i)
+    );
+  }
+}
 // FOREST VISUAL
 function forestSettings() {
   frameRate(30); // how fast the tree is growing
@@ -414,4 +468,111 @@ function Pathfinder(parent, direction = 0, xVal = 0) {
       }
     }
   };
+}
+
+class rainParticle {
+  constructor(x, y, size, id) {
+    this.xOff = random(0, 5);
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.id = id;
+    this.inc = random(0.2, 1);
+    this.isDead = false;
+    this.yLimit = random(10, 200);
+    this.limitCounter = 0;
+    this.randSize = floor(random(1, 6));
+    this.sizes = [];
+    this.n = 0;
+    for (let i; i < this.randSize; i++) {
+      // this.sizes.push(random(this.size));
+      this.sizes.push(this.size + i);
+    }
+  }
+  setInc() {
+    this.inc = this.inc;
+  }
+
+  kill() {
+    this.isDead = true;
+  }
+  dead() {
+    return this.isDead;
+  }
+  update(val) {
+    this.xoff = this.xoff + 0.01;
+    // this.n = noise(this.xOff) * width;
+    // this.x += slide.value();
+    // if (this.y % 10 == 0) {
+    //   this.x += 0.1;
+    //   // rotate(this.y*0.0001);
+    // } else {
+    //   this.x -= 0.1;
+    //   rotate(this.x * 0.0000001);
+    // }
+
+    // console.log(this.n);
+    if (this.limitCounter >= this.yLimit) {
+      this.isDead = true;
+    } else {
+      this.y += this.inc;
+      this.limitCounter += this.inc;
+    }
+  }
+  resetExistence() {
+    this.x = random(width);
+    this.y = random(height);
+
+    this.yLimit = random(10, 200);
+    this.limitCounter = 0;
+    this.sizes = [];
+
+    for (let i = 0; i < this.randSize; i++) {
+      this.sizes.push(random(this.size));
+      // this.sizes.push(this.size + (i));
+    }
+
+    this.isDead = false;
+  }
+
+  draw() {
+    push();
+    if (this.y > 10) {
+      // for (let i = 0; i < this.sizes.length; i++) {
+      let breathVal = map(actualVal, 0, 500, -0.5, 0.5);
+      for (let i = 0; i < this.sizes.length; i++) {
+        this.x += this.n * 0.0001;
+        this.x -= noise(this.n) * 0.0001;
+        this.y -= breathVal;
+
+        if (this.size > 8) {
+          this.x -= breathVal;
+        } else {
+          this.x += breathVal;
+        }
+
+        let opac = this.size * 3.5;
+
+        if (this.id % 3 == 0) {
+          fill(194, 231, 245, opac);
+        } else if (this.id % 2 == 0) {
+          fill(77, 180, 219, opac);
+        } else if (this.id % 5 == 0) {
+          fill(5, 85, 167, opac);
+        } else {
+          fill(0, 19, 81, opac);
+        }
+
+        ellipse(
+          this.x + sin(angle),
+          this.y + i * 15,
+          this.sizes[i],
+          this.sizes[i]
+        );
+        // ellipse(this.x + sin(angle) + slide.value(), this.y + (i * 20), this.size, this.size);
+      }
+    }
+
+    pop();
+  }
 }

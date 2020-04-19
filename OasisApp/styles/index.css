@@ -5,7 +5,9 @@ a {
   color: inherit;
   text-decoration: inherit;
 }
-
+.boldBarlow {
+  font-weight: 600;
+}
 .homeTopBG {
   background-image: url("../media/main-app.png");
   background-repeat: no-repeat;
@@ -359,13 +361,44 @@ a {
     height: 344px;
   }
   .beginCircle {
-    width: 288;
-    height: 288;
+    width: 288px;
+    height: 288px;
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .textParagraph {
+    width: 80%;
+    font-size: 18px;
+  }
+  .textHeadline {
+    font-size: 80px;
+    line-height: 67px;
+    margin: 14px 0;
+  }
+  .beginCircle {
+    width: 208px;
+    height: 208px;
+  }
+  .beginButton {
+    width: 264px;
+    height: 264px;
+  }
+  .beginText {
+    font-size: 30px;
+    text-align: center;
+  }
+  .restartArrow {
+    height: 54px;
+    width: 54px;
+  }
+  .restartText {
+    color: #111e47;
+    font-size: 26px;
+  }
+}
 /* MOBILE VERSION */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 780px) {
   /* HOME PAGE BACKGROUND */
   /* #homeBg {
   } */
@@ -373,9 +406,6 @@ a {
     background-image: none;
   }
 
-  img {
-    display: none;
-  }
   .containHome {
     flex-direction: column;
     padding: 0;
@@ -398,8 +428,8 @@ a {
   /* MAIN HEADER */
   .textHeadline {
     color: #e8edf4;
-    font-size: 8vh;
-    line-height: 8vh;
+    font-size: 85px;
+    line-height: 82px;
     margin-top: 0;
     width: 90%;
     align-self: center;
@@ -408,8 +438,8 @@ a {
   /* INFO TEXT */
   .textParagraph {
     color: #e8edf4;
-    font-size: 1.5vh;
-    line-height: 2.5vh;
+    font-size: 16px;
+    line-height: 30px;
     width: 90%;
     align-self: center;
   }
@@ -442,5 +472,41 @@ a {
   .beginCircle {
     width: 208px;
     height: 208px;
+  }
+  .restartText {
+    color: #111e47;
+    font-size: 26px;
+  }
+}
+@media screen and (max-width: 600px) {
+  /* MAIN HEADER */
+  .textHeadline {
+    color: #e8edf4;
+    font-size: 60px;
+    line-height: 62px;
+    margin-top: 0;
+    width: 90%;
+    align-self: center;
+    margin-top: 25px;
+  }
+
+  /* INFO TEXT */
+  .textParagraph {
+    color: #e8edf4;
+    font-size: 14px;
+    line-height: 20px;
+    width: 90%;
+    align-self: center;
+    margin-bottom: 25px;
+  }
+  .beginArrowLine {
+    width: 40px;
+  }
+  .beginCircle:hover .beginArrowLine {
+    width: 40px;
+  }
+  .restartText {
+    color: #111e47;
+    font-size: 26px;
   }
 }

@@ -65,11 +65,11 @@ let lowSet = false;
 function setLimits() {
   if (lowSet == false) {
     lowEnd = inData;
-    console.log("lowEnd: " + lowEnd);
+    // console.log("lowEnd: " + lowEnd);
     lowSet = true;
   } else if (highSet == false) {
     highEnd = inData;
-    console.log("highEnd: " + highEnd);
+    // console.log("highEnd: " + highEnd);
     highSet = true;
   }
 }
@@ -89,7 +89,7 @@ function draw() {
     // actualVal = inData;
     // console.log("ends:" + lowEnd + " " + highEnd);
     // console.log(actualVal);
-    console.log(inData);
+    // console.log(inData);
 
     // background(50, 237, 244, 0.1);
     // background(255, 255, 255, 0.1);
@@ -173,7 +173,7 @@ function Particle(randVal) {
   // this.maxspeed = inData / 10000;
 
   this.prePos = this.pos.copy();
-  this.update = function() {
+  this.update = function () {
     this.maxspeed = 100 / actualVal;
     this.vel.add(this.acc);
     // this.vel.limit(inData / 5);
@@ -188,11 +188,11 @@ function Particle(randVal) {
     //   this.maxspeed = actualVal / 50;
     // }
   };
-  this.applyForce = function(force) {
+  this.applyForce = function (force) {
     this.acc.add(force);
     // this.acc.add(actualVal / 10);
   };
-  this.show = function() {
+  this.show = function () {
     // c = color("rgba(132, 164, 246, 1)");
     // fill();
 
@@ -221,11 +221,11 @@ function Particle(randVal) {
     // line(this.pos.x, this.pos.y, this.prePos.x, this.prePos.y);
     this.updatePrev();
   };
-  this.updatePrev = function() {
+  this.updatePrev = function () {
     this.prePos.x = this.pos.x;
     this.prePos.y = this.pos.y;
   };
-  this.edges = function() {
+  this.edges = function () {
     if (this.pos.x > width) {
       this.pos.x = 0;
       this.updatePrev();
@@ -243,7 +243,7 @@ function Particle(randVal) {
       this.updatePrev();
     }
   };
-  this.follow = function(vectors) {
+  this.follow = function (vectors) {
     var x = floor(this.pos.x / scl); //position in relationship to scale "vector" unit or grid"
     var y = floor(this.pos.y / scl);
     // console.log(x);
