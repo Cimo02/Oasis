@@ -145,3 +145,24 @@ body {
     opacity: 1;
   }
 }
+
+@media screen and (max-width: 750px) {
+  .timerbackPlate {
+    width: 350px;
+    height: 350px;
+  }
+  .timerButtonContainer {
+    width: 350px;
+    /* height: 350px; */
+    height: 60vh;
+  }
+
+  .timerButton {
+    width: 254px;
+    height: 254px;
+  }
+  .timerCircle {
+    width: 218px;
+    height: 218px;
+  }
+}

@@ -43,11 +43,11 @@ function setLimits() {
   if (lowSet == false) {
     lowEnd = inData;
     localStorage.setItem("lowend", JSON.stringify(lowEnd));
-    console.log("lowEnd: " + lowEnd);
+    // console.log("lowEnd: " + lowEnd);
     lowSet = true;
   } else if (highSet == false) {
     highEnd = inData;
-    console.log("highEnd: " + highEnd);
+    // console.log("highEnd: " + highEnd);
     highSet = true;
     localStorage.setItem("highend", JSON.stringify(highEnd));
     window.location.href = "app.html";
@@ -60,7 +60,7 @@ let Q1 = 0;
 let Q2 = 0;
 let Q3 = 0;
 function draw() {
-  console.log(inData);
+  // console.log(inData);
   if (highSet && lowSet == true) {
     isCalibrated = true;
     localStorage.setItem("simulated", JSON.stringify(false)); // set local storage "simulated" to false because we're getting values from the belt

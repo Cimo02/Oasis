@@ -476,6 +476,7 @@
     flex-direction: row;
     height: 100vh;
     max-height: 1700px;
+    background-color: var(--off-white);
   }
   .questionWrapper {
     flex-direction: column;

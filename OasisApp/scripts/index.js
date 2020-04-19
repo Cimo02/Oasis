@@ -120,7 +120,7 @@ const answerQuestion = (val) => {
 
     // return;
   } else {
-    console.log("Answered");
+    // console.log("Answered");
     answers = JSON.parse(localStorage.getItem("answers"));
     answers[document.body.className - 1] = currentAnswer;
     localStorage.setItem("answers", JSON.stringify(answers));
