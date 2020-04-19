@@ -23,7 +23,9 @@ var fourthColor;
 var backgroundColor;
 
 var scene; // 0 is the launch screen, 1-4 are questions, 5 is the tutorial and 6 is the visualization
-var isSimulation = false;
+
+// set simulation to always true for ease of use for the devs
+var isSimulation = true;
 
 // images
 let launchBackgroundImg;
@@ -63,29 +65,27 @@ function setup() {
   // Set the global stylings, color, theme, scene
   setupGlobalStyling();
   background("#E8EDF4");
-  
+
   // Select Scene to setup
   switch (ques1) {
     case 0: // Forest Visual
       forestSettings();
       break;
     case 1: // Beach Visual
-      
       break;
     case 2: // Home Visual
       homeSettings();
       break;
   }
-  
+
   // Establish connection with the arduino
   if (isSimulation) {
     actualVal = 50;
     rising = true;
-  }
-  else {
+  } else {
     setupArduinoConnection();
   }
-  
+
   // Scene Type
   // --- text settings ---
   textFont("DM Sans");
@@ -103,8 +103,8 @@ function draw() {
   // Convert the real data to usable data
   if (isSimulation) {
     simulate();
-  } 
-  else { // don't map "actualVal" unless we're using real data
+  } else {
+    // don't map "actualVal" unless we're using real data
     actualVal = map(inData, lowendStorage, highendStorage, 0, 500, true);
   }
   print("value: " + actualVal); //debug breathing value
@@ -113,17 +113,19 @@ function draw() {
   switch (ques1) {
     case 0: // Forest Visual
       forestVisual(actualVal);
-      console.log("Forest Visual");
+      // console.log("Forest Visual");
       break;
     case 1: // Beach Visual
       beachVisual();
-      console.log("Beach Visual");
+      // console.log("Beach Visual");
       break;
     case 2: // Home Visual
       homeVisual(actualVal);
-      console.log("Home Visual");
+      // console.log("Home Visual");
       break;
   }
+
+  // forestVisual(actualVal);
 }
 
 ///////////////////////////////////////
@@ -144,31 +146,31 @@ function homeVisual(val) {
 ///////////////////////////////////////
 function beachVisual() {
   background(255);
-  textSize(32);
-  text(actualVal, 200, 200);
+  // textSize(32);
+  // text(actualVal, 200, 200);
 
   // console.log(inData);
-} 
+}
 
 ///////////////////////////////////////
 // Code for the Forest Visual////////////
 ///////////////////////////////////////
 function forestVisual(val) {
-  frameRate(30); // how fast the tree is growing
-
   image(tree, 0, 0, width, height); //here we draw the tree to the screen every frame
-	tree.noStroke(); //tree has no stroke
+
+  tree.noStroke(); //tree has no stroke
 
   let c1 = color(color1);
   let c4 = color(color4);
 
-	for (var i=0;i<paths.length;i++) { //start drawing the tree by going thru all the branches
-		var loc = paths[i].location.copy(); //grab a copy of their location
-		var diam = paths[i].diameter; //grab a copy of the branch diameter
-    tree.fill(lerpColor(c4, c1, actualVal/500)); //color of the tree
-		tree.ellipse(loc.x, loc.y, diam, diam); //here we draw the next ellipse for each branch into the tree buffer
-		paths[i].update(); //update the position and direction for the growth of each branch
-	}
+  for (var i = 0; i < paths.length; i++) {
+    //start drawing the tree by going thru all the branches
+    var loc = paths[i].location.copy(); //grab a copy of their location
+    var diam = paths[i].diameter; //grab a copy of the branch diameter
+    tree.fill(lerpColor(c4, c1, actualVal / 500)); //color of the tree
+    tree.ellipse(loc.x, loc.y, diam, diam); //here we draw the next ellipse for each branch into the tree buffer
+    paths[i].update(); //update the position and direction for the growth of each branch
+  }
 }
 
 /*
@@ -212,47 +214,50 @@ function setupGlobalStyling() {
   // Set scene
   scenes = [
     {
-      name: "Forest"
+      name: "Forest",
+      type: 1,
     },
     {
-      name: "Beach"
+      name: "Beach",
+      type: 2,
     },
     {
-      name: "Home"
-    }
+      name: "Home",
+      type: 3,
+    },
   ];
   // Setup themes colors(lightest = 0, darkest = 2)
   themes = [
     {
       name: "Water",
       colors: ["#C2E7F3", "#4DB4DB", "#0555A7", "#001351"],
-      background: "#E8EDF4"
+      background: "#E8EDF4",
     },
     {
       name: "Fire",
       colors: ["#FF9D00", "#FE6701", "#FF2700", "#840018"],
-      background: "#6879B4"
+      background: "#6879B4",
     },
     {
       name: "Earth",
       colors: ["#EDFFE9", "#AFC66D", "#27522B", "#0F2319"],
-      background: "#202330"
-    }
+      background: "#202330",
+    },
   ];
   // Set Personality
   personalities = [
     {
       name: "Introverted",
-      type: 1
+      type: 1,
     },
     {
       name: "Extroverted",
-      type: 2
+      type: 2,
     },
     {
       name: "Ambiverted",
-      type: 3
-    }
+      type: 3,
+    },
   ];
   // --- setup the question and scene variables ---
   let answers = JSON.parse(localStorage.getItem("answers")); // <---- USER'S ANSWERS
@@ -264,7 +269,9 @@ function setupGlobalStyling() {
 
   // Set Scene Settings Based on Quiz Answers
   // Set Scene
-  scene = scenes[ques1].name;
+  // console.log("scene name: " + scenes[ques1].name);
+  scene = scenes[1].name;
+
   // Color Palette
   color1 = themes[ques2].colors[0];
   color2 = themes[ques2].colors[1];
@@ -296,9 +303,8 @@ function simulate() {
   }
 
   if (rising) {
-    actualVal++; 
-  } 
-  else {
+    actualVal++;
+  } else {
     actualVal--;
   }
 }
@@ -326,13 +332,6 @@ class fallParticle {
   }
 
   update(val) {
-    // this.nx = noise(xOff * this.size + this.id);
-    // this.ny = noise(yOff * this.size + this.id);
-    // if (this.id % 20 == 0) {
-    // console.log(val);
-    // }
-    // this.val = (val + this.size) / 100;
-    // translate(-width / 4, 0);
     this.xOff += 0.00003 * this.size;
     this.yOff += 0.00005 * this.size;
     this.nx = noise(this.xOff) * width;
@@ -341,8 +340,6 @@ class fallParticle {
     this.y = this.ny;
     this.y += this.inc;
     this.x += this.inc;
-
-    // this.x = this.y / this.inc / 2 + this.id;
     if (this.y > height + 20) {
       this.y = 0;
       this.x = random(0, width);
@@ -353,12 +350,6 @@ class fallParticle {
       this.x = random(0, width);
       this.size = random(1, 20);
     }
-
-    // this.x += this.nx;
-    // this.y += this.ny;
-    // console.log(val);
-    // this.x += constrain(this.nx, 0, 100);
-    // this.y += constrain(this.ny, 0, 100);
   }
   setInc() {
     this.val = actualVal;
@@ -381,41 +372,46 @@ class fallParticle {
 }
 
 // FOREST VISUAL
-function forestSettings(){
+function forestSettings() {
+  frameRate(30); // how fast the tree is growing
   tree = createGraphics(windowWidth, windowHeight); //decide how big the image is to hold the tree drawing
-  ellipseMode(CENTER); 
-  smooth(); 
+  ellipseMode(CENTER);
+  smooth();
   fill(color4);
   paths.push(new Pathfinder(undefined, 1, 0));
   paths.push(new Pathfinder(undefined, -1, windowWidth));
 }
 
-function Pathfinder(parent, direction = 0, xVal = 0) { //the class for making branches - note that it allows for another branch object to be passed in...
-  if (parent === undefined){ //if this is the first branch, then use the following settings - note that this is how you deal with different constructors
-    this.location = createVector(xVal, windowHeight/2); //placemnet of the first branch, or trunk
+function Pathfinder(parent, direction = 0, xVal = 0) {
+  //the class for making branches - note that it allows for another branch object to be passed in...
+  if (parent === undefined) {
+    //if this is the first branch, then use the following settings - note that this is how you deal with different constructors
+    this.location = createVector(xVal, windowHeight / 2); //placemnet of the first branch, or trunk
     this.velocity = createVector(direction, 0); //direction for the trunk, here 1 in the x axis = left
     this.diameter = 55; //size of trunk
-  }
-  else{
+  } else {
     this.location = parent.location.copy(); //for a new branch, copy in the last position, the end of the branch
     this.velocity = parent.velocity.copy(); //for a new branch, copy the direction the old branch was going
-    var area = PI*sq(parent.diameter/2); //find the area of the branch cross section
-    var newDiam = sqrt(area/2/PI)*2; //divide it by two and calculate the diameter of this new branch
+    var area = PI * sq(parent.diameter / 2); //find the area of the branch cross section
+    var newDiam = sqrt(area / 2 / PI) * 2; //divide it by two and calculate the diameter of this new branch
     this.diameter = newDiam; //save the new diameter
     parent.diameter = newDiam; //the parent branch keeps on growing, but with the new diameter as well
   }
 
-  this.update = function() { //update the growth of the tree
-    if (this.diameter>2) { //this indicates when the tree should stop growing, the smallest branch diameter
+  this.update = function () {
+    //update the growth of the tree
+    if (this.diameter > 2) {
+      //this indicates when the tree should stop growing, the smallest branch diameter
       this.location.add(this.velocity); //update the location of the end of the branch
       //this determines how straight or curly the growth is, here it is +-13% variation
-      var bump = new createVector(random(-.87, .87), random(-.87, .87)); 
+      var bump = new createVector(random(-0.87, 0.87), random(-0.87, 0.87));
       bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
       this.velocity.add(bump); //apply that to the velocity for the next growth
       this.velocity.normalize(); //make sure our vector is normalized to be between 0-1
-      if (random(0, 1)<.01) { //this is the probability that the tree splits, here it is 1% chance
+      if (random(0, 1) < 0.01) {
+        //this is the probability that the tree splits, here it is 1% chance
         paths.push(new Pathfinder(this)); //if it is time for a split, make a new path
       }
     }
-  }
+  };
 }

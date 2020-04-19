@@ -6,6 +6,43 @@ a {
   text-decoration: inherit;
 }
 
+.homeTopBG {
+  background-image: url("../media/main-app.png");
+  background-repeat: no-repeat;
+  width: 100%;
+  /* height: 20%; */
+  height: 50%;
+  position: absolute;
+  background-size: cover;
+}
+
+.heroImageAnimation {
+  /* width: 100%;
+  height: auto; */
+
+  /* transform: scale(2); */
+
+  -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-animation: imageWipeIn 2s steps(29) forwards;
+  animation: imageWipeIn 2s steps(29) forwards;
+}
+
+@keyframes imageWipeIn {
+  0% {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+  100% {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
 .textLabel {
   color: var(--white, white);
   font-family: "DM Sans", sans-serif;
@@ -186,7 +223,9 @@ a {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  flex-direction: column;
+
+  flex-direction: row;
+  padding: 0px 80px 0px 80px;
 }
 
 /* WRAPPER FADE OUT TRANSITION */
@@ -195,11 +234,10 @@ a {
 }
 
 /* HOME PAGE BACKGROUND */
-#homeBg {
-  background-image: url("../media/launch-background-image.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+/* #homeBg { */
+/* background-image: url("../media/launch-background-image.png");
+  background-repeat: no-repeat; */
+/* } */
 
 /* TEXT CONTAINER */
 .launchTextContainer {
@@ -227,6 +265,7 @@ a {
   font-weight: 400;
   font-size: 2.5vh;
   line-height: 4vh;
+  width: 40%;
 }
 
 /* BEGIN BUTTON CONTAINER */
@@ -328,14 +367,19 @@ a {
 /* MOBILE VERSION */
 @media screen and (max-width: 1200px) {
   /* HOME PAGE BACKGROUND */
-  #homeBg {
+  /* #homeBg {
+  } */
+  .homeTopBG {
     background-image: none;
   }
 
   img {
     display: none;
   }
-
+  .containHome {
+    flex-direction: column;
+    padding: 0;
+  }
   /* TEXT CONTAINER */
   .launchTextContainer {
     height: 55%;
@@ -390,5 +434,13 @@ a {
 
   .beginArrowLine:hover {
     width: 49px;
+  }
+  .beginButton {
+    width: 244px;
+    height: 244px;
+  }
+  .beginCircle {
+    width: 208px;
+    height: 208px;
   }
 }

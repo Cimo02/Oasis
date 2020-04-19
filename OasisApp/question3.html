@@ -8,98 +8,101 @@
 
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/questions.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script src="scripts/index.js"></script>
 </head>
 
 <body class="3">
+  <div class="desktopVersion">
+    <div class="wrapper">
 
-  <div class="wrapper">
+      <div class="questionWrapper">
 
-    <div class="questionWrapper">
+        <div class="questionInfoContainer">
 
-      <div class="questionInfoContainer">
+          <!-- Question Text -->
+          <div class="questionTextContainer">
+            <h1 class="questionText">I would<br>describe<br>myself as...</h1>
+          </div>
 
-        <!-- Question Text -->
-        <div class="questionTextContainer">
-          <h1 class="questionText">I would<br>describe<br>myself as...</h1>
+          <!-- Navigation -->
+          <div class="navigationControls">
+
+            <div class="navArrowContainer" onclick="back()">
+              <div class="leftNavArrow"></div>
+            </div>
+
+            <div class="navBreadcrumbContainer">
+              <div class="navBreadcrumb "></div>
+              <div class="navBreadcrumb"></div>
+              <div class="navBreadcrumb navCurrentBreadcrumb"></div>
+            </div>
+
+            <div class="navArrowContainer" onclick="answerQuestion()">
+              <div class="rightNavArrow"></div>
+            </div>
+
+          </div>
         </div>
 
-        <!-- Navigation -->
-        <div class="navigationControls">
+        <div class="optionRowContainer">
 
-          <div class="navArrowContainer" onclick="back(3)">
-            <div class="leftNavArrow"></div>
+          <!-- Option 1 -->
+          <div class="optionContainer">
+
+            <div class="optionImageContainer">
+              <div class="pillShape"></div>
+              <img src="media/extroverted.png" class="optionImage">
+            </div>
+
+            <div class="optionText">
+              <p>An Extrovert</p>
+            </div>
+
+            <div class="buttonContainer" onclick="answerQuestion(0)" id="0">
+              <div class="buttonOuter"></div>
+              <div class="buttonInner"></div>
+            </div>
+
           </div>
 
-          <div class="navBreadcrumbContainer">
-            <div class="navBreadcrumb "></div>
-            <div class="navBreadcrumb"></div>
-            <div class="navBreadcrumb navCurrentBreadcrumb"></div>
+          <!-- Option 2 -->
+          <div class="optionContainer">
+
+            <div class="optionImageContainer">
+              <div class="pillShape"></div>
+              <img src="media/ambiverted.png" class="optionImage">
+            </div>
+
+            <div class="optionText">
+              <p>An Ambivert</p>
+            </div>
+
+            <div class="buttonContainer" onclick="answerQuestion(1)" id="1">
+              <div class="buttonOuter"></div>
+              <div class="buttonInner"></div>
+            </div>
+
           </div>
 
-          <div class="navArrowContainer" onclick="answerQuestion(3)">
-            <div class="rightNavArrow"></div>
-          </div>
+          <!-- Option 3 -->
+          <div class="optionContainer">
 
-        </div>
-      </div>
+            <div class="optionImageContainer">
+              <div class="pillShape"></div>
+              <img src="media/introverted.png" class="optionImage">
+            </div>
 
-      <div class="optionRowContainer">
+            <div class="optionText">
+              <p>An Introvert</p>
+            </div>
 
-        <!-- Option 1 -->
-        <div class="optionContainer">
+            <div class="buttonContainer" onclick="answerQuestion(2)" id="2">
+              <div class="buttonOuter"></div>
+              <div class="buttonInner"></div>
+            </div>
 
-          <div class="optionImageContainer">
-            <div class="pillShape"></div>
-            <img src="media/extroverted.png" class="optionImage">
-          </div>
-
-          <div class="optionText">
-            <p>An Extrovert</p>
-          </div>
-
-          <div class="buttonContainer" id="1">
-            <div class="buttonOuter"></div>
-            <div class="buttonInner"></div>
-          </div>
-
-        </div>
-
-        <!-- Option 2 -->
-        <div class="optionContainer">
-
-          <div class="optionImageContainer">
-            <div class="pillShape"></div>
-            <img src="media/ambiverted.png" class="optionImage">
-          </div>
-
-          <div class="optionText">
-            <p>An Ambivert</p>
-          </div>
-
-          <div class="buttonContainer" id="2">
-            <div class="buttonOuter"></div>
-            <div class="buttonInner"></div>
-          </div>
-
-        </div>
-
-        <!-- Option 3 -->
-        <div class="optionContainer">
-
-          <div class="optionImageContainer">
-            <div class="pillShape"></div>
-            <img src="media/introverted.png" class="optionImage">
-          </div>
-
-          <div class="optionText">
-            <p>An Introvert</p>
-          </div>
-
-          <div class="buttonContainer" id="3">
-            <div class="buttonOuter"></div>
-            <div class="buttonInner"></div>
           </div>
 
         </div>
@@ -108,6 +111,70 @@
 
     </div>
 
+  </div>
+  <div class="mobileVersion">
+    <div class="mobileQuestionLeftRail">
+
+      <!-- Question Text -->
+      <div class="questionTextContainer">
+        <h1 class="questionText">Where are<br>you most<br>relaxed?</h1>
+      </div>
+
+      <!-- Option 1 -->
+      <div class="optionContainer">
+
+        <div class="optionImageContainer">
+          <div class="pillShape"></div>
+          <img src="media/extroverted.png" class="optionImage">
+        </div>
+        <div class="textButtonContainer">
+          <div class="optionText">
+            <p>An Exrovert</p>
+          </div>
+
+          <div class="buttonContainer" onclick="answerQuestion(0)" id="0">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mobileQuestionRightRail">
+      <!-- Option 2 -->
+      <div class="optionContainer">
+        <div class="optionImageContainer">
+          <div class="pillShape"></div>
+          <img src="media/ambiverted.png" class="optionImage">
+        </div>
+        <div class="textButtonContainer">
+          <div class="optionText">
+            <p>An Ambivert</p>
+          </div>
+          <div class="buttonContainer" onclick="answerQuestion(1)" id="1">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 3 -->
+      <div class="optionContainer">
+        <div class="optionImageContainer">
+          <div class="pillShape"></div>
+          <img src="media/introverted.png" class="optionImage">
+        </div>
+        <div class="textButtonContainer">
+          <div class="optionText">
+            <p>An Introvert</p>
+          </div>
+          <div class="buttonContainer" onclick="answerQuestion(2)" id="2">
+            <div class="buttonOuter"></div>
+            <div class="buttonInner"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
 </body>

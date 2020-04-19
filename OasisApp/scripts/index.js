@@ -13,11 +13,11 @@ let flow = [
   "question1.html",
   "question2.html",
   "question3.html",
-  "calibrationPage.html",
+  // "calibrationPage.html",
   "app.html",
 ];
 let url = window.location.pathname;
-4;
+
 let fileName = url.substring(url.lastIndexOf("/") + 1);
 
 // clear answers when begin button is clicked
@@ -27,10 +27,12 @@ const beginQuestions = () => {
 
   // page transition
   document.querySelector(".wrapper").classList.add("fadeOut");
-  setTimeout(
-    () => (window.location.href = flow[flow.indexOf(fileName) + 1]),
-    1000
-  );
+  // setTimeout(
+  //   () => (window.location.href = flow[flow.indexOf(fileName) + 1]),
+  //   1000
+  // );
+
+  setTimeout(() => (window.location.href = "question1.html"), 1250);
 };
 
 // give option buttons selection styling on click
@@ -98,24 +100,35 @@ const back = () => {
   fadeAnimations();
   setTimeout(
     () => (window.location.href = flow[flow.indexOf(fileName) - 1]),
-    2000
+    1250
   );
 };
 
 // answer current question
-const answerQuestion = () => {
-  if (currentAnswer === null) {
-    return;
+const answerQuestion = (val) => {
+  if (currentAnswer === null || currentAnswer === undefined) {
+    currentAnswer = val;
+    answers = JSON.parse(localStorage.getItem("answers"));
+    answers[document.body.className - 1] = currentAnswer;
+    localStorage.setItem("answers", JSON.stringify(answers));
+
+    fadeAnimations();
+    setTimeout(
+      () => (window.location.href = flow[flow.indexOf(fileName) + 1]),
+      1250
+    );
+
+    // return;
+  } else {
+    console.log("Answered");
+    answers = JSON.parse(localStorage.getItem("answers"));
+    answers[document.body.className - 1] = currentAnswer;
+    localStorage.setItem("answers", JSON.stringify(answers));
+
+    fadeAnimations();
+    setTimeout(
+      () => (window.location.href = flow[flow.indexOf(fileName) + 1]),
+      1250
+    );
   }
-
-  answers = JSON.parse(localStorage.getItem("answers"));
-  answers[document.body.className - 1] = currentAnswer;
-  localStorage.setItem("answers", JSON.stringify(answers));
-
-  fadeAnimations();
-  setTimeout(
-    () => (window.location.href = flow[flow.indexOf(fileName) + 1]),
-    2000
-  );
 };
-3;
