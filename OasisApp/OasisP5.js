@@ -22,6 +22,8 @@ var thirdColor;
 var fourthColor;
 var backgroundColor;
 
+let pictureTaken = false;
+
 var scene; // 0 is the launch screen, 1-4 are questions, 5 is the tutorial and 6 is the visualization
 
 // set simulation to always true for ease of use for the devs
@@ -55,7 +57,8 @@ function preload() {
   launchBackgroundImg = loadImage("media/launch-background-image.png");
   launchExtrasImg = loadImage("media/launch-extras.png");
 
-  isSimulation = JSON.parse(localStorage.getItem("simulated"));
+  // Turned off belt check cause its not being used
+  // isSimulation = JSON.parse(localStorage.getItem("simulated"));
   print("simulated: " + isSimulation);
 }
 
@@ -85,7 +88,7 @@ function setup() {
     actualVal = 50;
     rising = true;
   } else {
-    setupArduinoConnection();
+    // setupArduinoConnection();
   }
 
   // Scene Type
@@ -126,8 +129,9 @@ function draw() {
   }
 
   // Save generated art once the timer finished
-  if (timerHasFinished && !isMobile) {
+  if (timerHasFinished && !isMobile && !pictureTaken) {
     saveCanvas(cnv, "Oasis_000", "png");
+    pictureTaken = true;
     console.log("Finished Timer");
   }
 
