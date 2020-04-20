@@ -451,15 +451,17 @@ function forestSettings() {
   ellipseMode(CENTER);
   smooth();
   fill(color4);
-  paths.push(new Pathfinder(undefined, 1, 0));
-  paths.push(new Pathfinder(undefined, -1, windowWidth));
+  paths.push(new Pathfinder(undefined, 1, -100, random(windowHeight)));
+  paths.push(
+    new Pathfinder(undefined, -1, windowWidth + 100, random(windowHeight))
+  );
 }
 
-function Pathfinder(parent, direction = 0, xVal = 0) {
+function Pathfinder(parent, direction, xVal, yVal) {
   //the class for making branches - note that it allows for another branch object to be passed in...
   if (parent === undefined) {
     //if this is the first branch, then use the following settings - note that this is how you deal with different constructors
-    this.location = createVector(xVal, windowHeight / 2); //placemnet of the first branch, or trunk
+    this.location = createVector(xVal, yVal); //placemnet of the first branch, or trunk
     this.velocity = createVector(direction, 0); //direction for the trunk, here 1 in the x axis = left
     this.diameter = 55; //size of trunk
   } else {
@@ -477,8 +479,9 @@ function Pathfinder(parent, direction = 0, xVal = 0) {
       //this indicates when the tree should stop growing, the smallest branch diameter
       this.location.add(this.velocity); //update the location of the end of the branch
       //this determines how straight or curly the growth is, here it is +-13% variation
-      var bump = new createVector(random(-0.87, 0.87), random(-0.87, 0.87));
-      bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
+      var bump = new createVector(random(-2, 2), random(-2, 2));
+      // bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
+      bump.mult(actualVal / 10000);
       this.velocity.add(bump); //apply that to the velocity for the next growth
       this.velocity.normalize(); //make sure our vector is normalized to be between 0-1
       if (random(0, 1) < 0.01) {
