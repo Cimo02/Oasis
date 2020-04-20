@@ -481,7 +481,7 @@ function Pathfinder(parent, direction, xVal, yVal) {
       //this determines how straight or curly the growth is, here it is +-13% variation
       var bump = new createVector(random(-2, 2), random(-2, 2));
       // bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
-      bump.mult(actualVal / 10000);
+      bump.mult(0.1);
       this.velocity.add(bump); //apply that to the velocity for the next growth
       this.velocity.normalize(); //make sure our vector is normalized to be between 0-1
       if (random(0, 1) < 0.01) {
