@@ -267,7 +267,7 @@ a {
   font-weight: 400;
   font-size: 2.5vh;
   line-height: 4vh;
-  width: 40%;
+  /* width: 40%; */
 }
 
 /* BEGIN BUTTON CONTAINER */
@@ -423,6 +423,8 @@ a {
     background-color: #111e47;
     /* padding-left: 5vw; */
     width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 
   /* MAIN HEADER */
