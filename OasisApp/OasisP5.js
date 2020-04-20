@@ -69,6 +69,7 @@ function setup() {
   // Set the global stylings, color, theme, scene
   setupGlobalStyling();
   background("#E8EDF4");
+  frameRate(25);
 
   // Select Scene to setup
   switch (ques1) {
@@ -86,7 +87,8 @@ function setup() {
   // Establish connection with the arduino
   if (isSimulation) {
     actualVal = 50;
-    rising = true;
+    state = states[0];
+    //setInterval(simulate(), 40);
   } else {
     // setupArduinoConnection();
   }
@@ -110,7 +112,7 @@ function draw() {
     // don't map "actualVal" unless we're using real data
     actualVal = map(inData, lowendStorage, highendStorage, 0, 500, true);
   }
-  print("value: " + actualVal); //debug breathing value
+  console.log("value: " + actualVal); //debug breathing value
 
   // Select which one to draw
   switch (ques1) {
@@ -135,17 +137,17 @@ function draw() {
     console.log("Finished Timer");
   }
 
-  if (timerExhaleStarted) {
-    console.log("Exhale Started");
-    timerExhaleStarted = false;
+  if (timerExhaleEnded) {
+    console.log("Exhale Ended");
+    timerExhaleEnded = false;
   }
-  if (timerHoldStarted) {
-    console.log("Hold Started");
-    timerHoldStarted = false;
+  if (timerHoldEnded) {
+    console.log("Hold Ended");
+    timerHoldEnded = false;
   }
-  if (timerInhaleStarted) {
-    console.log("Inhale Started");
-    timerInhaleStarted = false;
+  if (timerInhaleEnded) {
+    console.log("Inhale Ended");
+    timerInhaleEnded = false;
   }
 }
 
@@ -344,16 +346,31 @@ function setupArduinoConnection() {
   serial.open(portName); // open a serial port
 }
 
-var rising; //is actualVal increasing or decreasing?
+var state; //is actualVal increasing or decreasing?
+let states = ["inhale", "hold", "exhale"];
 function simulate() {
-  if (actualVal < 50 || actualVal > 450) {
-    rising = !rising;
+  if (timerInhaleEnded) {
+    state = states[1];
+  } else if (timerHoldEnded) {
+    state = states[2];
+  } else if (timerExhaleEnded) {
+    state = states[0];
   }
 
-  if (rising) {
-    actualVal++;
-  } else {
-    actualVal--;
+  switch(state) {
+    case "inhale": 
+      // runs for ~120 frames
+      actualVal = actualVal + 3.3334; //400/120
+      if (actualVal > 450) { actualVal = 450; } //lock val if it goes over maximum
+      break;
+    case "hold":
+      // value should be 450 (max) for hold)
+      break;
+    case "exhale":
+      // runs for ~160 frames
+      actualVal = actualVal - 2.5; //400/160
+      if (actualVal < 50) { actualVal = 50; } //lock val if it drops below minimum
+      break;
   }
 }
 
@@ -444,9 +461,9 @@ function beachSettings() {
     );
   }
 }
+
 // FOREST VISUAL
 function forestSettings() {
-  frameRate(30); // how fast the tree is growing
   tree = createGraphics(windowWidth, windowHeight); //decide how big the image is to hold the tree drawing
   ellipseMode(CENTER);
   smooth();
