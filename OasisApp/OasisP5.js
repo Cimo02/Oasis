@@ -112,7 +112,7 @@ function draw() {
     // don't map "actualVal" unless we're using real data
     actualVal = map(inData, lowendStorage, highendStorage, 0, 500, true);
   }
-  console.log("value: " + actualVal); //debug breathing value
+  // console.log("value: " + actualVal); //debug breathing value
 
   // Select which one to draw
   switch (ques1) {
@@ -297,15 +297,15 @@ function setupGlobalStyling() {
   // Set Personality
   personalities = [
     {
-      name: "Introverted",
+      name: "Extroverted",
       type: 1,
     },
     {
-      name: "Extroverted",
+      name: "Ambiverted",
       type: 2,
     },
     {
-      name: "Ambiverted",
+      name: "Introverted",
       type: 3,
     },
   ];
@@ -331,6 +331,8 @@ function setupGlobalStyling() {
   backgroundColor = themes[ques2].background;
   // Set Third Question
   personalityType = personalities[ques3].name;
+  console.log(personalityType);
+  personalityNum = personalities[ques3].type;
 }
 
 function setupArduinoConnection() {
@@ -357,11 +359,13 @@ function simulate() {
     state = states[0];
   }
 
-  switch(state) {
-    case "inhale": 
+  switch (state) {
+    case "inhale":
       // runs for ~120 frames
       actualVal = actualVal + 3.3334; //400/120
-      if (actualVal > 450) { actualVal = 450; } //lock val if it goes over maximum
+      if (actualVal > 450) {
+        actualVal = 450;
+      } //lock val if it goes over maximum
       break;
     case "hold":
       // value should be 450 (max) for hold)
@@ -369,7 +373,9 @@ function simulate() {
     case "exhale":
       // runs for ~160 frames
       actualVal = actualVal - 2.5; //400/160
-      if (actualVal < 50) { actualVal = 50; } //lock val if it drops below minimum
+      if (actualVal < 50) {
+        actualVal = 50;
+      } //lock val if it drops below minimum
       break;
   }
 }
@@ -380,9 +386,14 @@ function homeSettings() {
   // 1920/10
   // while i is less then width
 
-  for (i = 0; i < 25; i++) {
+  for (i = 0; i < 40; i++) {
     ballArr.push(
-      new fallParticle(random(width), random(height), random(1, 20), i)
+      new fallParticle(
+        random(-400, width),
+        random(-400, height),
+        random(1, 20),
+        i
+      )
     );
   }
 }
@@ -402,28 +413,39 @@ class fallParticle {
   }
 
   update(val) {
+    var breathVal = map(actualVal, 0, 450, 0, 100);
+    // add breath val to someting to do with motion
     this.xOff += 0.00003 * this.size;
     this.yOff += 0.00005 * this.size;
+
     this.nx = noise(this.xOff) * (width * 2.8);
     this.ny = noise(this.yOff) * (height * 2.8);
-    // console.log(this.nx);
+
+    // if (this.id % 2 == 0) {
+    //   this.x = this.nx + breathVal;
+    //   this.y = this.ny + breathVal;
+    // } else {
+    //   this.x = this.nx - breathVal;
+    //   this.y = this.ny - breathVal;
+    // }
     this.x = this.nx;
     this.y = this.ny;
     this.x -= width / 2;
     this.y -= height / 2;
+
     // this.y += this.inc;
     // this.x += this.inc;
 
-    if (this.y > height + 20) {
-      this.y = 0;
-      this.x = random(0, width);
-      this.size = random(1, 20);
-    }
-    if (this.x > width + 20) {
-      this.y = 0;
-      this.x = random(0, width);
-      this.size = random(1, 20);
-    }
+    // if (this.y > height + 20) {
+    //   this.y = 0;
+    //   this.x = random(0, width);
+    //   this.size = random(1, 20);
+    // }
+    // if (this.x > width + 20) {
+    //   this.y = 0;
+    //   this.x = random(0, width);
+    //   this.size = random(1, 20);
+    // }
   }
   setInc() {
     this.val = actualVal;
@@ -455,9 +477,14 @@ function beachSettings() {
   background(255);
 
   noStroke();
-  for (i = 0; i < 300; i++) {
+  for (i = 0; i < 200; i++) {
     rainArr.push(
-      new rainParticle(random(width), random(height), random(5, 10), i)
+      new rainParticle(
+        random(-200, width),
+        random(-200, height),
+        random(5, 10),
+        i
+      )
     );
   }
 }
@@ -520,6 +547,8 @@ class rainParticle {
     this.randSize = floor(random(1, 6));
     this.sizes = [];
     this.n = 0;
+    this.rotation = random(360);
+
     for (let i; i < this.randSize; i++) {
       // this.sizes.push(random(this.size));
       this.sizes.push(this.size + i);
@@ -532,22 +561,13 @@ class rainParticle {
   kill() {
     this.isDead = true;
   }
+
   dead() {
     return this.isDead;
   }
   update(val) {
     this.xoff = this.xoff + 0.01;
-    // this.n = noise(this.xOff) * width;
-    // this.x += slide.value();
-    // if (this.y % 10 == 0) {
-    //   this.x += 0.1;
-    //   // rotate(this.y*0.0001);
-    // } else {
-    //   this.x -= 0.1;
-    //   rotate(this.x * 0.0000001);
-    // }
 
-    // console.log(this.n);
     if (this.limitCounter >= this.yLimit) {
       this.isDead = true;
     } else {
@@ -565,7 +585,6 @@ class rainParticle {
 
     for (let i = 0; i < this.randSize; i++) {
       this.sizes.push(random(this.size));
-      // this.sizes.push(this.size + (i));
     }
 
     this.isDead = false;
@@ -573,9 +592,15 @@ class rainParticle {
 
   draw() {
     push();
+
     if (this.y > 10) {
       // for (let i = 0; i < this.sizes.length; i++) {
-      let breathVal = map(actualVal, 0, 500, -0.5, 0.5);
+      // if (actualVal < 440) {
+      // var breathVal = map(actualVal, 0, 450, 0, 0.24);
+      // } else {
+      var breathVal = map(actualVal, 0, 450, 0.34, 0);
+      // }
+
       for (let i = 0; i < this.sizes.length; i++) {
         this.x += this.n * 0.0001;
         this.x -= noise(this.n) * 0.0001;
@@ -603,12 +628,39 @@ class rainParticle {
           fill(color4);
         }
 
-        ellipse(
-          this.x + sin(angle),
-          this.y + i * 15,
-          this.sizes[i],
-          this.sizes[i]
-        );
+        // name: "Introverted"
+        // type: 1,
+
+        // name: "Extroverted"
+        // type: 2
+
+        // name: "Ambiverted"
+        // type: 3
+
+        if (personalityType == "Introverted") {
+          ellipse(
+            this.x + sin(angle),
+            this.y + i * 15,
+            this.sizes[i],
+            this.sizes[i]
+          );
+        } else if (personalityType == "Extroverted") {
+          rect(
+            this.x + sin(angle),
+            this.y + i * 15,
+            this.sizes[i],
+            this.sizes[i]
+          );
+        } else if (personalityType == "Ambiverted") {
+          // console.log("personality 3");
+          push();
+          rotate(this.rotation * i);
+          translate(this.x + sin(angle), this.y + i * 15);
+          scale(this.size * 0.2);
+          triangle(300, 100, 320, 100, 310, 80);
+          pop();
+        }
+
         // ellipse(this.x + sin(angle) + slide.value(), this.y + (i * 20), this.size, this.size);
       }
     }
