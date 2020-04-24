@@ -548,6 +548,21 @@ class rainParticle {
     this.sizes = [];
     this.n = 0;
     this.rotation = random(360);
+    this.color;
+    this.opac = floor(random(0, 100));
+    if (this.id % 3 == 0) {
+      this.color = color(color1);
+      this.color.setAlpha(this.opac);
+    } else if (this.id % 2 == 0) {
+      this.color = color(color2);
+      this.color.setAlpha(this.opac);
+    } else if (this.id % 5 == 0) {
+      this.color = color(color3);
+      this.color.setAlpha(this.opac);
+    } else {
+      this.color = color(color4);
+      this.color.setAlpha(this.opac);
+    }
 
     for (let i; i < this.randSize; i++) {
       // this.sizes.push(random(this.size));
@@ -576,8 +591,8 @@ class rainParticle {
     }
   }
   resetExistence() {
-    this.x = random(width);
-    this.y = random(height);
+    this.x = random(-200, width);
+    this.y = random(-200, height);
 
     this.yLimit = random(10, 200);
     this.limitCounter = 0;
@@ -592,7 +607,7 @@ class rainParticle {
 
   draw() {
     push();
-
+    rotate(actualVal / 10000);
     if (this.y > 10) {
       // for (let i = 0; i < this.sizes.length; i++) {
       // if (actualVal < 440) {
@@ -612,21 +627,7 @@ class rainParticle {
           this.x += breathVal;
         }
 
-        let opac = this.size * 3.5;
-
-        if (this.id % 3 == 0) {
-          fill(194, 231, 245, opac);
-          fill(color1);
-        } else if (this.id % 2 == 0) {
-          fill(77, 180, 219, opac);
-          fill(color2);
-        } else if (this.id % 5 == 0) {
-          fill(5, 85, 167, opac);
-          fill(color3);
-        } else {
-          fill(0, 19, 81, opac);
-          fill(color4);
-        }
+        fill(this.color);
 
         // name: "Introverted"
         // type: 1,

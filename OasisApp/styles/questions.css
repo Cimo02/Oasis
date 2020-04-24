@@ -279,8 +279,9 @@
 
   transform: scale(0.75);
 
-  -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
-  mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  mask: url("../media/spriteSheet.png");
+  -webkit-mask: url("../media/spriteSheet.png");
+
   -webkit-mask-size: cover;
   mask-size: cover;
   -webkit-animation: imageWipeIn 2s steps(29) forwards;
