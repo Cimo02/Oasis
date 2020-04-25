@@ -513,6 +513,12 @@ a {
   }
 }
 @media screen and (max-width: 600px) {
+  .textHeadline {
+    margin-top: 0;
+  }
+  .launchTextContainer {
+    height: 32%;
+  }
   /* MAIN HEADER */
   .textHeadline {
     color: #e8edf4;
