@@ -348,8 +348,10 @@ function setupArduinoConnection() {
   serial.open(portName); // open a serial port
 }
 
-var state; //is actualVal increasing or decreasing?
+var state; // What state is the timer in?
 let states = ["inhale", "hold", "exhale"];
+let INHALE_INCR = 3.3334; //400/120
+let EXHALE_INCR = 2.5; //400/160
 function simulate() {
   if (timerInhaleEnded) {
     state = states[1];
@@ -360,22 +362,16 @@ function simulate() {
   }
 
   switch (state) {
-    case "inhale":
-      // runs for ~120 frames
-      actualVal = actualVal + 3.3334; //400/120
-      if (actualVal > 450) {
-        actualVal = 450;
-      } //lock val if it goes over maximum
+    case "inhale": // runs for ~120 frames
+      if (actualVal > 450) { break; } //lock val if it goes over maximum  
+      actualVal = actualVal + INHALE_INCR; 
       break;
     case "hold":
-      // value should be 450 (max) for hold)
+      // value should be 450 (max) for hold
       break;
-    case "exhale":
-      // runs for ~160 frames
-      actualVal = actualVal - 2.5; //400/160
-      if (actualVal < 50) {
-        actualVal = 50;
-      } //lock val if it drops below minimum
+    case "exhale": // runs for ~160 frames
+      if (actualVal < 50) { break; } //lock val if it drops below minimum
+      actualVal = actualVal - EXHALE_INCR; 
       break;
   }
 }
