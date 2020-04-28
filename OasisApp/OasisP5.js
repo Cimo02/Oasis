@@ -119,12 +119,15 @@ function draw() {
   if (personalityType == "Introverted") {
     // tint(0, 25, 0);
     tint(50);
+    // console.log("TINT: INTRO");
   } else if (personalityType == "Extroverted") {
     // tint(0, 255, 0);
     tint(150);
+    // console.log("TINT: EXTRA");
   } else if (personalityType == "Ambiverted") {
     // tint(0, 150, 0);
     tint(255);
+    // console.log("TINT: AMBI");
   }
 
   switch (ques1) {
@@ -646,32 +649,27 @@ class rainParticle {
         } else {
           this.x += breathVal;
         }
-
+        if (personalityType == "Introverted") {
+          // tint(0, 25, 0);
+          tint(50);
+          // console.log("TINT: INTRO");
+        } else if (personalityType == "Extroverted") {
+          // tint(0, 255, 0);
+          tint(150);
+          // console.log("TINT: EXTRA");
+        } else if (personalityType == "Ambiverted") {
+          // tint(0, 150, 0);
+          tint(255);
+          // console.log("TINT: AMBI");
+        }
         fill(this.color);
 
-        if (personalityType == "Introverted") {
-          ellipse(
-            this.x + sin(angle),
-            this.y + i * 20,
-            actualVal / 13,
-            actualVal / 13
-          );
-        } else if (personalityType == "Extroverted") {
-          rect(
-            this.x + sin(angle),
-            this.y + (i * actualVal) / 10,
-            actualVal / (15 + i * 4),
-            actualVal / (15 + i * 4)
-          );
-        } else if (personalityType == "Ambiverted") {
-          // console.log("personality 3");
-          push();
-          rotate(this.rotation * i);
-          translate(this.x + sin(angle), this.y + i * 15);
-          scale(this.size * 0.2);
-          triangle(300, 100, 320, 100, 310, 80);
-          pop();
-        }
+        rect(
+          this.x + sin(angle),
+          this.y + (i * actualVal) / 10,
+          actualVal / (15 + i * 4),
+          actualVal / (15 + i * 4)
+        );
 
         // ellipse(this.x + sin(angle) + slide.value(), this.y + (i * 20), this.size, this.size);
       }

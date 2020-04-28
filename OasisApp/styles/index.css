@@ -8,6 +8,28 @@ a {
 .boldBarlow {
   font-weight: 600;
 }
+
+.mobileWhite {
+  background-color: #e8edf4;
+}
+
+.restartBackHome {
+  width: auto;
+}
+.BackHome {
+  margin-bottom: 70px;
+  font-family: "Barlow", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  /* line-height: 19px; */
+  /* height: 40px; */
+  /* or 133% */
+  margin-top: -20px;
+
+  text-align: center;
+
+  color: #113447;
+}
 .homeTopBG {
   background-image: url("../media/main-app.png");
   background-repeat: no-repeat;
@@ -268,7 +290,7 @@ a {
   font-weight: 400;
   font-size: 2.5vh;
   line-height: 4vh;
-  max-width: 1000px;
+  max-width: 700px;
   /* width: 40%; */
 }
 
@@ -429,18 +451,31 @@ a {
     font-size: 26px;
   }
 }
+.BackHome {
+  display: none;
+}
+
 /* MOBILE VERSION */
 @media screen and (max-width: 780px) {
   /* HOME PAGE BACKGROUND */
   /* #homeBg {
   } */
+
   .homeTopBG {
     background-image: none;
   }
-
+  .restartBackHome {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
   .containHome {
     flex-direction: column;
     padding: 0;
+  }
+  .BackHome {
+    display: block;
   }
   /* TEXT CONTAINER */
   .launchTextContainer {
@@ -452,7 +487,7 @@ a {
     flex-direction: column;
     justify-content: center;
     animation: none;
-    background-color: #111e47;
+    background-color: #113447;
     /* padding-left: 5vw; */
     width: 100%;
     padding-top: 30px;
