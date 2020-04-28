@@ -115,6 +115,18 @@ function draw() {
   // console.log("value: " + actualVal); //debug breathing value
 
   // Select which one to draw
+
+  if (personalityType == "Introverted") {
+    // tint(0, 25, 0);
+    tint(50);
+  } else if (personalityType == "Extroverted") {
+    // tint(0, 255, 0);
+    tint(150);
+  } else if (personalityType == "Ambiverted") {
+    // tint(0, 150, 0);
+    tint(255);
+  }
+
   switch (ques1) {
     case 0: // Forest Visual
       forestVisual(actualVal);
@@ -132,7 +144,7 @@ function draw() {
 
   // Save generated art once the timer finished
   if (timerHasFinished && !isMobile && !pictureTaken) {
-    saveCanvas(cnv, "Oasis_000", "png");
+    saveCanvas(cnv, "Oasis", "png");
     pictureTaken = true;
     console.log("Finished Timer");
   }
@@ -178,7 +190,7 @@ function beachVisual() {
   }
 
   if (time % 2 == 0) {
-    fill(232, 237, 243, 10);
+    fill(232, 237, 243, 30);
     rect(0, 0, width, height);
   }
   // background(255, 10);
@@ -207,18 +219,22 @@ function beachVisual() {
 ///////////////////////////////////////
 function forestVisual(val) {
   image(tree, 0, 0, width, height); //here we draw the tree to the screen every frame
-
+  // tree.background(255, 10);
   tree.noStroke(); //tree has no stroke
 
   let c1 = color(color1);
   let c4 = color(color4);
-
+  c1.setAlpha(10);
+  c4.setAlpha(10);
   for (var i = 0; i < paths.length; i++) {
     //start drawing the tree by going thru all the branches
     var loc = paths[i].location.copy(); //grab a copy of their location
     var diam = paths[i].diameter; //grab a copy of the branch diameter
+    tree.push();
+    tree.blendMode(BURN);
     tree.fill(lerpColor(c4, c1, actualVal / 500)); //color of the tree
     tree.ellipse(loc.x, loc.y, diam, diam); //here we draw the next ellipse for each branch into the tree buffer
+    tree.pop();
     paths[i].update(); //update the position and direction for the growth of each branch
   }
 }
@@ -363,15 +379,19 @@ function simulate() {
 
   switch (state) {
     case "inhale": // runs for ~120 frames
-      if (actualVal > 450) { break; } //lock val if it goes over maximum  
-      actualVal = actualVal + INHALE_INCR; 
+      if (actualVal > 450) {
+        break;
+      } //lock val if it goes over maximum
+      actualVal = actualVal + INHALE_INCR;
       break;
     case "hold":
       // value should be 450 (max) for hold
       break;
     case "exhale": // runs for ~160 frames
-      if (actualVal < 50) { break; } //lock val if it drops below minimum
-      actualVal = actualVal - EXHALE_INCR; 
+      if (actualVal < 50) {
+        break;
+      } //lock val if it drops below minimum
+      actualVal = actualVal - EXHALE_INCR;
       break;
   }
 }
@@ -381,7 +401,7 @@ function homeSettings() {
   noStroke();
   // 1920/10
   // while i is less then width
-
+  frameRate(60);
   for (i = 0; i < 40; i++) {
     ballArr.push(
       new fallParticle(
@@ -406,6 +426,9 @@ class fallParticle {
     this.xOff = random(100);
     this.yOff = random(100);
     this.val;
+
+    this.color;
+    this.opac = 50;
   }
 
   update(val) {
@@ -417,48 +440,34 @@ class fallParticle {
     this.nx = noise(this.xOff) * (width * 2.8);
     this.ny = noise(this.yOff) * (height * 2.8);
 
-    // if (this.id % 2 == 0) {
-    //   this.x = this.nx + breathVal;
-    //   this.y = this.ny + breathVal;
-    // } else {
-    //   this.x = this.nx - breathVal;
-    //   this.y = this.ny - breathVal;
-    // }
     this.x = this.nx;
     this.y = this.ny;
     this.x -= width / 2;
     this.y -= height / 2;
-
-    // this.y += this.inc;
-    // this.x += this.inc;
-
-    // if (this.y > height + 20) {
-    //   this.y = 0;
-    //   this.x = random(0, width);
-    //   this.size = random(1, 20);
-    // }
-    // if (this.x > width + 20) {
-    //   this.y = 0;
-    //   this.x = random(0, width);
-    //   this.size = random(1, 20);
-    // }
   }
   setInc() {
     this.val = actualVal;
   }
   draw() {
     push();
+    // blendMode(EXCLUSION);
+
     if (this.id % 3 == 0) {
-      fill(color1);
+      this.color = color(color1);
+      this.color.setAlpha(this.opac);
     } else if (this.id % 2 == 0) {
-      fill(color2);
+      this.color = color(color2);
+      this.color.setAlpha(this.opac);
     } else if (this.id % 5 == 0) {
-      fill(color3);
+      this.color = color(color3);
+      this.color.setAlpha(this.opac);
     } else {
-      fill(color4);
+      this.color = color(color4);
+      this.color.setAlpha(this.opac);
     }
+    fill(this.color);
     // this.size = actualVal;
-    this.y == 0 ? null : ellipse(this.x, this.y, this.val / 70, this.val / 70);
+    this.y == 0 ? null : ellipse(this.x, this.y, this.val / 60, this.val / 60);
 
     pop();
   }
@@ -468,17 +477,20 @@ let slide;
 
 let img;
 // Beach Visual Seetings
+
 function beachSettings() {
   // slide = createSlider(0, 500, 250, 1);
-  background(255);
 
+  ellipseMode(CENTER);
+  background(255);
+  frameRate(60);
   noStroke();
   for (i = 0; i < 200; i++) {
     rainArr.push(
       new rainParticle(
         random(-200, width),
         random(-200, height),
-        random(5, 10),
+        random(10, 30),
         i
       )
     );
@@ -518,7 +530,8 @@ function Pathfinder(parent, direction = 0, xVal = 0) {
       this.location.add(this.velocity); //update the location of the end of the branch
       //this determines how straight or curly the growth is, here it is +-13% variation
       var bump = new createVector(random(-0.87, 0.87), random(-0.87, 0.87));
-      bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
+      bump.mult(actualVal / 2400);
+      // bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
       this.velocity.add(bump); //apply that to the velocity for the next growth
       this.velocity.normalize(); //make sure our vector is normalized to be between 0-1
       if (random(0, 1) < 0.01) {
@@ -546,6 +559,9 @@ class rainParticle {
     this.rotation = random(360);
     this.color;
     this.opac = floor(random(0, 100));
+
+    this.randBreathStop = random(450, 490);
+
     if (this.id % 3 == 0) {
       this.color = color(color1);
       this.color.setAlpha(this.opac);
@@ -576,6 +592,7 @@ class rainParticle {
   dead() {
     return this.isDead;
   }
+
   update(val) {
     this.xoff = this.xoff + 0.01;
 
@@ -590,7 +607,7 @@ class rainParticle {
     this.x = random(-200, width);
     this.y = random(-200, height);
 
-    this.yLimit = random(10, 200);
+    this.yLimit = random(100, 350);
     this.limitCounter = 0;
     this.sizes = [];
 
@@ -603,13 +620,20 @@ class rainParticle {
 
   draw() {
     push();
+
+    blendMode(OVERLAY);
     rotate(actualVal / 10000);
     if (this.y > 10) {
       // for (let i = 0; i < this.sizes.length; i++) {
       // if (actualVal < 440) {
       // var breathVal = map(actualVal, 0, 450, 0, 0.24);
       // } else {
-      var breathVal = map(actualVal, 0, 450, 0.34, 0);
+      if (actualVal < 490) {
+        var breathVal = map(actualVal, 0, 450, 0.24, -0.1);
+      } else {
+        breathVal = 0;
+      }
+      // breathVal = 0;
       // }
 
       for (let i = 0; i < this.sizes.length; i++) {
@@ -625,28 +649,19 @@ class rainParticle {
 
         fill(this.color);
 
-        // name: "Introverted"
-        // type: 1,
-
-        // name: "Extroverted"
-        // type: 2
-
-        // name: "Ambiverted"
-        // type: 3
-
         if (personalityType == "Introverted") {
           ellipse(
             this.x + sin(angle),
-            this.y + i * 15,
-            this.sizes[i],
-            this.sizes[i]
+            this.y + i * 20,
+            actualVal / 13,
+            actualVal / 13
           );
         } else if (personalityType == "Extroverted") {
           rect(
             this.x + sin(angle),
-            this.y + i * 15,
-            this.sizes[i],
-            this.sizes[i]
+            this.y + (i * actualVal) / 10,
+            actualVal / (15 + i * 4),
+            actualVal / (15 + i * 4)
           );
         } else if (personalityType == "Ambiverted") {
           // console.log("personality 3");
