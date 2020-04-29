@@ -98,9 +98,6 @@ function setup() {
   textFont("DM Sans");
 }
 
-let lowendStorage = JSON.parse(localStorage.getItem("lowend"));
-let highendStorage = JSON.parse(localStorage.getItem("highend"));
-
 function draw() {
   // drawing settings for every frame (don't change?)
   noStroke();
@@ -110,7 +107,6 @@ function draw() {
     simulate();
   } else {
     // don't map "actualVal" unless we're using real data
-    actualVal = map(inData, lowendStorage, highendStorage, 0, 500, true);
   }
   // console.log("value: " + actualVal); //debug breathing value
 
@@ -220,7 +216,7 @@ function beachVisual() {
 ///////////////////////////////////////
 // Code for the Forest Visual////////////
 ///////////////////////////////////////
-function forestVisual(val) {
+function forestVisual() {
   image(tree, 0, 0, width, height); //here we draw the tree to the screen every frame
   // tree.background(255, 10);
   tree.noStroke(); //tree has no stroke
@@ -434,8 +430,7 @@ class fallParticle {
     this.opac = 50;
   }
 
-  update(val) {
-    var breathVal = map(actualVal, 0, 450, 0, 100);
+  update() {
     // add breath val to someting to do with motion
     this.xOff += 0.00003 * this.size;
     this.yOff += 0.00005 * this.size;
