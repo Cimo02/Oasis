@@ -1,7 +1,7 @@
 var timerHasFinished = false;
-var timerExhaleStarted = false;
-var timerHoldStarted = false;
-var timerInhaleStarted = false;
+var timerExhaleEnded = false;
+var timerHoldEnded = false;
+var timerInhaleEnded = false;
 
 var animation = bodymovin.loadAnimation({
   container: document.getElementById("timerCircle"),
@@ -15,31 +15,71 @@ animation.addEventListener("complete", logData);
 
 let standardWait = 2000;
 let inhaleTime = 4000 + standardWait;
-let exhaleTime = 8000 + inhaleTime;
-let holdTime = 7000 + exhaleTime;
+let holdTime = 7000 + inhaleTime;
+let exhaleTime = 8000 + holdTime;
 
 setTimeout(function () {
   animation.play();
 }, standardWait);
 // 4-7-8
 
-// Trigger on Inhale Finished, should rename variables to Ended not Started
+// FIRST CYCLE ----------------------
+// Trigger on First Inhale Finished, should rename variables to Ended not Started
 setTimeout(function () {
-  timerExhaleStarted = false;
-  timerInhaleStarted = true;
+  timerExhaleEnded = false;
+  timerInhaleEnded = true;
 }, inhaleTime);
 
-// Trigger on Hold Finished
+// Trigger on First Hold Finished
 setTimeout(function () {
-  timerInhaleStarted = false;
-  timerHoldStarted = true;
+  timerInhaleEnded = false;
+  timerHoldEnded = true;
 }, holdTime);
 
-// Trigger on Exhale Finished
+// Trigger on First Exhale Finished
 setTimeout(function () {
-  timerHoldStarted = false;
-  timerExhaleStarted = true;
+  timerHoldEnded = false;
+  timerExhaleEnded = true;
 }, exhaleTime);
+
+// SECOND CYCLE ----------------------
+// Trigger on Second Inhale Finished, should rename variables to Ended not Started
+setTimeout(function () {
+  timerExhaleEnded = false;
+  timerInhaleEnded = true;
+}, (inhaleTime + exhaleTime) );
+
+// Trigger on Second Hold Finished
+setTimeout(function () {
+  timerInhaleEnded = false;
+  timerHoldEnded = true;
+}, (holdTime + exhaleTime) );
+
+// Trigger on Second Exhale Finished
+setTimeout(function () {
+  timerHoldEnded = false;
+  timerExhaleEnded = true;
+}, (2*exhaleTime) );
+
+// THIRD CYCLE ----------------------
+// Trigger on Third Inhale Finished, should rename variables to Ended not Started
+setTimeout(function () {
+  timerExhaleEnded = false;
+  timerInhaleEnded = true;
+}, inhaleTime + (2*exhaleTime) );
+
+// Trigger on Third Hold Finished
+setTimeout(function () {
+  timerInhaleEnded = false;
+  timerHoldEnded = true;
+}, holdTime + (2*exhaleTime) );
+
+// Trigger on Third Exhale Finished
+setTimeout(function () {
+  timerHoldEnded = false;
+  timerExhaleEnded = true;
+}, (3*exhaleTime) );
+
 
 function logData() {
   document.getElementById("container").classList.add("timerFade");

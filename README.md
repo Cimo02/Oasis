@@ -25,5 +25,5 @@ I am using [http-server](https://www.npmjs.com/package/http-server) to run the w
 
 ## Fonts
 
-DM Sans - https://fonts.google.com/specimen/DM+Sans
-Barlow - https://fonts.google.com/specimen/Barlow
+- DM Sans - https://fonts.google.com/specimen/DM+Sans
+- Barlow - https://fonts.google.com/specimen/Barlow

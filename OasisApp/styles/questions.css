@@ -279,8 +279,9 @@
 
   transform: scale(0.75);
 
-  -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
-  mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+  mask: url("../media/spriteSheet.png");
+  -webkit-mask: url("../media/spriteSheet.png");
+
   -webkit-mask-size: cover;
   mask-size: cover;
   -webkit-animation: imageWipeIn 2s steps(29) forwards;
@@ -525,7 +526,7 @@
     width: 120px;
   }
   .optionText {
-    font-size: 22px;
+    font-size: 20px;
     width: 220px;
   }
 
@@ -561,14 +562,51 @@
 .textButtonContainer {
   display: flex;
   flex-direction: row;
-  width: 270px;
+  width: 220px;
 }
 
 @media screen and (max-width: 525px) {
   .textButtonContainer {
-    width: 180px;
+    width: 160px;
+    margin-top: 10px;
   }
   .optionText {
-    font-size: 19px;
+    font-size: 16px;
+    width: 300px;
+  }
+
+  .buttonOuter {
+    width: 65px;
+    height: 65px;
+  }
+
+  .buttonInner {
+    width: 20px;
+    height: 20px;
+  }
+  .optionImageContainer {
+    /* width: 100px; */
+    width: 135px;
+  }
+
+  .pillShape {
+    /* height: 210px; */
+    height: 250px;
+  }
+  .optionContainer {
+    height: 35%;
+  }
+  .optionImage {
+    transform: scale(0.95);
+  }
+  .mobileVersion {
+    justify-content: center;
+  }
+  .mobileQuestionLeftRail {
+    justify-content: normal;
+    width: 48%;
+  }
+  .mobileQuestionRightRail {
+    width: 48%;
   }
 }
