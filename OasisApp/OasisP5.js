@@ -69,7 +69,6 @@ function setup() {
   // Set the global stylings, color, theme, scene
   setupGlobalStyling();
   background("#E8EDF4");
-  frameRate(25);
 
   // Select Scene to setup
   switch (ques1) {
@@ -88,7 +87,6 @@ function setup() {
   if (isSimulation) {
     actualVal = 50;
     state = states[0];
-    //setInterval(simulate(), 40);
   } else {
     // setupArduinoConnection();
   }
@@ -112,7 +110,7 @@ function draw() {
     // don't map "actualVal" unless we're using real data
     actualVal = map(inData, lowendStorage, highendStorage, 0, 500, true);
   }
-  // console.log("value: " + actualVal); //debug breathing value
+  //console.log(actualVal); //debug breathing value
 
   // Select which one to draw
 
@@ -153,15 +151,15 @@ function draw() {
   }
 
   if (timerExhaleEnded) {
-    console.log("Exhale Ended");
+    //console.log("Exhale Ended");
     timerExhaleEnded = false;
   }
   if (timerHoldEnded) {
-    console.log("Hold Ended");
+    //console.log("Hold Ended");
     timerHoldEnded = false;
   }
   if (timerInhaleEnded) {
-    console.log("Inhale Ended");
+    //console.log("Inhale Ended");
     timerInhaleEnded = false;
   }
 }
@@ -369,8 +367,8 @@ function setupArduinoConnection() {
 
 var state; // What state is the timer in?
 let states = ["inhale", "hold", "exhale"];
-let INHALE_INCR = 3.3334; //400/120
-let EXHALE_INCR = 2.5; //400/160
+let INHALE_INCR = 1.6667; //400/240
+let EXHALE_INCR = 1.25; //400/320
 function simulate() {
   if (timerInhaleEnded) {
     state = states[1];
@@ -503,18 +501,19 @@ function beachSettings() {
 // FOREST VISUAL
 function forestSettings() {
   tree = createGraphics(windowWidth, windowHeight); //decide how big the image is to hold the tree drawing
+  frameRate(60);
   ellipseMode(CENTER);
   smooth();
   fill(color4);
-  paths.push(new Pathfinder(undefined, 1, 0));
-  paths.push(new Pathfinder(undefined, -1, windowWidth));
+  paths.push(new TreeBranch(undefined, 1, -100, random(windowHeight)));
+  paths.push(new TreeBranch(undefined, -1, windowWidth + 100, random(windowHeight)));
 }
 
-function Pathfinder(parent, direction = 0, xVal = 0) {
+function TreeBranch(parent, direction, xVal, yVal) {
   //the class for making branches - note that it allows for another branch object to be passed in...
   if (parent === undefined) {
     //if this is the first branch, then use the following settings - note that this is how you deal with different constructors
-    this.location = createVector(xVal, windowHeight / 2); //placemnet of the first branch, or trunk
+    this.location = createVector(xVal, yVal); //placemnet of the first branch, or trunk
     this.velocity = createVector(direction, 0); //direction for the trunk, here 1 in the x axis = left
     this.diameter = 55; //size of trunk
   } else {
@@ -530,16 +529,21 @@ function Pathfinder(parent, direction = 0, xVal = 0) {
     //update the growth of the tree
     if (this.diameter > 2) {
       //this indicates when the tree should stop growing, the smallest branch diameter
-      this.location.add(this.velocity); //update the location of the end of the branch
+
+      var adjustedVel = this.velocity.mult((actualVal/450) + 0.5);
+      this.location.add(adjustedVel); //update the location of the end of the branch
+      // console.log(adjustedVel); // debug calculated velocity
+
       //this determines how straight or curly the growth is, here it is +-13% variation
       var bump = new createVector(random(-0.87, 0.87), random(-0.87, 0.87));
       bump.mult(actualVal / 2400);
-      // bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
+      //bump.mult(0.1); //this reduces that by ten so now it is +-1.3% variation
       this.velocity.add(bump); //apply that to the velocity for the next growth
       this.velocity.normalize(); //make sure our vector is normalized to be between 0-1
+
       if (random(0, 1) < 0.01) {
         //this is the probability that the tree splits, here it is 1% chance
-        paths.push(new Pathfinder(this)); //if it is time for a split, make a new path
+        paths.push(new TreeBranch(this)); //if it is time for a split, make a new path
       }
     }
   };
