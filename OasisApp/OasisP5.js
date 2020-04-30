@@ -49,7 +49,6 @@ let squareArr = [];
 let perlinArr = [];
 
 // Forest Scene Setup
-var tree; //a graphics buffer to draw the tree into
 var paths = []; //an array for all the growing branches
 
 function preload() {
@@ -219,23 +218,21 @@ function beachVisual() {
 // Code for the Forest Visual////////////
 ///////////////////////////////////////
 function forestVisual(val) {
-  image(tree, 0, 0, width, height); //here we draw the tree to the screen every frame
-  // tree.background(255, 10);
-  tree.noStroke(); //tree has no stroke
+  noStroke(); //tree has no stroke
 
   let c1 = color(color1);
   let c4 = color(color4);
-  c1.setAlpha(10);
-  c4.setAlpha(10);
+  c1.setAlpha(50);
+  c4.setAlpha(50);
   for (var i = 0; i < paths.length; i++) {
     //start drawing the tree by going thru all the branches
     var loc = paths[i].location.copy(); //grab a copy of their location
     var diam = paths[i].diameter; //grab a copy of the branch diameter
-    tree.push();
-    tree.blendMode(BURN);
-    tree.fill(lerpColor(c4, c1, actualVal / 500)); //color of the tree
-    tree.ellipse(loc.x, loc.y, diam, diam); //here we draw the next ellipse for each branch into the tree buffer
-    tree.pop();
+    push();
+    blendMode(BURN);
+    fill(lerpColor(c4, c1, actualVal / 500)); //color of the tree
+    ellipse(loc.x, loc.y, diam, diam); //here we draw the next ellipse for each branch into the tree buffer
+    pop();
     paths[i].update(); //update the position and direction for the growth of each branch
   }
 }
@@ -500,7 +497,6 @@ function beachSettings() {
 
 // FOREST VISUAL
 function forestSettings() {
-  tree = createGraphics(windowWidth, windowHeight); //decide how big the image is to hold the tree drawing
   frameRate(60);
   ellipseMode(CENTER);
   smooth();
@@ -530,7 +526,7 @@ function TreeBranch(parent, direction, xVal, yVal) {
     if (this.diameter > 2) {
       //this indicates when the tree should stop growing, the smallest branch diameter
 
-      var adjustedVel = this.velocity.mult((actualVal/450) + 0.5);
+      var adjustedVel = this.velocity.mult((actualVal/450) + 0.25);
       this.location.add(adjustedVel); //update the location of the end of the branch
       // console.log(adjustedVel); // debug calculated velocity
 
@@ -541,8 +537,8 @@ function TreeBranch(parent, direction, xVal, yVal) {
       this.velocity.add(bump); //apply that to the velocity for the next growth
       this.velocity.normalize(); //make sure our vector is normalized to be between 0-1
 
-      if (random(0, 1) < 0.01) {
-        //this is the probability that the tree splits, here it is 1% chance
+      if (random(0, 1) < 0.004) {
+        //this is the probability that the tree splits, here it is 0.4% chance
         paths.push(new TreeBranch(this)); //if it is time for a split, make a new path
       }
     }
