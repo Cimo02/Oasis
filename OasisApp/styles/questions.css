@@ -338,7 +338,8 @@
     inset -16px -16px 80px rgba(255, 255, 255, 0.2);
   filter: blur(1.5px);
   border-radius: 100px;
-  transition: all 185ms ease-in-out;
+  /* transition: all 85ms ease-in-out; */
+  stroke: none;
 }
 
 .buttonInner {
@@ -347,23 +348,37 @@
 
   position: absolute;
 
-  border: 2px solid var(--medium-gray);
+  border: 2px solid #c3cddf;
   border-radius: 40px;
-  transition: all 185ms ease-in-out;
+  /* transition: all 85ms ease-in-out; */
 }
 
 .buttonContainer:hover .buttonOuter {
   cursor: pointer;
   background-color: var(--white);
+  background: #f5f8fc;
+  border: 5px solid #f8fbff;
+  box-sizing: border-box;
+  box-shadow: 12px 12px 20px rgba(55, 84, 170, 0.1), -12px -12px 20px #ffffff,
+    inset 6px 6px 30px rgba(40, 62, 130, 0.2), inset -8px -8px 30px #ffffff;
+  filter: blur(4px);
 }
 .buttonContainer:hover .buttonInner {
   cursor: pointer;
-  border: 4px solid var(--medium-blue);
+  border: 3px solid var(--medium-blue);
   box-shadow: 0 0 11px var(--medium-blue);
 }
-
+.outerSelected {
+  background-color: var(--white);
+  background: #f5f8fc;
+  border: 5px solid #f8fbff;
+  box-sizing: border-box;
+  box-shadow: 12px 12px 20px rgba(55, 84, 170, 0.1), -12px -12px 20px #ffffff,
+    inset 6px 6px 30px rgba(40, 62, 130, 0.2), inset -8px -8px 30px #ffffff;
+  filter: blur(4px);
+}
 .selected {
-  border: 4px solid var(--medium-blue) !important;
+  border: 2px solid var(--medium-blue) !important;
   box-shadow: 0 0 11px var(--medium-blue) !important;
 }
 
