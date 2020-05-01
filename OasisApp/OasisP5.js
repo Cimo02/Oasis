@@ -146,7 +146,7 @@ function draw() {
   if (timerHasFinished && !isMobile && !pictureTaken) {
     saveCanvas(cnv, "Oasis", "png");
     pictureTaken = true;
-    console.log("Finished Timer");
+    // console.log("Finished Timer");
   }
 
   if (timerExhaleEnded) {
@@ -189,11 +189,13 @@ function beachVisual() {
     rect(0, 0, width, height);
   }
 
-  if (time % 2 == 0) {
-    fill(232, 237, 243, 30);
-    rect(0, 0, width, height);
-  }
-  // background(255, 10);
+  // if (time % 2 == 0) {
+  //   fill(232, 237, 243, 10);
+  //   rect(0, 0, width, height);
+  // }
+  // fill(232, 237, 243, 30);
+  // rect(0, 0, width, height);
+  // background(232, 237, 243, 30);
   for (i = 0; i < rainArr.length; i++) {
     rainArr[i].setInc();
     rainArr[i].update();
@@ -206,12 +208,7 @@ function beachVisual() {
   }
 
   angle += 0.02;
-  // angle += 0.1;
   time += 1;
-  // textSize(32);
-  // text(actualVal, 200, 200);
-
-  // console.log(inData);
 }
 
 ///////////////////////////////////////
@@ -222,14 +219,54 @@ function forestVisual(val) {
 
   let c1 = color(color1);
   let c4 = color(color4);
-  c1.setAlpha(50);
-  c4.setAlpha(50);
+  let theme = themes[ques2].name;
+  if (personalityType == "Introverted") {
+    if (theme == "Water") {
+      c1 = color("#008CE2");
+      c4 = color("#DAE7F2");
+    } else if (theme == "Fire") {
+      c1 = color("#CC2C33");
+      c4 = color("#E8D4C0");
+    } else if (theme == "Earth") {
+      c1 = color("#25392E");
+      c4 = color("#C9DCC8");
+    }
+  } else if (personalityType == "Extroverted") {
+    if (theme == "Water") {
+      c1 = color("#1B51CC");
+      c4 = color("#6AB5E6");
+      // console.log("extra water");
+    } else if (theme == "Fire") {
+      c1 = color("#E4131C");
+      c4 = color("#F08A03");
+      // console.log("extra fire");
+    } else if (theme == "Earth") {
+      c1 = color("#2D7B35");
+      c4 = color("#C3F3A2");
+      // console.log("extra earth");
+    }
+  } else if (personalityType == "Ambiverted") {
+    if (theme == "Water") {
+      c1 = color("#263D71");
+      c4 = color("#ACCFE1");
+    } else if (theme == "Fire") {
+      c1 = color("#93110C");
+      c4 = color("#F4CF9D");
+    } else if (theme == "Earth") {
+      c1 = color("#305135");
+      c4 = color("#D3EAC3");
+    }
+  }
+  console.log(themes[ques2].name);
+  // c1.setAlpha(50);
+  // c4.setAlpha(50);
+
   for (var i = 0; i < paths.length; i++) {
     //start drawing the tree by going thru all the branches
     var loc = paths[i].location.copy(); //grab a copy of their location
     var diam = paths[i].diameter; //grab a copy of the branch diameter
     push();
-    blendMode(BURN);
+    // blendMode(BURN);
     fill(lerpColor(c4, c1, actualVal / 500)); //color of the tree
     ellipse(loc.x, loc.y, diam, diam); //here we draw the next ellipse for each branch into the tree buffer
     pop();
@@ -345,7 +382,7 @@ function setupGlobalStyling() {
   backgroundColor = themes[ques2].background;
   // Set Third Question
   personalityType = personalities[ques3].name;
-  console.log(personalityType);
+  // console.log(personalityType);
   personalityNum = personalities[ques3].type;
 }
 
@@ -435,8 +472,8 @@ class fallParticle {
     this.xOff += 0.00003 * this.size;
     this.yOff += 0.00005 * this.size;
 
-    this.nx = noise(this.xOff) * (width * 2.8);
-    this.ny = noise(this.yOff) * (height * 2.8);
+    this.nx = noise(this.xOff) * (width * 2.1);
+    this.ny = noise(this.yOff) * (height * 2.1);
 
     this.x = this.nx;
     this.y = this.ny;
@@ -450,8 +487,52 @@ class fallParticle {
     push();
     // blendMode(EXCLUSION);
 
+    // new color code
+    let c1 = color(color1);
+    let c4 = color(color4);
+    let theme = themes[ques2].name;
+    if (personalityType == "Introverted") {
+      if (theme == "Water") {
+        c1 = color("#008CE2");
+        c4 = color("#DAE7F2");
+      } else if (theme == "Fire") {
+        c1 = color("#CC2C33");
+        c4 = color("#E8D4C0");
+      } else if (theme == "Earth") {
+        c1 = color("#25392E");
+        c4 = color("#C9DCC8");
+      }
+    } else if (personalityType == "Extroverted") {
+      if (theme == "Water") {
+        c1 = color("#1B51CC");
+        c4 = color("#6AB5E6");
+        // console.log("extra water");
+      } else if (theme == "Fire") {
+        c1 = color("#E4131C");
+        c4 = color("#F08A03");
+        // console.log("extra fire");
+      } else if (theme == "Earth") {
+        c1 = color("#2D7B35");
+        c4 = color("#C3F3A2");
+        // console.log("extra earth");
+      }
+    } else if (personalityType == "Ambiverted") {
+      if (theme == "Water") {
+        c1 = color("#263D71");
+        c4 = color("#ACCFE1");
+      } else if (theme == "Fire") {
+        c1 = color("#93110C");
+        c4 = color("#F4CF9D");
+      } else if (theme == "Earth") {
+        c1 = color("#305135");
+        c4 = color("#D3EAC3");
+      }
+    }
+    // new color code
+
+    // settings two variables to the  new colors then applying them "randomly"
     if (this.id % 3 == 0) {
-      this.color = color(color1);
+      this.color = c1;
       this.color.setAlpha(this.opac);
     } else if (this.id % 2 == 0) {
       this.color = color(color2);
@@ -460,12 +541,20 @@ class fallParticle {
       this.color = color(color3);
       this.color.setAlpha(this.opac);
     } else {
-      this.color = color(color4);
+      this.color = c4;
       this.color.setAlpha(this.opac);
     }
+
     fill(this.color);
     // this.size = actualVal;
-    this.y == 0 ? null : ellipse(this.x, this.y, this.val / 60, this.val / 60);
+    this.y == 0
+      ? null
+      : ellipse(
+          this.x,
+          this.y,
+          this.val / 60 + this.size / 4,
+          this.val / 60 + this.size / 4
+        );
 
     pop();
   }
@@ -502,7 +591,9 @@ function forestSettings() {
   smooth();
   fill(color4);
   paths.push(new TreeBranch(undefined, 1, -100, random(windowHeight)));
-  paths.push(new TreeBranch(undefined, -1, windowWidth + 100, random(windowHeight)));
+  paths.push(
+    new TreeBranch(undefined, -1, windowWidth + 100, random(windowHeight))
+  );
 }
 
 function TreeBranch(parent, direction, xVal, yVal) {
@@ -517,6 +608,7 @@ function TreeBranch(parent, direction, xVal, yVal) {
     this.velocity = parent.velocity.copy(); //for a new branch, copy the direction the old branch was going
     var area = PI * sq(parent.diameter / 2); //find the area of the branch cross section
     var newDiam = sqrt(area / 2 / PI) * 2; //divide it by two and calculate the diameter of this new branch
+
     this.diameter = newDiam; //save the new diameter
     parent.diameter = newDiam; //the parent branch keeps on growing, but with the new diameter as well
   }
@@ -526,7 +618,11 @@ function TreeBranch(parent, direction, xVal, yVal) {
     if (this.diameter > 2) {
       //this indicates when the tree should stop growing, the smallest branch diameter
 
-      var adjustedVel = this.velocity.mult((actualVal/450) + 0.25);
+      var adjustedVel = this.velocity.mult(actualVal / 450 + 0.25);
+      if (state == "hold") {
+        adjustedVel = this.velocity.mult(0.25);
+        // as breathing goes up value tends towards 0.
+      }
       this.location.add(adjustedVel); //update the location of the end of the branch
       // console.log(adjustedVel); // debug calculated velocity
 
@@ -561,12 +657,56 @@ class rainParticle {
     this.n = 0;
     this.rotation = random(360);
     this.color;
-    this.opac = floor(random(0, 100));
+    this.opac = random(0, 100);
 
     this.randBreathStop = random(450, 490);
 
+    // new color code
+    let c1 = color(color1);
+    let c4 = color(color4);
+    let theme = themes[ques2].name;
+    if (personalityType == "Introverted") {
+      if (theme == "Water") {
+        c1 = color("#008CE2");
+        c4 = color("#DAE7F2");
+      } else if (theme == "Fire") {
+        c1 = color("#CC2C33");
+        c4 = color("#E8D4C0");
+      } else if (theme == "Earth") {
+        c1 = color("#25392E");
+        c4 = color("#C9DCC8");
+      }
+    } else if (personalityType == "Extroverted") {
+      if (theme == "Water") {
+        c1 = color("#1B51CC");
+        c4 = color("#6AB5E6");
+        // console.log("extra water");
+      } else if (theme == "Fire") {
+        c1 = color("#E4131C");
+        c4 = color("#F08A03");
+        // console.log("extra fire");
+      } else if (theme == "Earth") {
+        c1 = color("#2D7B35");
+        c4 = color("#C3F3A2");
+        // console.log("extra earth");
+      }
+    } else if (personalityType == "Ambiverted") {
+      if (theme == "Water") {
+        c1 = color("#263D71");
+        c4 = color("#ACCFE1");
+      } else if (theme == "Fire") {
+        c1 = color("#93110C");
+        c4 = color("#F4CF9D");
+      } else if (theme == "Earth") {
+        c1 = color("#305135");
+        c4 = color("#D3EAC3");
+      }
+    }
+    // new color code
+
+    // settings two variables to the  new colors then applying them "randomly"
     if (this.id % 3 == 0) {
-      this.color = color(color1);
+      this.color = c1;
       this.color.setAlpha(this.opac);
     } else if (this.id % 2 == 0) {
       this.color = color(color2);
@@ -575,7 +715,7 @@ class rainParticle {
       this.color = color(color3);
       this.color.setAlpha(this.opac);
     } else {
-      this.color = color(color4);
+      this.color = c4;
       this.color.setAlpha(this.opac);
     }
 
@@ -624,8 +764,8 @@ class rainParticle {
   draw() {
     push();
 
-    blendMode(OVERLAY);
-    rotate(actualVal / 10000);
+    // blendMode(BURN);
+    // rotate(actualVal / 10000);
     if (this.y > 10) {
       // for (let i = 0; i < this.sizes.length; i++) {
       // if (actualVal < 440) {
@@ -636,13 +776,20 @@ class rainParticle {
       } else {
         breathVal = 0;
       }
+
       // breathVal = 0;
       // }
 
       for (let i = 0; i < this.sizes.length; i++) {
-        this.x += this.n * 0.0001;
-        this.x -= noise(this.n) * 0.0001;
-        this.y -= breathVal;
+        if (state == "hold") {
+          this.x += 0;
+          this.x -= 0;
+          this.y -= 0;
+        } else {
+          this.x += this.n * 0.0001;
+          this.x -= noise(this.n) * 0.0001;
+          this.y -= breathVal;
+        }
 
         if (this.size > 8) {
           this.x -= breathVal;
@@ -664,7 +811,7 @@ class rainParticle {
         }
         fill(this.color);
 
-        rect(
+        ellipse(
           this.x + sin(angle),
           this.y + (i * actualVal) / 10,
           actualVal / (15 + i * 4),
