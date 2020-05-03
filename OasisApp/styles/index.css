@@ -8,7 +8,9 @@ a {
 .boldBarlow {
   font-weight: 600;
 }
-
+.dateLine {
+  display: block;
+}
 .mobileWhite {
   background-color: #e8edf4;
 }
@@ -422,6 +424,9 @@ a {
   }
 }
 @media screen and (max-width: 1000px) {
+  .dateLine {
+    display: none;
+  }
   .textParagraph {
     width: 80%;
     font-size: 18px;
