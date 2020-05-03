@@ -38,6 +38,7 @@ a {
   height: 50%;
   position: absolute;
   background-size: cover;
+  background-position: bottom;
 }
 
 .heroImageAnimation {
@@ -46,14 +47,14 @@ a {
 
   /* transform: scale(2); */
 
-  -webkit-mask: url("../media/spriteSheet.png");
+  /* -webkit-mask: url("../media/spriteSheet.png");
   mask: url("../media/spriteSheet.png");
   -webkit-mask-size: cover;
   mask-size: cover;
   mask-repeat: no-repeat;
   -webkit-mask-repeat: no-repeat;
   -webkit-animation: imageWipeIn 2s steps(29) forwards;
-  animation: imageWipeIn 2s steps(29) forwards;
+  animation: imageWipeIn 2s steps(29) forwards; */
 }
 
 @keyframes imageWipeIn {

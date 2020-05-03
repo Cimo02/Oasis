@@ -169,10 +169,92 @@ function draw() {
 let ballArr = [];
 
 function homeVisual(val) {
-  for (i = 0; i < ballArr.length; i++) {
-    ballArr[i].update(val);
-    ballArr[i].setInc();
-    ballArr[i].draw();
+  background(232, 237, 243, 5);
+
+  translate(width / 2, height / 2);
+
+  let angle = 360 / 6;
+
+  for (let i = 0; i < 6; i++) {
+    rotate(angle);
+    push();
+
+    for (let i = 0; i < 5; i++) {
+      moverArr[i].update();
+      moverArr[i].draw();
+    }
+    for (let i = 0; i < 5; i++) {
+      moverArr2[i].update();
+      moverArr2[i].draw();
+    }
+    pop();
+  }
+
+  // for (i = 0; i < ballArr.length; i++) {
+  //   ballArr[i].update(val);
+  //   ballArr[i].setInc();
+  //   ballArr[i].draw();
+  // }
+}
+
+class mover {
+  constructor(x, y, from, to, scale) {
+    this.x = x;
+    this.y = y;
+    this.xoff = 0.0;
+    this.yoff = 0.21;
+    this.nx = 0;
+    this.ny = 0;
+    // this.color = c;
+    // this.colorOther = c2;
+    this.c1;
+    this.c4;
+    this.r = 0;
+    this.randR = random(-0.005, 0.005);
+    this.from = from;
+    this.to = to;
+    this.scale = scale;
+    this.randSize = random(0, 5);
+  }
+
+  update() {
+    // this.xoff = this.xoff + 0.055 / actualVal;
+    // this.yoff = this.yoff + 0.055 / actualVal;
+    this.xoff = this.xoff + 0.0005;
+    this.yoff = this.yoff + 0.0005;
+    // this.xoff = this.xoff + 0.0001;
+    // this.yoff = this.yoff + 0.0001;
+    this.r += this.randR;
+  }
+
+  draw() {
+    // fill(this.colorOther);
+    // fill(lerpColor(this.colorOther, this.color, actualVal / 500));
+
+    fill(lerpColor(this.from, this.to, actualVal / 500));
+
+    rotate(this.r);
+    // this.nx = noise(this.xoff + this.x / 2) * width * 0.5;
+    // this.ny = noise(this.yoff + this.y / 2) * height * 0.5;
+    // ellipse(this.nx, this.ny, 10, 10);
+
+    // rotate(this.xoff * 3);
+    // rotate(this.r + actualVal / 100);
+
+    // noiseDetail(2, 0.2);
+
+    // noiseDetail(110, 0.1);
+    // this.nx = noise(this.xoff + this.x) * width * 2;
+    // this.ny = noise(this.yoff + this.y) * height * 2;
+    this.nx = noise(this.xoff + this.x) * width * this.scale;
+    this.ny = noise(this.yoff + this.y) * height * this.scale;
+    // fill(255);
+    ellipse(
+      this.nx,
+      this.ny,
+      actualVal / 50 + this.randSize,
+      actualVal / 50 + this.randSize
+    );
   }
 }
 
@@ -257,7 +339,7 @@ function forestVisual(val) {
       c4 = color("#D3EAC3");
     }
   }
-  console.log(themes[ques2].name);
+  // console.log(themes[ques2].name);
   // c1.setAlpha(50);
   // c4.setAlpha(50);
 
@@ -432,21 +514,113 @@ function simulate() {
 }
 
 // HOME VISUAL
+let moverArr = [];
+let moverArr2 = [];
 function homeSettings() {
   noStroke();
   // 1920/10
   // while i is less then width
   frameRate(60);
-  for (i = 0; i < 40; i++) {
-    ballArr.push(
-      new fallParticle(
-        random(-400, width),
-        random(-400, height),
-        random(1, 20),
-        i
-      )
+  angleMode(DEGREES);
+
+  let c1 = color(color1);
+  let c4 = color(color4);
+  let theme = themes[ques2].name;
+  if (personalityType == "Introverted") {
+    if (theme == "Water") {
+      c1 = color("#008CE2");
+      c4 = color("#DAE7F2");
+    } else if (theme == "Fire") {
+      c1 = color("#CC2C33");
+      c4 = color("#E8D4C0");
+    } else if (theme == "Earth") {
+      c1 = color("#25392E");
+      c4 = color("#C9DCC8");
+    }
+  } else if (personalityType == "Extroverted") {
+    if (theme == "Water") {
+      c1 = color("#1B51CC");
+      c4 = color("#6AB5E6");
+      // console.log("extra water");
+    } else if (theme == "Fire") {
+      c1 = color("#E4131C");
+      c4 = color("#F08A03");
+      // console.log("extra fire");
+    } else if (theme == "Earth") {
+      c1 = color("#2D7B35");
+      c4 = color("#C3F3A2");
+      // console.log("extra earth");
+    }
+  } else if (personalityType == "Ambiverted") {
+    if (theme == "Water") {
+      c1 = color("#263D71");
+      c4 = color("#ACCFE1");
+    } else if (theme == "Fire") {
+      c1 = color("#93110C");
+      c4 = color("#F4CF9D");
+    } else if (theme == "Earth") {
+      c1 = color("#305135");
+      c4 = color("#D3EAC3");
+    }
+  }
+  // new color code
+
+  // settings two variables to the  new colors then applying them "randomly"
+  let otherColor;
+  let from;
+  let to;
+
+  for (let i = 0; i < 5; i++) {
+    let id = floor(random(0, 100));
+    if (id % 3 == 0) {
+      from = c1;
+      // this.color.setAlpha(this.opac);
+    } else if (id % 2 == 0) {
+      from = color2;
+      // this.color.setAlpha(this.opac);
+    } else if (id % 5 == 0) {
+      from = color3;
+      // this.color.setAlpha(this.opac);
+    } else {
+      from = c4;
+      // this.color.setAlpha(this.opac);
+    }
+    id = floor(random(0, 100));
+    if (id % 3 == 0) {
+      to = c1;
+      // this.color.setAlpha(this.opac);
+    } else if (id % 2 == 0) {
+      to = color2;
+      // this.color.setAlpha(this.opac);
+    } else if (id % 5 == 0) {
+      to = color3;
+      // this.color.setAlpha(this.opac);
+    } else {
+      to = c4;
+      // this.color.setAlpha(this.opac);
+    }
+
+    from = color(from);
+    to = color(to);
+    let scale1 = 0.8;
+    let scale2 = 2;
+    moverArr.push(
+      new mover(random(width * 2), random(height * 2), from, to, scale1)
+    );
+    moverArr2.push(
+      new mover(random(width * 2), random(height * 2), from, to, scale2)
     );
   }
+  // for (i = 0; i < 10; i++) {
+  //   ballArr.push(
+  //     new fallParticle(
+  //       random(-400, width),
+  //       random(-400, height),
+  //       random(1, 20),
+  //       i
+  //     )
+  //   );
+  // }
 }
 
 class fallParticle {
@@ -590,10 +764,8 @@ function forestSettings() {
   ellipseMode(CENTER);
   smooth();
   fill(color4);
-  paths.push(new TreeBranch(undefined, 1, -100, random(windowHeight)));
-  paths.push(
-    new TreeBranch(undefined, -1, windowWidth + 100, random(windowHeight))
-  );
+  paths.push(new TreeBranch(undefined, 1, random(windowWidth), 0));
+  paths.push(new TreeBranch(undefined, -1, random(windowWidth), windowHeight));
 }
 
 function TreeBranch(parent, direction, xVal, yVal) {

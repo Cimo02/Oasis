@@ -31,21 +31,21 @@
 }
 @keyframes toCurrentBreadcrumb {
   0% {
-    width: 1vw;
+    width: 12px;
     background-color: var(--light-gray);
   }
   100% {
-    width: 3vw;
-    background-color: var(--medium-blue);
+    width: 40px;
+    background-color: var(var(--dark-blue));
   }
 }
 @keyframes fromPreviousBreadcrumb {
   0% {
-    width: 3vw;
-    background-color: var(--medium-blue);
+    width: 40px;
+    background-color: var(var(--dark-blue));
   }
   100% {
-    width: 1vw;
+    width: 12px;
     background-color: var(--light-gray);
   }
 }
@@ -147,17 +147,17 @@
 }
 
 .navBreadcrumb {
-  width: 1vw;
-  height: 1vw;
+  width: 12px;
+  height: 12px;
 
-  border-radius: 1vw;
+  border-radius: 12px;
   background-color: var(--light-gray);
 }
 
 .navCurrentBreadcrumb {
-  width: 3vw;
+  width: 40px;
 
-  background-color: var(--medium-blue);
+  background-color: var(--dark-blue);
   animation: toCurrentBreadcrumb 1s ease-in-out;
 }
 
@@ -185,6 +185,7 @@
   height: 80px;
   transition: 0.246s cubic-bezier(0.785, 0.135, 0.15, 0.86);
   background-repeat: no-repeat;
+  margin-left: 16px;
 }
 
 .leftNavArrow:hover {
@@ -303,11 +304,14 @@
   align-items: center;
 
   font-family: "Barlow", sans-serif;
-  font-size: 32px;
+  font-size: 26px;
   color: var(--dark-gray);
   text-align: center;
   font-weight: 400;
   animation: fadeIn 1s ease-in-out;
+
+  height: 90px;
+  margin-top: 30px;
 }
 
 .optionTextFadeOut {
@@ -385,7 +389,7 @@
 /* Max Screen Size */
 @media screen and (max-width: 1900px) {
   .optionText {
-    font-size: 32px;
+    font-size: 26px;
   }
 }
 
@@ -412,7 +416,7 @@
   }
   .optionText {
     margin-bottom: 0;
-    font-size: 30px;
+    font-size: 26px;
   }
   .questionWrapper {
     max-width: 1500px;
@@ -433,7 +437,8 @@
     font-size: 66px;
   }
   .optionText {
-    height: 86px;
+    height: 90px;
+    margin-top: 30px;
   }
 }
 @media screen and (max-width: 1350px) {
@@ -543,6 +548,7 @@
   .optionText {
     font-size: 20px;
     width: 220px;
+    margin-top: 0;
   }
 
   .buttonOuter {
@@ -555,7 +561,17 @@
     height: 30px;
   }
 }
-
+@media screen and (max-width: 526px) {
+  .lastQuestion {
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+  .lastQuestionButton {
+    margin-right: 0px;
+  }
+}
 .mobileQuestionRightRail {
   /* background-color: red; */
   width: 50%;
@@ -583,7 +599,7 @@
 @media screen and (max-width: 525px) {
   .textButtonContainer {
     width: 160px;
-    margin-top: 10px;
+    /* margin-top: 20px; */
   }
   .optionText {
     font-size: 16px;
@@ -623,5 +639,13 @@
   }
   .mobileQuestionRightRail {
     width: 48%;
+  }
+  .lastQuestion {
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    margin-right: 142px;
+  }
+  .lastQuestionButton {
+    margin-right: 20px;
   }
 }
