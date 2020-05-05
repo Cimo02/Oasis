@@ -37,7 +37,8 @@ body {
     rgba(248, 250, 252, 0.38) 91.15%,
     rgba(255, 255, 255, 0) 100%
   );
-  transform: translateY(10vh);
+  /* transform: translateY(10vh); */
+  transform: translateY(18vh);
   background-image: url("../media/timerBG.png");
   background-size: contain;
 }
@@ -146,23 +147,31 @@ body {
   }
 }
 
+@media screen and (max-width: 1600px) {
+  .timerbackPlate {
+    transform: translateY(16vh);
+  }
+}
+
 @media screen and (max-width: 750px) {
   .timerbackPlate {
-    width: 350px;
-    height: 350px;
+    width: 310px;
+    height: 310px;
   }
   .timerButtonContainer {
-    width: 350px;
+    width: 310px;
     /* height: 350px; */
-    height: 60vh;
+    height: 200px;
+    /* margin: 0 auto; */
+    margin-top: 50%;
   }
 
   .timerButton {
-    width: 254px;
-    height: 254px;
+    width: 214px;
+    height: 214px;
   }
   .timerCircle {
-    width: 218px;
-    height: 218px;
+    width: 178px;
+    height: 178px;
   }
 }

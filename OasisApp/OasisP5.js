@@ -764,8 +764,10 @@ function forestSettings() {
   ellipseMode(CENTER);
   smooth();
   fill(color4);
-  paths.push(new TreeBranch(undefined, 1, random(windowWidth), 0));
-  paths.push(new TreeBranch(undefined, -1, random(windowWidth), windowHeight));
+  paths.push(new TreeBranch(undefined, 1, random(100, windowWidth - 100), 0));
+  paths.push(
+    new TreeBranch(undefined, -1, random(100, windowWidth - 100), windowHeight)
+  );
 }
 
 function TreeBranch(parent, direction, xVal, yVal) {
@@ -792,7 +794,7 @@ function TreeBranch(parent, direction, xVal, yVal) {
 
       var adjustedVel = this.velocity.mult(actualVal / 450 + 0.25);
       if (state == "hold") {
-        adjustedVel = this.velocity.mult(0.25);
+        adjustedVel = this.velocity.mult(0.35);
         // as breathing goes up value tends towards 0.
       }
       this.location.add(adjustedVel); //update the location of the end of the branch
